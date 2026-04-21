@@ -1,14 +1,9 @@
-
-Copy
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monkey Miles — Points & Miles Hub</title>
-</head>
-<body style="margin:0;padding:16px;background:#fff">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Monkey Miles — Points & Miles Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:transparent;color:#222}
@@ -22,11 +17,13 @@ body{font-family:Arial,sans-serif;background:transparent;color:#222}
 .tab.on{background:#f7f7f7;color:#C8102E}
 .panel{display:none;padding:18px;background:#f7f7f7;border:1px solid #e5e5e5;border-top:none;border-radius:0 0 8px 8px}
 .panel.on{display:block}
+/* stat bar */
 .stat-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:8px;margin-bottom:16px}
 .sc{background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:10px;text-align:center}
 .sn2{font-size:22px;font-weight:700;color:#C8102E;font-family:Georgia,serif}
 .sna{font-size:22px;font-weight:700;color:#9a7200;font-family:Georgia,serif}
 .sl{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+/* bonus cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:14px}
 .bc{background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:13px 15px;position:relative;overflow:hidden}
 .bc.ath{border:2px solid #F5C518;background:#FFFDF0}
@@ -41,25 +38,31 @@ body{font-family:Arial,sans-serif;background:transparent;color:#222}
 .dok{font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#e8f5e9;color:#1b5e20}
 .dwrn{font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#fff3e0;color:#e65100}
 .durg{font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#ffebee;color:#c62828}
+/* ATH banner */
 .ath-banner{background:#F5C518;border:1px solid #EAD060;border-radius:6px;padding:11px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .ab-txt{font-size:13px;color:#9a7200}
 .ab-txt strong{display:block;font-size:13px;font-weight:700;color:#7a5c00;margin-bottom:1px}
+/* history filters */
 .fr{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
 .fl{font-size:11px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 select{font-size:12px;padding:6px 9px;border:1px solid #e5e5e5;border-radius:4px;background:#fff;color:#222;cursor:pointer;font-family:Arial,sans-serif}
+/* history table */
 .tw{overflow-x:auto;border:1px solid #e5e5e5;border-radius:6px}
 table{width:100%;border-collapse:collapse;background:#fff;font-size:12px}
 th{text-align:left;padding:8px 11px;font-size:10px;font-weight:700;color:#666;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid #C8102E}
-td{padding:7px 11px;border-bottom:1px solid #e5e5e5;vertical-align:top}
+td{padding:7px 11px;border-bottom:1px solid #e5e5e5;vertical-align:middle}
 tr:hover td{background:#fafafa}
 .adot{color:#2e7d32;font-weight:700;font-size:11px}
 .etxt{color:#bbb;font-size:11px}
 .hcnt{font-size:11px;color:#666;text-align:right;margin-top:5px}
+/* badges */
 .ath-badge{background:#F5C518;color:#9a7200;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block}
 .new-badge{background:#e8f5e9;color:#1b5e20;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-left:4px}
 .bilt-badge{background:#ede8ff;color:#4527a0;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block;margin-left:4px}
 .past-ath{background:#f0f0f0;color:#888;font-size:9px;padding:2px 6px;border-radius:3px;display:inline-block}
 .also-tag{font-size:9px;color:#999;display:block;margin-top:2px;font-style:italic}
+.pill-sm{font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 6px;border-radius:20px;text-transform:uppercase;display:inline-block}
+/* calculator */
 .cw{max-width:480px}
 .cc{background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:16px}
 .cl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#666;margin-bottom:5px}
@@ -67,27 +70,30 @@ tr:hover td{background:#fafafa}
 .ci:focus{outline:2px solid #C8102E;border-color:transparent}
 .ci.err{border-color:#C8102E;background:#fff8f8}
 .rt{width:100%;border-collapse:collapse;margin-top:4px}
-.rt td{padding:7px 0;font-size:13px;border-bottom:1px solid #e5e5e5}
+.rt td{padding:7px 0;font-size:13px;border-bottom:1px solid #e5e5e5;vertical-align:middle}
 .rt tr:last-child td{border-bottom:none;padding-top:10px;font-size:15px;font-weight:700}
 .rv2{text-align:right;font-weight:700;color:#C8102E}
 .rb{text-align:right;font-weight:700;color:#2e7d32}
 .ct{border-left:3px solid #C8102E;border-radius:0 4px 4px 0;padding:9px 12px;margin-top:12px;font-size:12px;background:#fdf0f2;color:#7a0015;line-height:1.5}
 .ct-ath{border-left:3px solid #9a7200;background:#FFFBEA;color:#7a5c00}
 .ct-err{border-left:3px solid #C8102E;background:#fff8f8;color:#C8102E}
+/* strategy */
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
 .sc3{background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:13px 15px}
 .sc3.ath-c{border-color:#EAD060}
 .st{font-size:11px;font-weight:700;color:#C8102E;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;padding-bottom:5px;border-bottom:2px solid #fdf0f2}
 .st-a{color:#9a7200;border-bottom-color:#EAD060}
 .sli{list-style:none;padding:0}
-.sli li{font-size:12px;padding:3px 0 3px 13px;position:relative;line-height:1.5;border-bottom:1px solid #f0f0f0}
+.sli li{font-size:12px;padding:4px 0;line-height:1.5;border-bottom:1px solid #f5f5f5}
 .sli li:last-child{border-bottom:none}
-.sli.ya li:before{color:#9a7200}
 .stbl{width:100%;font-size:12px}
-.stbl td{padding:4px 0;border-bottom:1px solid #f0f0f0}
+.stbl td{padding:4px 0;border-bottom:1px solid #f0f0f0;vertical-align:middle}
 .stbl td:last-child{text-align:right;font-weight:700;color:#C8102E}
+/* pills */
 .pill{font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:20px;text-transform:uppercase;display:inline-block;white-space:nowrap}
-.pA{background:#fff0dd;color:#7c4700}.pC{background:#deeaff;color:#0a3d7a}.pCT{background:#dff0df;color:#1b5e20}.pCO{background:#ffe8f0;color:#880e4f}.pB{background:#ede8ff;color:#4527a0}.pW{background:#fff8e1;color:#7a5c00}.pR{background:#f0f0f0;color:#333}
+.pA{background:#fff0dd;color:#7c4700}.pC{background:#deeaff;color:#0a3d7a}.pCT{background:#dff0df;color:#1b5e20}
+.pCO{background:#ffe8f0;color:#880e4f}.pB{background:#ede8ff;color:#4527a0}.pW{background:#fff8e1;color:#7a5c00}.pR{background:#f0f0f0;color:#333}
+/* partner matrix */
 .type-air{background:#EBF4FF;color:#0a3d7a;font-size:8px;padding:1px 5px;border-radius:8px;font-weight:700;margin-left:4px;vertical-align:middle}
 .type-htl{background:#F0FFF4;color:#1b5e20;font-size:8px;padding:1px 5px;border-radius:8px;font-weight:700;margin-left:4px;vertical-align:middle}
 .pt-controls{padding:0 0 12px;display:flex;flex-direction:column;gap:10px}
@@ -95,6 +101,7 @@ tr:hover td{background:#fafafa}
 .search-box{flex:1;position:relative}
 .search-box input{width:100%;padding:9px 10px 9px 34px;font-size:13px;border:1px solid #ddd;border-radius:6px;background:#fff;color:#222;font-family:Arial,sans-serif}
 .search-box input:focus{outline:2px solid #C8102E;border-color:transparent}
+.search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:#999;pointer-events:none}
 .clear-lnk{font-size:11px;padding:8px 14px;border:1.5px solid #ddd;border-radius:6px;background:#fff;color:#666;cursor:pointer;white-space:nowrap;font-family:Arial,sans-serif;font-weight:700}
 .clear-lnk:hover{background:#C8102E;color:#fff;border-color:#C8102E}
 .filter-lbl{font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
@@ -129,7 +136,6 @@ tr:hover td{background:#fafafa}
 .src{font-size:10px;color:#666;text-align:right;margin-top:6px}
 .src a{color:#666}
 .disc{font-size:10px;color:#666;margin-top:12px;padding-top:10px;border-top:1px solid #e5e5e5;line-height:1.4}
-.pill-sm{font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 6px;border-radius:20px;text-transform:uppercase;display:inline-block}
 </style>
  
 <div id="mm-hub">
@@ -148,7 +154,7 @@ tr:hover td{background:#fafafa}
   <button class="tab" onclick="ST('tips',this)">Strategy</button>
 </div>
  
-<!-- TAB 1 -->
+<!-- TAB 1: ACTIVE BONUSES -->
 <div id="tab-cur" class="panel on">
   <div class="stat-bar" id="sb"></div>
   <div id="ath-alert" style="display:none" class="ath-banner">
@@ -159,7 +165,7 @@ tr:hover td{background:#fafafa}
   <div class="disc">Transfers are one-way and permanent. Only transfer when you have a confirmed redemption in mind. Some bonuses may be targeted. Always verify in your bank portal before transferring.</div>
 </div>
  
-<!-- TAB 2 -->
+<!-- TAB 2: BONUS HISTORY -->
 <div id="tab-hist" class="panel">
   <div class="fr">
     <span class="fl">Filter:</span>
@@ -168,7 +174,6 @@ tr:hover td{background:#fafafa}
       <option>Amex</option><option>Bilt</option><option>Capital One</option>
       <option>Chase</option><option>Citi</option><option>Rove</option><option>Wells Fargo</option>
     </select>
-    <!-- Program dropdown: built dynamically from individual airline/hotel names only -->
     <select id="hp" onchange="RH()"><option value="">All programs</option></select>
     <select id="hy" onchange="RH()">
       <option value="">All years</option>
@@ -187,13 +192,13 @@ tr:hover td{background:#fafafa}
   <div id="hcnt" class="hcnt"></div>
 </div>
  
-<!-- TAB 3 -->
+<!-- TAB 3: TRANSFER PARTNERS -->
 <div id="tab-partners" class="panel">
   <div class="pt-controls">
     <div class="search-row">
       <div class="search-box">
-        <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:#999;pointer-events:none">&#128269;</span>
-        <input id="ptq" type="text" placeholder="Search programs, alliances, regions... e.g. Hyatt, Star Alliance, Japan" oninput="renderPT()" />
+        <span class="search-ico">&#128269;</span>
+        <input id="ptq" type="text" placeholder="Search programs, alliances, regions... e.g. Hyatt, Star Alliance, Japan" oninput="renderPT()"/>
       </div>
       <span class="clear-lnk" onclick="clearPT()">Clear all</span>
     </div>
@@ -206,7 +211,7 @@ tr:hover td{background:#fafafa}
   <div id="pt-res"></div>
 </div>
  
-<!-- TAB 4 -->
+<!-- TAB 4: CALCULATOR -->
 <div id="tab-calc" class="panel">
   <div class="cw"><div class="cc">
     <div class="cl">Points to transfer</div>
@@ -219,54 +224,68 @@ tr:hover td{background:#fafafa}
       <option value="30|Citi to Virgin Atlantic|false">30% - Citi to Virgin Atlantic</option>
       <option value="25|Citi to Leading Hotels|false">25% - Citi to Leading Hotels (New)</option>
       <option value="30|Capital One to JAL|true">30% - Capital One to Japan Airlines (ATH)</option>
-      <option value="custom|Custom %|false">Custom %</option>
+      <option value="custom|Custom|false">Custom %</option>
     </select>
     <div id="cstm" style="display:none">
       <div class="cl">Custom bonus %</div>
       <input class="ci" type="number" id="cpct" value="25" min="1" max="500" step="1" oninput="CU()"/>
     </div>
     <table class="rt" id="cres"></table>
-    <div class="ct" id="ctip" style="display:none"></div>
+    <div class="ct ct-err" id="ctip" style="display:none"></div>
   </div></div>
 </div>
  
-<!-- TAB 5 -->
+<!-- TAB 5: STRATEGY -->
 <div id="tab-tips" class="panel">
   <div class="sg">
-    <div class="sc3"><div class="st">Before you transfer</div><ul class="sli"><li style="padding-left:0">Transfers are permanent - no reversals</li><li style="padding-left:0">Confirm award availability before transferring</li><li style="padding-left:0">Check bank portal - sometimes better value there</li><li style="padding-left:0">Verify bonus applies to your account (some are targeted)</li><li style="padding-left:0">Research the award chart before committing</li></ul></div>
-    <div class="sc3 ath-c"><div class="st st-a">&#9733; What ATH means</div><ul class="sli ya"><li style="padding-left:0">ATH = All-Time High - best ever for that program</li><li style="padding-left:0">These rare windows may not repeat for years</li><li style="padding-left:0">Current bonuses flagged ATH when they match the record</li><li style="padding-left:0">Past ATH records preserved in Bonus History</li></ul></div>
-    <div class="sc3"><div class="st">Transfer ratio notes</div><ul class="sli"><li style="padding-left:0">Most programs transfer at 1:1</li><li style="padding-left:0">Amex to AeroMexico: 1:1.6 - gain 60% more!</li><li style="padding-left:0">Amex to Cathay Pacific: 5:4 (20% loss)</li><li style="padding-left:0">Capital One to JAL: 2:1.5 (25% loss)</li><li style="padding-left:0">Hilton via Amex: 1:2 - each point = 2 Hilton pts</li></ul></div>
-    <div class="sc3"><div class="st">Transfer speed</div><ul class="sli"><li style="padding-left:0">Instant: Chase UR to most partners; Amex to most airlines</li><li style="padding-left:0">~1 hr: Citi to Etihad</li><li style="padding-left:0">12-24 hrs: Amex to Iberia, Singapore, Qatar</li><li style="padding-left:0">1-2 days: Capital One to Cathay, Singapore</li><li style="padding-left:0">3-7 days: Citi to Thai Airways - plan ahead!</li></ul></div>
+    <div class="sc3"><div class="st">Before you transfer</div><ul class="sli"><li>Transfers are permanent - no reversals</li><li>Confirm award availability before transferring</li><li>Check bank portal - sometimes better value there</li><li>Verify bonus applies to your account (some are targeted)</li><li>Research the award chart before committing</li></ul></div>
+    <div class="sc3 ath-c"><div class="st st-a">&#9733; What ATH means</div><ul class="sli"><li>ATH = All-Time High - best ever for that program</li><li>These rare windows may not repeat for years</li><li>Current bonuses flagged ATH when they match the record</li><li>Past ATH records preserved in Bonus History</li></ul></div>
+    <div class="sc3"><div class="st">Transfer ratio notes</div><ul class="sli"><li>Most programs transfer at 1:1</li><li>Amex to AeroMexico: 1:1.6 - you gain 60% more</li><li>Amex to Cathay Pacific: 5:4 (20% loss)</li><li>Capital One to JAL: 2:1.5 (25% loss)</li><li>Hilton via Amex: 1:2 - each point = 2 Hilton pts</li></ul></div>
+    <div class="sc3"><div class="st">Transfer speed</div><ul class="sli"><li>Instant: Chase UR to most partners</li><li>~1 hr: Citi to Etihad</li><li>12-24 hrs: Amex to Iberia, Singapore, Qatar</li><li>1-2 days: Capital One to Cathay, Singapore</li><li>3-7 days: Citi to Thai Airways - plan ahead</li></ul></div>
     <div class="sc3 ath-c"><div class="st st-a">All-time high records</div><table class="stbl"><tr><td style="color:#666">Chase to IHG</td><td>100%</td></tr><tr><td style="color:#666">Bilt Platinum (Rent Day)</td><td>200%</td></tr><tr><td style="color:#666">Citi to Turkish Airlines</td><td>50%</td></tr><tr><td style="color:#666">Chase to Marriott</td><td>70%</td></tr><tr><td style="color:#666">Rove to Japan Airlines</td><td>50%</td></tr><tr><td style="color:#666">Capital One to Etihad</td><td>40%</td></tr></table></div>
-    <div class="sc3"><div class="st">Bilt Rent Day</div><ul class="sli"><li style="padding-left:0">Bonuses only on the 1st of each month</li><li style="padding-left:0">Blue / Silver / Gold / Platinum tiers earn different amounts</li><li style="padding-left:0">Transfer partners, status matches, credits and more every month</li><li style="padding-left:0">Set a calendar reminder - announced days early</li><li style="padding-left:0">See full Rent Day history in the Bonus History tab</li></ul></div>
+    <div class="sc3"><div class="st">Bilt Rent Day</div><ul class="sli"><li>Bonuses only on the 1st of each month</li><li>Blue / Silver / Gold / Platinum tiers earn different amounts</li><li>Transfer partners, status matches, credits and more every month</li><li>Set a calendar reminder - announced days early</li><li>See full Rent Day history in the Bonus History tab</li></ul></div>
   </div>
 </div>
-</div>
+</div><!-- end #mm-hub -->
  
 <script>
-/* ── Live date, UTC-normalized to avoid ±1 day drift ── */
-function startOfDay(d){return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));}
-var TODAY=startOfDay(new Date());
-function DL(ds){if(!ds)return null;var d=new Date(ds);if(isNaN(d.getTime()))return null;return Math.round((startOfDay(d)-TODAY)/86400000);}
-function fmtExp(ds){var p=ds.split('-');return p.length===3?p[1]+'/'+p[2]+'/'+p[0].slice(2):ds;}
+/* ─── LIVE DATE (no hardcoded TODAY) ─── */
+function sod(d){return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));}
+var TODAY=sod(new Date());
  
+/* DL: days until expiry. Returns null for bad input, negative OK for history
+   but RC() clamps to 0 so active cards never show negative. */
+function DL(ds){
+  if(!ds)return null;
+  var d=new Date(ds);
+  if(isNaN(d.getTime()))return null;
+  return Math.round((sod(d)-TODAY)/86400000);
+}
+ 
+function fmtExp(ds){
+  var p=ds.split('-');
+  return p.length===3?p[1]+'/'+p[2]+'/'+p[0].slice(2):ds;
+}
+ 
+/* ─── ATH TABLE ─── */
 var ATH={
-  'Chase|IHG':100,'Chase|Marriott':70,'Chase|Aeroplan':25,'Chase|Virgin Atlantic':40,
-  'Chase|British Airways':30,'Chase|Wyndham':30,
-  'Amex|Virgin Atlantic':40,'Amex|Hilton':40,'Amex|Marriott':35,
-  'Amex|Avianca LifeMiles':15,'Amex|British Airways':30,'Amex|Iberia':30,
-  'Citi|Turkish Airlines':50,'Citi|Accor':50,'Citi|Virgin Atlantic':30,
-  'Citi|Avianca LifeMiles':25,'Citi|Leading Hotels of the World':25,'Citi|Qatar':30,
-  'Capital One|Japan Airlines':30,'Capital One|Etihad':40,
-  'Capital One|Virgin Atlantic':30,'Capital One|iPrefer':30,
+  'Chase|IHG':100,'Chase|Marriott':70,'Chase|Aeroplan':25,'Chase|Virgin Atlantic':40,'Chase|British Airways':30,'Chase|Wyndham':30,
+  'Amex|Virgin Atlantic':40,'Amex|Hilton':40,'Amex|Marriott':35,'Amex|Avianca LifeMiles':15,'Amex|British Airways':30,'Amex|Iberia':30,
+  'Citi|Turkish Airlines':50,'Citi|Accor':50,'Citi|Virgin Atlantic':30,'Citi|Avianca LifeMiles':25,'Citi|Leading Hotels of the World':25,'Citi|Qatar':30,
+  'Capital One|Japan Airlines':30,'Capital One|Etihad':40,'Capital One|Virgin Atlantic':30,'Capital One|iPrefer':30,
   'Rove|Japan Airlines':50,'Rove|Flying Blue':20,'Wells Fargo|Flying Blue':20,
-  'Bilt|IHG':100,'Bilt|Hawaiian':100,'Bilt|Flying Blue':100,
-  'Bilt|Virgin Atlantic':150,'Bilt|Aeroplan':150,'Bilt|Emirates':150,
-  'Bilt|Avianca LifeMiles':100,'Bilt|Hilton':200,'Bilt|British Airways':100,
-  'Bilt|Accor':200,'Bilt|Japan Airlines':125,'Bilt|Wyndham':125,
-  'Bilt|Etihad':100,'Bilt|Alaska Airlines':100
+  'Bilt|IHG':100,'Bilt|Hawaiian':100,'Bilt|Flying Blue':100,'Bilt|Virgin Atlantic':150,'Bilt|Aeroplan':150,'Bilt|Emirates':150,
+  'Bilt|Avianca LifeMiles':100,'Bilt|Hilton':200,'Bilt|British Airways':100,'Bilt|Accor':200,
+  'Bilt|Japan Airlines':125,'Bilt|Wyndham':125,'Bilt|Etihad':100,'Bilt|Alaska Airlines':100
 };
-function isA(b,p,n){var k=b+'|'+p;var v=parseInt(n);return ATH[k]!==undefined&&!isNaN(v)&&v>=ATH[k];}
+ 
+/* isA: true if this bank+program+value matches or beats the ATH record */
+function isA(b,p,n){
+  var k=b+'|'+p;
+  var v=parseInt(n);
+  return ATH[k]!==undefined && !isNaN(v) && v>0 && v>=ATH[k];
+}
+ 
 var BPIL={Chase:'pC',Amex:'pA',Citi:'pCT','Capital One':'pCO',Bilt:'pB','Wells Fargo':'pW',Rove:'pR'};
  
 function ST(name,btn){
@@ -276,6 +295,7 @@ function ST(name,btn){
   btn.classList.add('on');
 }
  
+/* ─── ACTIVE BONUSES ─── */
 var CUR=[
   {bank:'Chase',prog:'Aeroplan (Air Canada)',pk:'Aeroplan',pct:20,exp:'2026-04-30'},
   {bank:'Chase',prog:'IHG Rewards',pk:'IHG',pct:70,exp:'2026-04-30'},
@@ -287,20 +307,31 @@ var CUR=[
 ];
  
 function RC(){
-  if(!CUR.length){document.getElementById('cards').innerHTML='<p style="color:#666;font-size:13px">No active bonuses right now.</p>';document.getElementById('sb').innerHTML='';document.getElementById('ath-alert').style.display='none';return;}
+  if(!CUR.length){
+    document.getElementById('cards').innerHTML='<p style="color:#666;font-size:13px">No active bonuses right now. Check back soon!</p>';
+    document.getElementById('sb').innerHTML='';
+    document.getElementById('ath-alert').style.display='none';
+    return;
+  }
   var ac=CUR.filter(function(b){return isA(b.bank,b.pk,b.pct);}).length;
   document.getElementById('ath-alert').style.display=ac>0?'flex':'none';
-  var days=CUR.map(function(b){return DL(b.exp)||0;});
-  var maxDays=days.length?Math.max.apply(null,days):0;
-  var maxPct=CUR.length?Math.max.apply(null,CUR.map(function(b){return b.pct;})):0;
+  var maxDays=Math.max.apply(null,CUR.map(function(b){var d=DL(b.exp);return d!==null?Math.max(0,d):0;}));
+  var maxPct=Math.max.apply(null,CUR.map(function(b){return b.pct;}));
   document.getElementById('sb').innerHTML=[
-    {n:CUR.length,l:'Active bonuses',a:0},{n:maxPct+'%',l:'Highest bonus',a:0},
-    {n:maxDays+'d',l:'Max days left',a:0},{n:ac,l:'ATH bonuses',a:1}
-  ].map(function(s){return'<div class="sc"><div class="'+(s.a?'sna':'sn2')+'">'+s.n+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+    {n:CUR.length,l:'Active bonuses',a:0},
+    {n:maxPct+'%',l:'Highest bonus',a:0},
+    {n:maxDays+'d',l:'Max days left',a:0},
+    {n:ac,l:'ATH bonuses',a:1}
+  ].map(function(s){
+    return'<div class="sc"><div class="'+(s.a?'sna':'sn2')+'">'+s.n+'</div><div class="sl">'+s.l+'</div></div>';
+  }).join('');
   document.getElementById('cards').innerHTML=CUR.map(function(b){
-    var at=isA(b.bank,b.pk,b.pct);var d=DL(b.exp);
-    var dc=d===null?'dok':d<=5?'durg':d<=14?'dwrn':'dok';
-    var dl=d===null?'Unknown':d===0?'Expires today':d+' days left';
+    var at=isA(b.bank,b.pk,b.pct);
+    var d=DL(b.exp);
+    /* clamp: never show negative days on active cards */
+    var dShow=d!==null?Math.max(0,d):null;
+    var dc=dShow===null?'dok':dShow===0?'durg':dShow<=5?'durg':dShow<=14?'dwrn':'dok';
+    var dl=dShow===null?'Unknown':dShow===0?'Expires today':dShow+' days left';
     return'<div class="bc'+(at?' ath':'')+'">'+
       (at?'<div class="ath-rib">&#9733; ATH</div>':'')+
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
@@ -313,17 +344,14 @@ function RC(){
   }).join('');
 }
  
-/* ══════════════════════════════════════════════════════════
-   HISTORY DATA
-   Each grouped bonus (e.g. "British Airways / Iberia / Aer Lingus")
-   is stored with a `progs` array listing the individual programs.
-   The display shows the primary name; the filter works on each
-   individual program name separately.
-   Bilt Rent Day rows use isBilt:true and are excluded from the
-   program filter dropdown but still appear in the table.
-   ══════════════════════════════════════════════════════════ */
+/* ─── HISTORY DATA ───
+   progs[] = individual airline/hotel names this row covers.
+   isBilt = Bilt Rent Day (1st of month only).
+   For Bilt rows with progs[], those names appear in the program filter.
+   For Bilt rows with progs:[], they appear in history but not the filter dropdown.
+*/
 var HIST=[
-  /* ── 2026 ACTIVE ── */
+  /* 2026 active */
   {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
   {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
   {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/22/2026',e:'4/30/2026',y:2026,a:1},
@@ -332,11 +360,11 @@ var HIST=[
   {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'1/1/2026',e:'4/30/2026',y:2026,a:1},
   {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
   /* Bilt Rent Day 2026 */
-  {b:'Bilt',p:'Wyndham - Up to 125% transfer bonus (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
+  {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Japan Airlines - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Japan Airlines'],pct:'25-125%',n:125,s:'March 2026',e:'March 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Accor - Up to 125% transfer bonus',progs:['Accor'],pct:'Up to 125%',n:125,s:'February 2026',e:'February 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Amazon Bonus + Rent Credit Bonuses',progs:[],pct:'Varies',n:0,s:'January 2026',e:'January 2026',y:2026,a:0,isBilt:true},
-  /* 2026 other expired */
+  /* 2026 expired */
   {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/1/2026',e:'3/28/2026',y:2026,a:0},
   {b:'Capital One',p:'iPrefer',progs:['iPrefer'],pct:'30%',n:30,s:'1/1/2026',e:'3/31/2026',y:2026,a:0},
   {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'1/1/2026',e:'2/11/2026',y:2026,a:0},
@@ -349,18 +377,19 @@ var HIST=[
   {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'12/1/2025',e:'1/15/2026',y:2026,a:0},
   {b:'Rove',p:'Japan Airlines',progs:['Japan Airlines'],pct:'50%',n:50,s:'3/2/2026',e:'3/31/2026',y:2026,a:0},
   {b:'Rove',p:'SAS',progs:['SAS'],pct:'20%',n:20,s:'3/1/2026',e:'4/8/2026',y:2026,a:0},
-  /* ── 2025 ── */
+  /* Bilt Rent Day 2025 */
   {b:'Bilt',p:'British Airways / Aer Lingus / Iberia - Up to 100% transfer bonus',progs:['British Airways','Aer Lingus','Iberia'],pct:'Up to 100%',n:100,s:'December 2025',e:'December 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Etihad - Up to 100% transfer bonus',progs:['Etihad'],pct:'Up to 100%',n:100,s:'November 2025',e:'November 2025',y:2025,a:0,isBilt:true},
-  {b:'Bilt',p:'Amazon + Rent Credit Bonuses (20% Blue / 30% Silver / 40% Gold / 50% Platinum)',progs:[],pct:'20-50%',n:50,s:'October 2025',e:'October 2025',y:2025,a:0,isBilt:true},
+  {b:'Bilt',p:'Amazon + Rent Credit Bonuses (20-50% by tier)',progs:[],pct:'20-50%',n:0,s:'October 2025',e:'October 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Virgin Atlantic - Up to 100% transfer bonus',progs:['Virgin Atlantic'],pct:'Up to 100%',n:100,s:'September 2025',e:'September 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Avianca LifeMiles (20% Blue / 40% Silver / 60% Gold / 100% Platinum)',progs:['Avianca LifeMiles'],pct:'20-100%',n:100,s:'August 2025',e:'August 2025',y:2025,a:0,isBilt:true},
-  {b:'Bilt',p:'Retail Redemption Bonus - Macys, Ulta, Instacart, Uber, Nordstrom (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:[],pct:'25-100%',n:100,s:'July 2025',e:'July 2025',y:2025,a:0,isBilt:true},
+  {b:'Bilt',p:'Retail Redemption Bonus - Macys, Ulta, Instacart, Uber, Nordstrom (25-100% by tier)',progs:[],pct:'25-100%',n:0,s:'July 2025',e:'July 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Accor - Up to 200% transfer bonus',progs:['Accor'],pct:'Up to 200%',n:200,s:'June 2025',e:'June 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'British Airways - Up to 100% (50% Blue / 60% Silver / 75% Gold / 100% Platinum)',progs:['British Airways'],pct:'50-100%',n:100,s:'April 2025',e:'April 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Hilton - Up to 200% (150% Blue / 200% Silver-Gold-Platinum)',progs:['Hilton'],pct:'150-200%',n:200,s:'March 2025',e:'March 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Avianca LifeMiles (20% Blue / 40% Silver / 50% Gold / 100% Platinum)',progs:['Avianca LifeMiles'],pct:'20-100%',n:100,s:'February 2025',e:'February 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Accor Status Match',progs:[],pct:'Status Match',n:0,s:'January 2025',e:'January 2025',y:2025,a:0,isBilt:true},
+  /* 2025 other */
   {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'11/20/2025',e:'12/31/2025',y:2025,a:0},
   {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'30%',n:30,s:'10/1/2025',e:'11/30/2025',y:2025,a:0},
   {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'9/1/2025',e:'10/31/2025',y:2025,a:0},
@@ -413,19 +442,20 @@ var HIST=[
   {b:'Rove',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'9/22/2025',e:'10/22/2025',y:2025,a:0},
   {b:'Rove',p:'Finnair',progs:['Finnair'],pct:'20%',n:20,s:'1/1/2025',e:'12/31/2025',y:2025,a:0},
   {b:'Wells Fargo',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'9/22/2025',e:'10/22/2025',y:2025,a:0},
-  /* ── 2024 ── */
+  /* Bilt Rent Day 2024 */
   {b:'Bilt',p:'Amazon Bonuses + 3x on Groceries',progs:[],pct:'3x Groceries',n:0,s:'December 2024',e:'December 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'British Airways / Aer Lingus / Iberia - 50% to 100% transfer bonus',progs:['British Airways','Aer Lingus','Iberia'],pct:'50-100%',n:100,s:'November 2024',e:'November 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'Hilton Gold Status Match (Gold after 8 nights / Diamond after 14 nights Blue-Gold / 8 nights Platinum)',progs:[],pct:'Status Match',n:0,s:'October 2024',e:'October 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'British Airways / Aer Lingus / Iberia - 50-100% transfer bonus',progs:['British Airways','Aer Lingus','Iberia'],pct:'50-100%',n:100,s:'November 2024',e:'November 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'Hilton Gold Status Match',progs:[],pct:'Status Match',n:0,s:'October 2024',e:'October 2024',y:2024,a:0,isBilt:true},
   {b:'Bilt',p:'Virgin Atlantic + Avianca LifeMiles tiered transfer bonuses',progs:['Virgin Atlantic','Avianca LifeMiles'],pct:'20-100%',n:100,s:'September 2024',e:'September 2024',y:2024,a:0,isBilt:true},
   {b:'Bilt',p:'Virgin Voyages Experience + Blade Helicopter Promo',progs:[],pct:'Experience',n:0,s:'August 2024',e:'August 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'Alaska Airlines Transfer Bonus (25% Blue / 50% Silver / 75% Gold / 100% Platinum) + Status Match',progs:['Alaska Airlines'],pct:'25-100%',n:100,s:'July 2024',e:'July 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'Alaska Airlines Transfer Bonus (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Alaska Airlines'],pct:'25-100%',n:100,s:'July 2024',e:'July 2024',y:2024,a:0,isBilt:true},
   {b:'Bilt',p:'5x or 10x on Bilt Dining',progs:[],pct:'5-10x pts',n:0,s:'June 2024',e:'June 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'Use Points on Rent, get 100% back in Home Collection',progs:[],pct:'100% back',n:100,s:'May 2024',e:'May 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'Use Points on Rent - 100% back in Home Collection',progs:[],pct:'100% back',n:0,s:'May 2024',e:'May 2024',y:2024,a:0,isBilt:true},
   {b:'Bilt',p:'Buy One Get One Fitness Classes',progs:[],pct:'BOGO',n:0,s:'April 2024',e:'April 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'NCAA Sweet 16 - Connect to partner for 1k points (up to 2 partners)',progs:[],pct:'1k pts/partner',n:0,s:'March 2024',e:'March 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'Aeroplan Transfer Bonus (75% Blue / 100% Silver / 125% Gold / 150% Platinum) + 50% Amazon + $5 Lyft Credit',progs:['Aeroplan'],pct:'75-150%',n:150,s:'February 2024',e:'February 2024',y:2024,a:0,isBilt:true},
-  {b:'Bilt',p:'Virgin Atlantic / Flying Blue / IHG Transfer Bonus (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Virgin Atlantic','Flying Blue','IHG'],pct:'75-150%',n:150,s:'January 2024',e:'January 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'NCAA Sweet 16 - 1k points per connected partner (up to 2)',progs:[],pct:'1k pts/partner',n:0,s:'March 2024',e:'March 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'Aeroplan Transfer Bonus (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Aeroplan'],pct:'75-150%',n:150,s:'February 2024',e:'February 2024',y:2024,a:0,isBilt:true},
+  {b:'Bilt',p:'Virgin Atlantic / Flying Blue / IHG (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Virgin Atlantic','Flying Blue','IHG'],pct:'75-150%',n:150,s:'January 2024',e:'January 2024',y:2024,a:0,isBilt:true},
+  /* 2024 other */
   {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'12/2/2024',e:'12/31/2024',y:2024,a:0},
   {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'35%',n:35,s:'11/1/2024',e:'12/31/2024',y:2024,a:0},
   {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'10/1/2024',e:'11/10/2024',y:2024,a:0},
@@ -476,19 +506,20 @@ var HIST=[
   {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/1/2024',e:'4/13/2024',y:2024,a:0},
   {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'2/18/2024',e:'3/16/2024',y:2024,a:0},
   {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'10%',n:10,s:'2/1/2024',e:'3/31/2024',y:2024,a:0},
-  /* ── 2023 ── */
-  {b:'Bilt',p:'2x Shopping + 10x Bilt Dining',progs:[],pct:'2x / 10x',n:0,s:'December 2023',e:'December 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'Emirates Skywards Transfer Bonus (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Emirates'],pct:'75-150%',n:150,s:'November 2023',e:'November 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'5x on Sports Tickets + NFL Suites & Tickets with points',progs:[],pct:'5x pts',n:0,s:'October 2023',e:'October 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'SoulCycle - one rider per class wins a months rent (up to $2,500)',progs:[],pct:'Sweepstakes',n:0,s:'September 2023',e:'September 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'Virgin Atlantic / Virgin Red Transfer Bonus (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Virgin Atlantic'],pct:'75-150%',n:150,s:'August 2023',e:'August 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'$10-$20 Lyft Credits ($10 all members / $20 cardholders)',progs:[],pct:'$10-$20 Lyft',n:0,s:'July 2023',e:'July 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'100k Bilt Rewards prize + R/T Virgin Upper Class + Emirates Biz tickets',progs:[],pct:'Sweepstakes',n:0,s:'June 2023',e:'June 2023',y:2023,a:0,isBilt:true},
+  /* Bilt Rent Day 2023 */
+  {b:'Bilt',p:'2x Shopping + 10x Bilt Dining',progs:[],pct:'2x/10x',n:0,s:'December 2023',e:'December 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'Emirates Skywards (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Emirates'],pct:'75-150%',n:150,s:'November 2023',e:'November 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'5x on Sports Tickets + NFL Suites & Tickets',progs:[],pct:'5x pts',n:0,s:'October 2023',e:'October 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'SoulCycle - win a months rent (up to $2,500)',progs:[],pct:'Sweepstakes',n:0,s:'September 2023',e:'September 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'Virgin Atlantic (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Virgin Atlantic'],pct:'75-150%',n:150,s:'August 2023',e:'August 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'$10-$20 Lyft Credits',progs:[],pct:'$10-$20',n:0,s:'July 2023',e:'July 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'100k prize + R/T Virgin Upper Class + Emirates Biz tickets',progs:[],pct:'Sweepstakes',n:0,s:'June 2023',e:'June 2023',y:2023,a:0,isBilt:true},
   {b:'Bilt',p:'Flying Blue - 100% transfer bonus',progs:['Flying Blue'],pct:'100%',n:100,s:'May 2023',e:'May 2023',y:2023,a:0,isBilt:true},
-  {b:'Bilt',p:'Hyatt Trial Status + Challenge (Explorist + pathway to Globalist in 20 nights)',progs:[],pct:'Status Match',n:0,s:'April 2023',e:'April 2023',y:2023,a:0,isBilt:true},
+  {b:'Bilt',p:'Hyatt Trial Status + Challenge (Explorist / pathway to Globalist)',progs:[],pct:'Status Match',n:0,s:'April 2023',e:'April 2023',y:2023,a:0,isBilt:true},
   {b:'Bilt',p:'Points worth 50% more with Amazon',progs:[],pct:'+50% Amazon',n:0,s:'March 2023',e:'March 2023',y:2023,a:0,isBilt:true},
   {b:'Bilt',p:'Hawaiian Airlines - 100% transfer bonus',progs:['Hawaiian'],pct:'100%',n:100,s:'February 2023',e:'February 2023',y:2023,a:0,isBilt:true},
   {b:'Bilt',p:'Bonus points with Trivia',progs:[],pct:'Bonus pts',n:0,s:'January 2023',e:'January 2023',y:2023,a:0,isBilt:true},
+  /* 2023 other */
   {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2023',e:'12/31/2023',y:2023,a:0},
   {b:'Amex',p:'Singapore Airlines',progs:['Singapore Airlines'],pct:'20%',n:20,s:'10/1/2023',e:'12/31/2023',y:2023,a:0},
   {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'10/1/2023',e:'12/31/2023',y:2023,a:0},
@@ -529,9 +560,10 @@ var HIST=[
   {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'10%',n:10,s:'3/1/2023',e:'4/30/2023',y:2023,a:0},
   {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'2/19/2023',e:'3/18/2023',y:2023,a:0},
   {b:'Citi',p:'Avianca LifeMiles (targeted)',progs:['Avianca LifeMiles'],pct:'20%',n:20,s:'2/1/2023',e:'3/31/2023',y:2023,a:0},
-  /* ── 2022 ── */
+  /* Bilt Rent Day 2022 */
   {b:'Bilt',p:'IHG - 100% transfer bonus',progs:['IHG'],pct:'100%',n:100,s:'December 2022',e:'December 2022',y:2022,a:0,isBilt:true},
   {b:'Bilt',p:'United Airlines Status Trial and Challenge',progs:[],pct:'Status Match',n:0,s:'November 2022',e:'November 2022',y:2022,a:0,isBilt:true},
+  /* 2022 other */
   {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2022',e:'12/29/2022',y:2022,a:0},
   {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'10/1/2022',e:'12/10/2022',y:2022,a:0},
   {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'10/1/2022',e:'11/12/2022',y:2022,a:0},
@@ -563,33 +595,30 @@ var HIST=[
   {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'7/1/2022',e:'8/31/2022',y:2022,a:0}
 ];
  
-/* ── Build program dropdown from individual names only (no Rent Day, no grouped strings) ── */
+/* ─── PROGRAM DROPDOWN ───
+   Built from individual program names in progs[].
+   Bilt rows with progs:[] are excluded (non-transfer promos).
+   Bilt rows with actual airline/hotel progs ARE included. */
 function PP(){
   var seen={};
   HIST.forEach(function(x){
-    /* For Bilt Rent Day: only include if it has actual airline/hotel progs */
-    if(x.isBilt){
-      if(!x.progs||!x.progs.length) return;
-      /* fall through to add its progs */
-    }
-    var list=x.progs&&x.progs.length?x.progs:[x.p];
-    list.forEach(function(name){
-      var clean=name.replace(/\s*\(targeted\)/i,'').trim();
-      seen[clean]=true;
+    if(!x.progs||!x.progs.length) return;
+    x.progs.forEach(function(name){
+      seen[name.replace(/\s*\(targeted\)/i,'').trim()]=true;
     });
   });
   var sorted=Object.keys(seen).sort();
   var sel=document.getElementById('hp');
   sorted.forEach(function(name){
     var o=document.createElement('option');
-    o.value=name; o.textContent=name; sel.appendChild(o);
+    o.value=name;o.textContent=name;sel.appendChild(o);
   });
 }
  
 function rowMatchesProg(x,pr){
   if(!pr) return true;
-  var list=x.progs&&x.progs.length?x.progs:[x.p];
-  return list.some(function(name){
+  if(!x.progs||!x.progs.length) return false;
+  return x.progs.some(function(name){
     return name.replace(/\s*\(targeted\)/i,'').trim()===pr;
   });
 }
@@ -613,21 +642,23 @@ function RH(){
   }
   tb.innerHTML=d.map(function(x){
     var at=isA(x.b,x.p,x.n);
+    /* ATH cell: only show "Below ATH" for real transfer bonuses (n>0) */
     var athCell='';
     if(at){
       athCell='<span class="ath-badge">&#9733; ATH</span>';
-    } else if(ATH[x.b+'|'+x.p]&&parseInt(x.n)>0&&parseInt(x.n)<ATH[x.b+'|'+x.p]){
+    } else if(x.n>0 && ATH[x.b+'|'+x.p] && parseInt(x.n)<ATH[x.b+'|'+x.p]){
       athCell='<span class="past-ath">Below ATH</span>';
     }
-    /* For grouped bonuses, show which individual programs are included */
+    /* "Also covers" for any row (Bilt or not) with multiple progs */
     var also='';
-    if(!x.isBilt&&x.progs&&x.progs.length>1){
+    if(x.progs&&x.progs.length>1){
       also='<span class="also-tag">Also covers: '+x.progs.slice(1).join(', ')+'</span>';
     }
+    /* Period: Bilt Rent Day = "Month 1, Year"; others = date range */
     var period;
     if(x.isBilt){
-      var parts=x.s.split(' ');
-      period=(parts.length===2)?parts[0]+' 1, '+parts[1]:x.s;
+      var pts=x.s.split(' ');
+      period=(pts.length===2)?pts[0]+' 1, '+pts[1]:x.s;
     } else {
       period=x.s+' &ndash; '+x.e;
     }
@@ -646,27 +677,55 @@ function RH(){
   document.getElementById('hcnt').textContent=d.length+' record'+(d.length!==1?'s':'')+' shown';
 }
  
-/* ── Calculator ── */
+/* ─── CALCULATOR ─── */
 function CU(){
-  var cpEl=document.getElementById('cp'),csEl=document.getElementById('cs');
-  var cstmEl=document.getElementById('cstm'),cpctEl=document.getElementById('cpct');
-  var tipEl=document.getElementById('ctip'),resEl=document.getElementById('cres');
-  var sel=csEl.value;
-  var isCustom=sel==='custom|Custom %|false';
+  var cpEl=document.getElementById('cp');
+  var csEl=document.getElementById('cs');
+  var cstmEl=document.getElementById('cstm');
+  var cpctEl=document.getElementById('cpct');
+  var tipEl=document.getElementById('ctip');
+  var resEl=document.getElementById('cres');
+ 
+  var isCustom=(csEl.value==='custom|Custom|false');
+  /* Always sync custom field visibility and clear its error on mode switch */
   cstmEl.style.display=isCustom?'block':'none';
+  if(!isCustom) cpctEl.classList.remove('err');
+ 
+  /* Validate points */
   var pts=parseInt(cpEl.value);
-  if(isNaN(pts)||pts<=0){cpEl.classList.add('err');resEl.innerHTML='';tipEl.className='ct ct-err';tipEl.style.display='block';tipEl.textContent='Please enter a valid number of points greater than 0.';return;}
+  if(isNaN(pts)||pts<=0){
+    cpEl.classList.add('err');
+    resEl.innerHTML='';
+    tipEl.className='ct ct-err';
+    tipEl.style.display='block';
+    tipEl.textContent='Please enter a valid number of points greater than 0.';
+    return;
+  }
   cpEl.classList.remove('err');
-  var pct,lab,at=false;
+ 
+  var pct,at=false;
   if(isCustom){
     pct=parseInt(cpctEl.value);
-    if(isNaN(pct)||pct<=0||pct>500){cpctEl.classList.add('err');resEl.innerHTML='';tipEl.className='ct ct-err';tipEl.style.display='block';tipEl.textContent='Please enter a bonus % between 1 and 500.';return;}
-    cpctEl.classList.remove('err');lab='Custom bonus';
+    if(isNaN(pct)||pct<=0||pct>500){
+      cpctEl.classList.add('err');
+      resEl.innerHTML='';
+      tipEl.className='ct ct-err';
+      tipEl.style.display='block';
+      tipEl.textContent='Please enter a bonus % between 1 and 500.';
+      return;
+    }
+    cpctEl.classList.remove('err');
+    at=false;
   } else {
-    var parts=sel.split('|');pct=parseInt(parts[0]);lab=parts[1];at=parts[2]==='true';
+    var parts=csEl.value.split('|');
+    pct=parseInt(parts[0]);
+    at=(parts[2]==='true');
   }
-  var bn=Math.round(pts*pct/100),tot=pts+bn;
-  resEl.innerHTML='<tr><td style="color:#666">Points transferred</td><td class="rv2">'+pts.toLocaleString()+'</td></tr>'+
+ 
+  var bn=Math.round(pts*pct/100);
+  var tot=pts+bn;
+  resEl.innerHTML=
+    '<tr><td style="color:#666">Points transferred</td><td class="rv2">'+pts.toLocaleString()+'</td></tr>'+
     '<tr><td style="color:#666">Bonus ('+pct+'%'+(at?' &#9733; ATH':'')+')</td><td class="rb">+'+bn.toLocaleString()+'</td></tr>'+
     '<tr><td>Total received</td><td class="rv2">'+tot.toLocaleString()+'</td></tr>';
   tipEl.style.display='block';
@@ -676,12 +735,44 @@ function CU(){
   else{tipEl.className='ct';tipEl.textContent='A '+pct+'% boost is meaningful. Best used when you have a specific booking ready.';}
 }
  
-/* ── Partner matrix ── */
-var PT_BANKS=[{label:'Amex',key:'A',pill:'pA'},{label:'Bilt',key:'B',pill:'pB'},{label:'Capital One',key:'CO',pill:'pCO'},{label:'Chase',key:'C',pill:'pC'},{label:'Citi',key:'CT',pill:'pCT'},{label:'Rove',key:'R',pill:'pR'},{label:'Wells Fargo',key:'W',pill:'pW'}];
+/* ─── PARTNER MATRIX ─── */
+var PT_BANKS=[
+  {label:'Amex',key:'A',pill:'pA'},{label:'Bilt',key:'B',pill:'pB'},
+  {label:'Capital One',key:'CO',pill:'pCO'},{label:'Chase',key:'C',pill:'pC'},
+  {label:'Citi',key:'CT',pill:'pCT'},{label:'Rove',key:'R',pill:'pR'},
+  {label:'Wells Fargo',key:'W',pill:'pW'}
+];
 var PT_PIL={A:'pA',C:'pC',CT:'pCT',CO:'pCO',B:'pB',W:'pW',R:'pR'};
 var PT_SHORT={'Capital One':'Cap1','Wells Fargo':'WF'};
-(function(){var row=document.getElementById('pt-btn-row');PT_BANKS.forEach(function(bk){var el=document.createElement('span');el.id='ptbtn-'+bk.key;el.className='bk-btn';el.textContent=bk.label;el.setAttribute('onclick','setPTBank("'+bk.key+'")');row.appendChild(el);});})();
-var VAL={'Aer Lingus Avios':'1.4c','AeroMexico ClubPremier':'0.8c','Air Canada Aeroplan':'1.5c','Air France/KLM Flying Blue':'1.3c','Air India Maharaja Club':'1.0c','Alaska Atmos Rewards':'1.5c','American AAdvantage':'1.8c','ANA Mileage Club':'1.4c','Avianca LifeMiles':'1.5c','British Airways Avios':'1.4c','Cathay Pacific Asia Miles':'1.3c','Delta SkyMiles':'1.1c','Emirates Skywards':'1.2c','Etihad Guest':'1.2c','EVA Air Infinity MileageLands':'1.2c','Finnair Plus':'1.4c','Hainan Airlines Fortune Wings':'0.9c','Iberia Avios':'1.4c','Japan Airlines (JAL)':'1.5c','JetBlue TrueBlue':'1.4c','Lufthansa Miles & More':'1.3c','Malaysia Enrich':'1.1c','Qantas Frequent Flyer':'1.3c','Qatar Privilege Club Avios':'1.4c','SAS EuroBonus':'1.1c','Singapore Airlines KrisFlyer':'1.4c','Southwest Rapid Rewards':'1.3c','Spirit Free Spirit':'0.9c','TAP Air Portugal':'1.0c','Thai Airways Royal Orchid Plus':'1.0c','Turkish Airlines Miles&Smiles':'1.1c','United MileagePlus':'1.5c','Vietnam Airlines LotusMiles':'0.9c','Virgin Atlantic Flying Club':'1.3c','Accor Live Limitless':'2.0c','Choice Privileges':'0.6c','Hilton Honors':'0.5c','Hyatt World of Hyatt':'1.7c','IHG One Rewards':'0.5c','Leading Hotels of the World':'1.0c','Marriott Bonvoy':'0.7c','Preferred Hotels iPrefer':'0.8c','Wyndham Rewards':'1.0c'};
+ 
+(function(){
+  var row=document.getElementById('pt-btn-row');
+  PT_BANKS.forEach(function(bk){
+    var el=document.createElement('span');
+    el.id='ptbtn-'+bk.key;el.className='bk-btn';el.textContent=bk.label;
+    el.setAttribute('onclick','setPTBank("'+bk.key+'")');
+    row.appendChild(el);
+  });
+})();
+ 
+var VAL={
+  'Aer Lingus Avios':'1.4c','AeroMexico ClubPremier':'0.8c','Air Canada Aeroplan':'1.5c',
+  'Air France/KLM Flying Blue':'1.3c','Air India Maharaja Club':'1.0c','Alaska Atmos Rewards':'1.5c',
+  'American AAdvantage':'1.8c','ANA Mileage Club':'1.4c','Avianca LifeMiles':'1.5c',
+  'British Airways Avios':'1.4c','Cathay Pacific Asia Miles':'1.3c','Delta SkyMiles':'1.1c',
+  'Emirates Skywards':'1.2c','Etihad Guest':'1.2c','EVA Air Infinity MileageLands':'1.2c',
+  'Finnair Plus':'1.4c','Hainan Airlines Fortune Wings':'0.9c','Iberia Avios':'1.4c',
+  'Japan Airlines (JAL)':'1.5c','JetBlue TrueBlue':'1.4c','Lufthansa Miles & More':'1.3c',
+  'Malaysia Enrich':'1.1c','Qantas Frequent Flyer':'1.3c','Qatar Privilege Club Avios':'1.4c',
+  'SAS EuroBonus':'1.1c','Singapore Airlines KrisFlyer':'1.4c','Southwest Rapid Rewards':'1.3c',
+  'Spirit Free Spirit':'0.9c','TAP Air Portugal':'1.0c','Thai Airways Royal Orchid Plus':'1.0c',
+  'Turkish Airlines Miles&Smiles':'1.1c','United MileagePlus':'1.5c','Vietnam Airlines LotusMiles':'0.9c',
+  'Virgin Atlantic Flying Club':'1.3c',
+  'Accor Live Limitless':'2.0c','Choice Privileges':'0.6c','Hilton Honors':'0.5c',
+  'Hyatt World of Hyatt':'1.7c','IHG One Rewards':'0.5c','Leading Hotels of the World':'1.0c',
+  'Marriott Bonvoy':'0.7c','Preferred Hotels iPrefer':'0.8c','Wyndham Rewards':'1.0c'
+};
+ 
 var PM=[
   {n:'Aer Lingus Avios',t:'a',kw:'avios british oneworld aer lingus ireland europe amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant',v:'via BA'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'?',v:'via Qatar'}},
   {n:'AeroMexico ClubPremier',t:'a',kw:'aeromexico mexico latin america amex capital one rove',A:{r:'1:1.6',s:'Instant'},CO:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
@@ -730,40 +821,123 @@ var PM=[
 PM.sort(function(a,b){if(a.t!==b.t)return a.t==='a'?-1:1;return a.n.localeCompare(b.n);});
  
 var ptBank='';
-function setPTBank(bk){ptBank=(ptBank===bk)?'':bk;PT_BANKS.forEach(function(b){var el=document.getElementById('ptbtn-'+b.key);if(el)el.className='bk-btn'+(b.key===ptBank?' sel':'');});renderPT();}
-function clearPT(){ptBank='';document.getElementById('ptq').value='';PT_BANKS.forEach(function(b){var el=document.getElementById('ptbtn-'+b.key);if(el)el.className='bk-btn';});renderPT();}
-function getPTQ(){var el=document.getElementById('ptq');return el?el.value.toLowerCase().trim():'';}
-function ptMatches(p){var q=getPTQ();if(ptBank&&!p[ptBank])return false;if(!q)return true;var hay=(p.n+' '+(p.kw||'')).toLowerCase();return q.split(/\s+/).every(function(w){return !w||hay.indexOf(w)>=0;});}
+function setPTBank(bk){
+  ptBank=(ptBank===bk)?'':bk;
+  PT_BANKS.forEach(function(b){
+    var el=document.getElementById('ptbtn-'+b.key);
+    if(el) el.className='bk-btn'+(b.key===ptBank?' sel':'');
+  });
+  renderPT();
+}
+function clearPT(){
+  ptBank='';
+  document.getElementById('ptq').value='';
+  PT_BANKS.forEach(function(b){
+    var el=document.getElementById('ptbtn-'+b.key);
+    if(el) el.className='bk-btn';
+  });
+  renderPT();
+}
+function getPTQ(){
+  var el=document.getElementById('ptq');
+  return el?el.value.toLowerCase().trim():'';
+}
+function ptMatches(p){
+  var q=getPTQ();
+  if(ptBank&&!p[ptBank]) return false;
+  if(!q) return true;
+  var hay=(p.n+' '+(p.kw||'')).toLowerCase();
+  return q.split(/\s+/).every(function(w){return !w||hay.indexOf(w)>=0;});
+}
 function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
-function hlText(str){var q=getPTQ();if(!q)return str;q.split(/\s+/).filter(function(w){return w.length>1;}).forEach(function(w){var re=new RegExp('('+escRe(w)+')','gi');str=str.replace(re,'<mark class="hl">$1</mark>');});return str;}
-function ptSC(s){if(!s||s==='?')return'ss';if(s==='Instant')return'si';if(s.indexOf('hr')>=0||s.indexOf('min')>=0)return'sf';return'ss';}
-function ptCell(d){if(!d)return'<td><span class="np">-</span></td>';var o='<td><span class="mr">'+d.r+'</span>';if(d.v)o+='<span class="vi">'+d.v+'</span>';o+='<span class="'+ptSC(d.s)+'">'+d.s+'</span></td>';return o;}
+function hlText(str){
+  var q=getPTQ();
+  if(!q) return str;
+  q.split(/\s+/).filter(function(w){return w.length>1;}).forEach(function(w){
+    var re=new RegExp('('+escRe(w)+')','gi');
+    str=str.replace(re,'<mark class="hl">$1</mark>');
+  });
+  return str;
+}
+function ptSC(s){
+  if(!s||s==='?') return 'ss';
+  if(s==='Instant') return 'si';
+  if(s.indexOf('hr')>=0||s.indexOf('min')>=0) return 'sf';
+  return 'ss';
+}
+function ptCell(d){
+  if(!d) return'<td><span class="np">-</span></td>';
+  var o='<td><span class="mr">'+d.r+'</span>';
+  if(d.v) o+='<span class="vi">'+d.v+'</span>';
+  o+='<span class="'+ptSC(d.s)+'">'+d.s+'</span></td>';
+  return o;
+}
  
 function renderPT(){
   var filtered=PM.filter(function(p){return ptMatches(p);});
   var air=filtered.filter(function(p){return p.t==='a';});
   var htl=filtered.filter(function(p){return p.t==='h';});
   var total=filtered.length;
-  var bankLabel='';if(ptBank)PT_BANKS.forEach(function(b){if(b.key===ptBank)bankLabel=b.label;});
+  var bankLabel='';
+  if(ptBank) PT_BANKS.forEach(function(b){if(b.key===ptBank) bankLabel=b.label;});
   var desc='Showing '+total+' of '+PM.length+' programs (A-Z)';
-  if(bankLabel)desc+=' - '+bankLabel+' partners only';
-  if(getPTQ())desc+=' - matching "'+getPTQ()+'"';
+  if(bankLabel) desc+=' - '+bankLabel+' partners only';
+  if(getPTQ()) desc+=' - matching "'+getPTQ()+'"';
   document.getElementById('pt-rc').textContent=desc;
-  if(total===0){document.getElementById('pt-res').innerHTML='<div class="nores">No programs match.<br><span style="color:#C8102E;cursor:pointer;font-weight:700" onclick="clearPT()">Clear filters</span></div>';return;}
+  if(total===0){
+    document.getElementById('pt-res').innerHTML='<div class="nores">No programs match.<br><span style="color:#C8102E;cursor:pointer;font-weight:700" onclick="clearPT()">Clear filters</span></div>';
+    return;
+  }
   var cols=PT_BANKS.length+2;
   var h='<div class="mx-wrap"><table class="mx"><thead><tr><th>Program</th><th class="mmh">MM Value</th>';
-  PT_BANKS.forEach(function(b){h+='<th><span class="pill '+PT_PIL[b.key]+'">'+(PT_SHORT[b.label]||b.label)+'</span></th>';});
+  PT_BANKS.forEach(function(b){
+    h+='<th><span class="pill '+PT_PIL[b.key]+'">'+(PT_SHORT[b.label]||b.label)+'</span></th>';
+  });
   h+='</tr></thead><tbody>';
-  if(air.length){h+='<tr><td colspan="'+cols+'" class="cat-r">Airlines - A to Z ('+air.length+')</td></tr>';air.forEach(function(p){h+='<tr><td>'+hlText(p.n)+'<span class="type-air">AIR</span></td><td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});h+='</tr>';});}
-  if(htl.length){h+='<tr><td colspan="'+cols+'" class="cat-r">Hotels - A to Z ('+htl.length+')</td></tr>';htl.forEach(function(p){h+='<tr><td>'+hlText(p.n)+'<span class="type-htl">HTL</span></td><td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});h+='</tr>';});}
+  if(air.length){
+    h+='<tr><td colspan="'+cols+'" class="cat-r">Airlines - A to Z ('+air.length+')</td></tr>';
+    air.forEach(function(p){
+      h+='<tr><td>'+hlText(p.n)+'<span class="type-air">AIR</span></td>';
+      h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
+      PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
+      h+='</tr>';
+    });
+  }
+  if(htl.length){
+    h+='<tr><td colspan="'+cols+'" class="cat-r">Hotels - A to Z ('+htl.length+')</td></tr>';
+    htl.forEach(function(p){
+      h+='<tr><td>'+hlText(p.n)+'<span class="type-htl">HTL</span></td>';
+      h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
+      PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
+      h+='</tr>';
+    });
+  }
   h+='</tbody></table></div>';
   h+='<div class="leg"><span class="lgsw">Yellow = Monkey Miles value</span><span class="si">Instant</span><span>= posts right away</span><span style="color:#e65100;font-size:10px;font-style:italic">italics = indirect</span><span class="np">-</span><span>= not a partner</span></div>';
-  h+='<div class="fn">MM valuations based on Zach\'s framework - lowest observed sale prices and sweet spot redemptions. Amex, Bilt & Chase (~2c); Citi & Capital One (~1.7c); Wells Fargo (~1.5c). Ratio data: FrequentMiler & TPG (March 2026).</div>';
+  h+='<div class="fn">MM valuations based on Zach&#39;s framework - lowest observed sale prices and sweet spot redemptions. Amex, Bilt & Chase (~2c); Citi & Capital One (~1.7c); Wells Fargo (~1.5c). Ratios: FrequentMiler & TPG (March 2026).</div>';
   h+='<div class="src">Valuations: <a href="https://monkeymiles.boardingarea.com/points-miles-worth/" target="_blank">MonkeyMiles.boardingarea.com</a> - Ratios: <a href="https://frequentmiler.com/transfer-partner-master-list/" target="_blank">FrequentMiler</a> & <a href="https://thepointsguy.com/credit-cards/credit-card-transfer-partners/" target="_blank">TPG</a></div>';
   document.getElementById('pt-res').innerHTML=h;
 }
  
-setInterval(function(){if(window.parent!==window){window.parent.postMessage({height:document.body.scrollHeight},'*');}},500);
+// ── IFRAME AUTO-RESIZE ──
+// Wraps in try/catch to silently handle cross-origin restrictions.
+// Uses mmhub:true so the WordPress listener only fires for this widget.
+//
+// WORDPRESS LISTENER - paste alongside your iframe tag:
+//   window.addEventListener('message',function(e){
+//     if(e.data&&e.data.mmhub&&e.data.height){
+//       var f=document.getElementById('mm-hub-frame');
+//       if(f) f.height=e.data.height+20;
+//     }
+//   });
+setInterval(function(){
+  try{
+    if(window.self!==window.top){
+      window.parent.postMessage({mmhub:true,height:document.body.scrollHeight},'*');
+    }
+  }catch(e){}
+},500);
+ 
 PP();RC();RH();CU();renderPT();
 </script>
 </body>
