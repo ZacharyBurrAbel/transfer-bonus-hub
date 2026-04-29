@@ -304,12 +304,17 @@ var CUR=[
   {bank:'Citi',prog:'Virgin Atlantic',pk:'Virgin Atlantic',pct:30,exp:'2026-04-30'},
   {bank:'Citi',prog:'Leading Hotels of the World',pk:'Leading Hotels of the World',pct:25,exp:'2026-05-16',isNew:true},
   {bank:'Citi',prog:'Wyndham Rewards',pk:'Wyndham',pct:25,exp:'2026-04-30'},
-  {bank:'Capital One',prog:'Japan Airlines (JAL)',pk:'Japan Airlines',pct:30,exp:'2026-04-30'},
-  {bank:'Bilt',prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',pct:100,exp:'2026-05-01',isNew:true}
+  {bank:'Capital One',prog:'Japan Airlines (JAL)',pk:'Japan Airlines',pct:30,exp:'2026-04-30'}
+];
+ 
+/* ─── UPCOMING BONUSES (known future, not yet active) ─── */
+var UPCOMING=[
+  {bank:'Bilt',prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',pct:100,
+   date:'2026-05-01',note:'Bilt Rent Day only &#183; May 1 only &#183; 40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+',isNew:true}
 ];
  
 function RC(){
-  if(!CUR.length){
+  if(!CUR.length && !UPCOMING.length){
     document.getElementById('cards').innerHTML='<p style="color:#666;font-size:13px">No active bonuses right now. Check back soon!</p>';
     document.getElementById('sb').innerHTML='';
     document.getElementById('ath-alert').style.display='none';
@@ -317,8 +322,8 @@ function RC(){
   }
   var ac=CUR.filter(function(b){return isA(b.bank,b.pk,b.pct);}).length;
   document.getElementById('ath-alert').style.display=ac>0?'flex':'none';
-  var maxDays=Math.max.apply(null,CUR.map(function(b){var d=DL(b.exp);return d!==null?Math.max(0,d):0;}));
-  var maxPct=Math.max.apply(null,CUR.map(function(b){return b.pct;}));
+  var maxDays=CUR.length?Math.max.apply(null,CUR.map(function(b){var d=DL(b.exp);return d!==null?Math.max(0,d):0;})):0;
+  var maxPct=CUR.length?Math.max.apply(null,CUR.map(function(b){return b.pct;})):0;
   document.getElementById('sb').innerHTML=[
     {n:CUR.length,l:'Active bonuses',a:0},
     {n:maxPct+'%',l:'Highest bonus',a:0},
@@ -327,10 +332,11 @@ function RC(){
   ].map(function(s){
     return'<div class="sc"><div class="'+(s.a?'sna':'sn2')+'">'+s.n+'</div><div class="sl">'+s.l+'</div></div>';
   }).join('');
-  document.getElementById('cards').innerHTML=CUR.map(function(b){
+ 
+  // Active cards
+  var activeHtml=CUR.map(function(b){
     var at=isA(b.bank,b.pk,b.pct);
     var d=DL(b.exp);
-    /* clamp: never show negative days on active cards */
     var dShow=d!==null?Math.max(0,d):null;
     var dc=dShow===null?'dok':dShow===0?'durg':dShow<=5?'durg':dShow<=14?'dwrn':'dok';
     var dl=dShow===null?'Unknown':dShow===0?'Expires today':dShow+' days left';
@@ -344,6 +350,28 @@ function RC(){
       '<div class="bn">'+b.prog+'</div>'+
       '<div class="bf"><span class="exp">Expires '+fmtExp(b.exp)+'</span><span class="'+dc+'">'+dl+'</span></div></div>';
   }).join('');
+ 
+  // Upcoming cards
+  var upcomingHtml='';
+  if(UPCOMING.length){
+    upcomingHtml='<div style="margin-top:14px;margin-bottom:6px;font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.06em">&#128336; Upcoming Bonuses</div>';
+    upcomingHtml+=UPCOMING.map(function(b){
+      var dUntil=DL(b.date);
+      var dLabel=dUntil===0?'Tomorrow!':dUntil===1?'In 1 day':'In '+(dUntil!==null?dUntil:'?')+' days';
+      return'<div class="bc" style="border:2px dashed #aaa;background:#fafafa;opacity:.92">'+
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
+        '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
+        '<span>'+(b.isNew?'<span class="new-badge">New</span>&nbsp;':'')+
+        '<span style="font-size:11px;color:#888;font-weight:700">&#128336; Upcoming</span></span></div>'+
+        '<div class="bp" style="color:#888">'+b.pct+'<span>% max bonus</span></div>'+
+        '<div class="bn" style="color:#555">'+b.prog+'</div>'+
+        '<div style="font-size:10px;color:#888;margin-top:6px;line-height:1.5">'+b.note+'</div>'+
+        '<div class="bf"><span class="exp">Active: '+fmtExp(b.date)+'</span>'+
+        '<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#f0f0f0;color:#555">'+dLabel+'</span></div></div>';
+    }).join('');
+  }
+ 
+  document.getElementById('cards').innerHTML=activeHtml+upcomingHtml;
 }
  
 /* ─── HISTORY DATA ───
