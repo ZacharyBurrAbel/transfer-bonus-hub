@@ -299,11 +299,13 @@ function ST(name,btn){
 var CUR=[
   {bank:'Chase',prog:'Aeroplan (Air Canada)',pk:'Aeroplan',pct:20,exp:'2026-04-30'},
   {bank:'Chase',prog:'IHG Rewards',pk:'IHG',pct:70,exp:'2026-04-30'},
+  {bank:'Amex',prog:'Hilton Honors',pk:'Hilton',pct:20,exp:'2026-05-30'},
   {bank:'Citi',prog:'Avianca LifeMiles',pk:'Avianca LifeMiles',pct:25,exp:'2026-04-30'},
   {bank:'Citi',prog:'Virgin Atlantic',pk:'Virgin Atlantic',pct:30,exp:'2026-04-30'},
   {bank:'Citi',prog:'Leading Hotels of the World',pk:'Leading Hotels of the World',pct:25,exp:'2026-05-16',isNew:true},
   {bank:'Citi',prog:'Wyndham Rewards',pk:'Wyndham',pct:25,exp:'2026-04-30'},
-  {bank:'Capital One',prog:'Japan Airlines (JAL)',pk:'Japan Airlines',pct:30,exp:'2026-04-30'}
+  {bank:'Capital One',prog:'Japan Airlines (JAL)',pk:'Japan Airlines',pct:30,exp:'2026-04-30'},
+  {bank:'Bilt',prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',pct:100,exp:'2026-05-01',isNew:true}
 ];
  
 function RC(){
@@ -360,11 +362,13 @@ var HIST=[
   {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'1/1/2026',e:'4/30/2026',y:2026,a:1},
   {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
   /* Bilt Rent Day 2026 */
+  {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Japan Airlines - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Japan Airlines'],pct:'25-125%',n:125,s:'March 2026',e:'March 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Accor - Up to 125% transfer bonus',progs:['Accor'],pct:'Up to 125%',n:125,s:'February 2026',e:'February 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Amazon Bonus + Rent Credit Bonuses',progs:[],pct:'Varies',n:0,s:'January 2026',e:'January 2026',y:2026,a:0,isBilt:true},
   /* 2026 expired */
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:1},
   {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/1/2026',e:'3/28/2026',y:2026,a:0},
   {b:'Capital One',p:'iPrefer',progs:['iPrefer'],pct:'30%',n:30,s:'1/1/2026',e:'3/31/2026',y:2026,a:0},
   {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'1/1/2026',e:'2/11/2026',y:2026,a:0},
