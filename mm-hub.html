@@ -213,18 +213,89 @@ tr:hover td{background:#fafafa}
  
 <!-- TAB 4: CALCULATOR -->
 <div id="tab-calc" class="panel">
+ 
+  <!-- ── SECTION 1: VALUE COMPARISON ── -->
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#666;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #C8102E">
+    Is This Transfer Worth It?
+  </div>
+ 
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start;margin-bottom:14px">
+ 
+    <!-- FROM side -->
+    <div style="background:#fff;border:1px solid #e5e5e5;border-radius:6px 0 0 6px;padding:14px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#666;margin-bottom:8px">Transferring FROM</div>
+      <select id="vc-bank" onchange="VCbankChange()" style="width:100%;font-size:13px;padding:7px 9px;border:1px solid #e5e5e5;border-radius:4px;margin-bottom:8px;font-family:Arial,sans-serif">
+        <option value="">-- Select bank --</option>
+        <option value="Amex">Amex (~2.0&#162;/pt)</option>
+        <option value="Bilt">Bilt (~2.0&#162;/pt)</option>
+        <option value="Chase">Chase (~2.0&#162;/pt)</option>
+        <option value="Citi">Citi (~1.7&#162;/pt)</option>
+        <option value="Capital One">Capital One (~1.7&#162;/pt)</option>
+        <option value="Wells Fargo">Wells Fargo (~1.5&#162;/pt)</option>
+        <option value="Rove">Rove (~1.5&#162;/pt)</option>
+      </select>
+      <input id="vc-pts" type="number" value="50000" min="1" step="1000" oninput="VCcalc()"
+        style="width:100%;font-size:22px;font-weight:700;padding:8px 9px;border:1px solid #e5e5e5;border-radius:4px;color:#C8102E;font-family:Georgia,serif;text-align:center"/>
+      <div style="font-size:10px;color:#999;text-align:center;margin-top:4px">points to transfer</div>
+      <div id="vc-from-val" style="margin-top:10px;text-align:center;font-size:13px;color:#444;min-height:20px"></div>
+    </div>
+ 
+    <!-- Arrow middle -->
+    <div style="background:#f0f0f0;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:100%">
+      <div style="font-size:18px;color:#C8102E">&#10132;</div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:#999;text-align:center">ratio</div>
+      <div id="vc-ratio-lbl" style="font-size:11px;font-weight:700;color:#444;text-align:center">1:1</div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:#999;text-align:center;margin-top:4px">bonus</div>
+      <div id="vc-bonus-lbl" style="font-size:11px;font-weight:700;color:#2e7d32;text-align:center">+0%</div>
+    </div>
+ 
+    <!-- TO side -->
+    <div style="background:#fff;border:1px solid #e5e5e5;border-left:none;border-radius:0 6px 6px 0;padding:14px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#666;margin-bottom:8px">Transferring TO</div>
+      <select id="vc-prog" onchange="VCcalc()" style="width:100%;font-size:13px;padding:7px 9px;border:1px solid #e5e5e5;border-radius:4px;margin-bottom:8px;font-family:Arial,sans-serif">
+        <option value="">-- Select program --</option>
+      </select>
+      <div id="vc-pts-recv" style="font-size:22px;font-weight:700;color:#1b5e20;font-family:Georgia,serif;text-align:center;padding:8px 0">—</div>
+      <div style="font-size:10px;color:#999;text-align:center;margin-top:0px">points received</div>
+      <div id="vc-to-val" style="margin-top:10px;text-align:center;font-size:13px;color:#444;min-height:20px"></div>
+    </div>
+  </div>
+ 
+  <!-- Bonus % row -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#666;white-space:nowrap">Active bonus %</div>
+    <input id="vc-pct" type="number" value="0" min="0" max="500" step="5" oninput="VCcalc()"
+      style="width:80px;font-size:13px;padding:5px 8px;border:1px solid #e5e5e5;border-radius:4px;font-family:Arial,sans-serif;text-align:center"/>
+    <div style="font-size:11px;color:#999">(enter 0 if no bonus is running)</div>
+  </div>
+ 
+  <!-- Result verdict -->
+  <div id="vc-verdict" style="display:none;border-radius:6px;padding:14px 16px;margin-bottom:18px"></div>
+ 
+  <!-- Value breakdown table -->
+  <div id="vc-table" style="display:none;background:#fff;border:1px solid #e5e5e5;border-radius:6px;overflow:hidden;margin-bottom:18px">
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr style="background:#f4f4f4">
+        <th style="padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#666;border-bottom:1px solid #e5e5e5">Metric</th>
+        <th style="padding:8px 12px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#666;border-bottom:1px solid #e5e5e5" id="vc-th-from">From</th>
+        <th style="padding:8px 12px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#666;border-bottom:1px solid #e5e5e5" id="vc-th-to">To</th>
+      </tr></thead>
+      <tbody id="vc-tbody"></tbody>
+    </table>
+  </div>
+ 
+  <!-- divider -->
+  <div style="border-top:1px solid #e5e5e5;margin-bottom:16px;padding-top:16px">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#666;margin-bottom:12px">Bonus Points Calculator</div>
+  </div>
+ 
+  <!-- ── SECTION 2: BONUS CALCULATOR (original) ── -->
   <div class="cw"><div class="cc">
     <div class="cl">Points to transfer</div>
     <input class="ci" type="number" id="cp" value="50000" min="1" step="1000" oninput="CU()"/>
-    <div class="cl">Select bonus</div>
+    <div class="cl">Select transfer program &amp; bonus</div>
     <select class="ci" id="cs" onchange="CU()">
-      <option value="20|Chase to Aeroplan|false">20% - Chase to Aeroplan</option>
-      <option value="70|Chase to IHG|true" selected>70% - Chase to IHG (ATH)</option>
-      <option value="25|Citi to Avianca|false">25% - Citi to Avianca LifeMiles</option>
-      <option value="30|Citi to Virgin Atlantic|false">30% - Citi to Virgin Atlantic</option>
-      <option value="25|Citi to Leading Hotels|false">25% - Citi to Leading Hotels (New)</option>
-      <option value="30|Capital One to JAL|true">30% - Capital One to Japan Airlines (ATH)</option>
-      <option value="custom|Custom|false">Custom %</option>
+      <option value="">-- Loading programs... --</option>
     </select>
     <div id="cstm" style="display:none">
       <div class="cl">Custom bonus %</div>
@@ -233,6 +304,7 @@ tr:hover td{background:#fafafa}
     <table class="rt" id="cres"></table>
     <div class="ct ct-err" id="ctip" style="display:none"></div>
   </div></div>
+ 
 </div>
  
 <!-- TAB 5: STRATEGY -->
@@ -747,7 +819,236 @@ function RH(){
   document.getElementById('hcnt').textContent=d.length+' record'+(d.length!==1?'s':'')+' shown';
 }
  
-/* ─── CALCULATOR ─── */
+/* ─── VALUE COMPARISON ENGINE ───────────────────────────────
+   Bank point values and program values in cents per point.
+   Ratios: how many program points you get per bank point.
+   ─────────────────────────────────────────────────────────── */
+var BANK_VAL={
+  'Amex':2.0,'Bilt':2.0,'Chase':2.0,
+  'Citi':1.7,'Capital One':1.7,
+  'Wells Fargo':1.5,'Rove':1.5
+};
+ 
+// Program values in cents per point (Zach MM framework)
+var PROG_VAL={
+  'Aer Lingus Avios':1.4,'AeroMexico ClubPremier':0.8,'Air Canada Aeroplan':1.5,
+  'Air France/KLM Flying Blue':1.3,'Air India Maharaja Club':1.0,'Alaska Atmos Rewards':1.5,
+  'American AAdvantage':1.8,'ANA Mileage Club':1.4,'Avianca LifeMiles':1.5,
+  'British Airways Avios':1.4,'Cathay Pacific Asia Miles':1.3,'Delta SkyMiles':1.1,
+  'Emirates Skywards':1.2,'Etihad Guest':1.2,'EVA Air Infinity MileageLands':1.2,
+  'Finnair Plus':1.4,'Hainan Airlines Fortune Wings':0.9,'Iberia Avios':1.4,
+  'Japan Airlines (JAL)':1.5,'JetBlue TrueBlue':1.4,'Lufthansa Miles & More':1.3,
+  'Malaysia Enrich':1.1,'Qantas Frequent Flyer':1.3,'Qatar Privilege Club Avios':1.4,
+  'SAS EuroBonus':1.1,'Singapore Airlines KrisFlyer':1.4,'Southwest Rapid Rewards':1.3,
+  'Spirit Free Spirit':0.9,'TAP Air Portugal':1.0,'Thai Airways Royal Orchid Plus':1.0,
+  'Turkish Airlines Miles&Smiles':1.1,'United MileagePlus':1.5,'Vietnam Airlines LotusMiles':0.9,
+  'Virgin Atlantic Flying Club':1.3,
+  'Accor Live Limitless':2.0,'Choice Privileges':0.6,'Hilton Honors':0.5,
+  'Hyatt World of Hyatt':1.7,'IHG One Rewards':0.5,'Leading Hotels of the World':1.0,
+  'Marriott Bonvoy':0.7,'Preferred Hotels iPrefer':0.8,'Wyndham Rewards':1.0
+};
+ 
+// Transfer ratios per bank→program: [fromPts, toPts]
+// e.g. [5,4] means 5 bank pts = 4 program pts (ratio 0.8)
+// Default 1:1 if not listed
+var RATIOS={
+  'Amex':{
+    'AeroMexico ClubPremier':[1,1.6],
+    'Cathay Pacific Asia Miles':[5,4],
+    'Delta SkyMiles':[1,1],
+    'Emirates Skywards':[5,4],
+    'Hilton Honors':[1,2],
+    'JetBlue TrueBlue':[5,4]
+  },
+  'Capital One':{
+    'Emirates Skywards':[4,3],
+    'EVA Air Infinity MileageLands':[4,3],
+    'Japan Airlines (JAL)':[2,1.5],
+    'JetBlue TrueBlue':[5,3]
+  },
+  'Citi':{
+    'Emirates Skywards':[5,4],
+    'Leading Hotels of the World':[5,1]
+  }
+};
+ 
+// Which programs each bank can transfer to (keys from PM array)
+var BANK_PROGS={
+  'Amex':['Aer Lingus Avios','AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','ANA Mileage Club','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Delta SkyMiles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Iberia Avios','JetBlue TrueBlue','Marriott Bonvoy','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Virgin Atlantic Flying Club'],
+  'Bilt':['Aer Lingus Avios','Air Canada Aeroplan','Alaska Atmos Rewards','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','Japan Airlines (JAL)','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Turkish Airlines Miles&Smiles','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
+  'Chase':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','British Airways Avios','Finnair Plus','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','JetBlue TrueBlue','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
+  'Citi':['American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Leading Hotels of the World','Malaysia Enrich','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
+  'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
+  'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios'],
+  'Rove':['Aer Lingus Avios','Air France/KLM Flying Blue','Air India Maharaja Club','British Airways Avios','Etihad Guest','Finnair Plus','Hainan Airlines Fortune Wings','Iberia Avios','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Accor Live Limitless']
+};
+ 
+function getRatio(bank,prog){
+  if(RATIOS[bank]&&RATIOS[bank][prog]) return RATIOS[bank][prog];
+  return [1,1];
+}
+ 
+function VCbankChange(){
+  var bank=document.getElementById('vc-bank').value;
+  var sel=document.getElementById('vc-prog');
+  sel.innerHTML='<option value="">-- Select program --</option>';
+  if(!bank){VCcalc();return;}
+  var progs=BANK_PROGS[bank]||[];
+  progs.slice().sort().forEach(function(p){
+    var o=document.createElement('option');
+    o.value=p;
+    var v=PROG_VAL[p]?(' — '+PROG_VAL[p]+'&#162;/pt'):'';
+    o.innerHTML=p+v;
+    sel.appendChild(o);
+  });
+  VCcalc();
+}
+ 
+function fmt(n){return n>=1000000?(n/1000000).toFixed(2)+'M':n>=1000?(n/1000).toFixed(1)+'k':n.toString();}
+function fmtDollar(n){return '$'+(n>=1000?(n/1000).toFixed(2)+'k':n.toFixed(2));}
+ 
+function VCcalc(){
+  var bank=document.getElementById('vc-bank').value;
+  var prog=document.getElementById('vc-prog').value;
+  var pts=parseInt(document.getElementById('vc-pts').value)||0;
+  var bonusPct=Math.max(0,parseInt(document.getElementById('vc-pct').value)||0);
+ 
+  var verdictEl=document.getElementById('vc-verdict');
+  var tableEl=document.getElementById('vc-table');
+  var fromValEl=document.getElementById('vc-from-val');
+  var toValEl=document.getElementById('vc-to-val');
+  var recvEl=document.getElementById('vc-pts-recv');
+  var ratioLbl=document.getElementById('vc-ratio-lbl');
+  var bonusLbl=document.getElementById('vc-bonus-lbl');
+ 
+  // Update bonus label color
+  bonusLbl.textContent='+'+(bonusPct||0)+'%';
+  bonusLbl.style.color=bonusPct>0?'#2e7d32':'#999';
+ 
+  if(!bank||!prog||pts<=0){
+    verdictEl.style.display='none';
+    tableEl.style.display='none';
+    fromValEl.textContent='';
+    toValEl.textContent='';
+    recvEl.textContent='—';
+    ratioLbl.textContent='1:1';
+    return;
+  }
+ 
+  var bankCPP=BANK_VAL[bank]||2.0;   // cents per bank point
+  var progCPP=PROG_VAL[prog]||1.0;   // cents per program point
+  var ratio=getRatio(bank,prog);      // [fromPts, toPts]
+  var baseRatio=ratio[1]/ratio[0];    // program pts per 1 bank pt
+ 
+  // Points received after ratio + bonus
+  var baseRecv=Math.round(pts*baseRatio);
+  var bonusPts=Math.round(baseRecv*bonusPct/100);
+  var totalRecv=baseRecv+bonusPts;
+ 
+  // Dollar values
+  var fromDollar=pts*bankCPP/100;     // value of bank pts you give up
+  var toDollar=totalRecv*progCPP/100; // value of program pts you receive
+  var gain=toDollar-fromDollar;
+  var gainPct=fromDollar>0?((toDollar/fromDollar-1)*100):0;
+ 
+  // Update UI
+  ratioLbl.textContent=ratio[0]+':'+ratio[1];
+  recvEl.textContent=totalRecv.toLocaleString();
+  fromValEl.innerHTML='<span style="font-size:11px;color:#888">MM value: </span><strong>'+fmtDollar(fromDollar)+'</strong>';
+  toValEl.innerHTML='<span style="font-size:11px;color:#888">MM value: </span><strong style="color:'+(toDollar>=fromDollar?'#1b5e20':'#c62828')+'">'+fmtDollar(toDollar)+'</strong>';
+ 
+  // Verdict
+  var isGood=gainPct>5;
+  var isNeutral=gainPct>=-5&&gainPct<=5;
+  var verdictColor=isGood?'#e8f5e9':isNeutral?'#fff8e1':'#fff5f5';
+  var verdictBorder=isGood?'#2e7d32':isNeutral?'#f9a825':'#c62828';
+  var verdictText,verdictSub;
+  if(isGood){
+    verdictText='&#9989; Worth it — Gotchu Bay Bay!';
+    verdictSub='You gain '+fmtDollar(Math.abs(gain))+' in value ('+(gainPct>0?'+':'')+gainPct.toFixed(1)+'%). The program points are worth more than the bank points you are spending.';
+  } else if(isNeutral){
+    verdictText='&#9866; Roughly break-even';
+    verdictSub='The values are close ('+gainPct.toFixed(1)+'%). Only transfer if you have a specific redemption in mind that justifies it.';
+  } else {
+    verdictText='&#9888; Value loss — think twice';
+    verdictSub='You lose '+fmtDollar(Math.abs(gain))+' in value ('+gainPct.toFixed(1)+'%). Only transfer if your redemption is worth more than '+fmtDollar(toDollar)+' — otherwise you are leaving value on the table.';
+  }
+ 
+  verdictEl.style.display='block';
+  verdictEl.style.background=verdictColor;
+  verdictEl.style.borderLeft='4px solid '+verdictBorder;
+  verdictEl.style.borderRadius='0 6px 6px 0';
+  verdictEl.innerHTML='<div style="font-weight:700;font-size:13px;color:'+verdictBorder+';margin-bottom:4px">'+verdictText+'</div>'+
+    '<div style="font-size:12px;color:#444;line-height:1.5">'+verdictSub+'</div>';
+ 
+  // Table
+  tableEl.style.display='block';
+  document.getElementById('vc-th-from').textContent=bank+' pts';
+  document.getElementById('vc-th-to').textContent=prog;
+ 
+  var rows=[
+    ['Points',pts.toLocaleString(),totalRecv.toLocaleString()],
+    ['Value per point',bankCPP.toFixed(1)+'&#162;',progCPP.toFixed(1)+'&#162;'],
+    ['Transfer ratio','1:1',ratio[0]+':'+ratio[1]+(baseRatio<1?' (loss)':baseRatio>1?' (gain)':'')],
+    bonusPct>0?['Bonus applied','—','+'+bonusPct+'% (+'+bonusPts.toLocaleString()+' pts)']:null,
+    ['MM dollar value','<strong>'+fmtDollar(fromDollar)+'</strong>','<strong style="color:'+(toDollar>=fromDollar?'#1b5e20':'#c62828')+'">'+fmtDollar(toDollar)+'</strong>'],
+    ['Value change','—','<strong style="color:'+(gain>=0?'#1b5e20':'#c62828')+'">'+(gain>=0?'+':'')+fmtDollar(gain)+' ('+(gainPct>=0?'+':'')+gainPct.toFixed(1)+'%)</strong>']
+  ].filter(Boolean);
+ 
+  document.getElementById('vc-tbody').innerHTML=rows.map(function(r,i){
+    var bg=i%2===0?'#fff':'#fafafa';
+    var last=(i===rows.length-1);
+    return'<tr style="background:'+bg+(last?';border-top:2px solid #e5e5e5':'')+'">'+
+      '<td style="padding:7px 12px;color:#666;border-bottom:1px solid #f0f0f0">'+r[0]+'</td>'+
+      '<td style="padding:7px 12px;text-align:right;border-bottom:1px solid #f0f0f0">'+r[1]+'</td>'+
+      '<td style="padding:7px 12px;text-align:right;border-bottom:1px solid #f0f0f0">'+r[2]+'</td>'+
+      '</tr>';
+  }).join('');
+}
+ 
+/* ── BONUS CALCULATOR (original CU function) ──
+   Dropdown is built dynamically by buildCalcDropdown():
+   - Active bonuses from CUR appear first (with Live badge)
+   - All 43 transfer programs follow alphabetically with 0% default
+   - Custom % option always last                                    */
+function buildCalcDropdown(){
+  var sel=document.getElementById('cs');
+  if(!sel) return;
+  var opts=[];
+ 
+  // 1. Active bonuses (live CUR entries that are currently showing)
+  var liveBonuses=CUR.filter(function(b){
+    return b.sameDay?isToday(b.exp):(DL(b.exp)!==null&&DL(b.exp)>=0);
+  });
+  if(liveBonuses.length){
+    opts.push('<option disabled>── Active Bonuses ──</option>');
+    liveBonuses.forEach(function(b){
+      var at=isA(b.bank,b.pk,b.pct);
+      var label=b.pct+'% — '+b.bank+' to '+b.prog+(at?' ★ ATH':'')+(b.sameDay?' (Today only)':'');
+      opts.push('<option value="'+b.pct+'|'+b.bank+' to '+b.prog+'|'+(at?'true':'false')+'">'+label+'</option>');
+    });
+  }
+ 
+  // 2. All programs alphabetically with 0% (user can enter custom %)
+  opts.push('<option disabled>── All Programs (0% — enter bonus manually) ──</option>');
+  var allProgs=Object.keys(PROG_VAL).slice().sort();
+  allProgs.forEach(function(p){
+    opts.push('<option value="0|'+p+'|false">'+p+' ('+PROG_VAL[p]+'&#162;/pt)</option>');
+  });
+ 
+  // 3. Custom
+  opts.push('<option disabled>──────────────</option>');
+  opts.push('<option value="custom|Custom|false">Custom %</option>');
+ 
+  sel.innerHTML=opts.join('');
+  // Pre-select first active bonus if available, else first program
+  if(liveBonuses.length){
+    sel.selectedIndex=1;
+  } else {
+    sel.selectedIndex=1;
+  }
+  CU();
+}
 function CU(){
   var cpEl=document.getElementById('cp');
   var csEl=document.getElementById('cs');
@@ -790,16 +1091,19 @@ function CU(){
     var parts=csEl.value.split('|');
     pct=parseInt(parts[0]);
     at=(parts[2]==='true');
+    if(isNaN(pct)) pct=0;
   }
  
   var bn=Math.round(pts*pct/100);
   var tot=pts+bn;
+  var progLabel=csEl.options[csEl.selectedIndex]?csEl.options[csEl.selectedIndex].text.split('(')[0].trim():'';
   resEl.innerHTML=
     '<tr><td style="color:#666">Points transferred</td><td class="rv2">'+pts.toLocaleString()+'</td></tr>'+
     '<tr><td style="color:#666">Bonus ('+pct+'%'+(at?' &#9733; ATH':'')+')</td><td class="rb">+'+bn.toLocaleString()+'</td></tr>'+
     '<tr><td>Total received</td><td class="rv2">'+tot.toLocaleString()+'</td></tr>';
   tipEl.style.display='block';
-  if(at){tipEl.className='ct ct-ath';tipEl.textContent='All-Time High - Gotchu Bay Bay! Best ever for this program. Worth acting on if you have a redemption ready.';}
+  if(pct===0){tipEl.className='ct';tipEl.textContent='No active bonus on '+progLabel+'. Enter the current bonus % in the custom field below if one is running, or use the Value Comparison tool above to check if this transfer is worth it.';}
+  else if(at){tipEl.className='ct ct-ath';tipEl.textContent='All-Time High - Gotchu Bay Bay! Best ever for this program. Worth acting on if you have a redemption ready.';}
   else if(pct>=50){tipEl.className='ct';tipEl.textContent='A '+pct+'% bonus is exceptional - bonuses this high do not last long.';}
   else if(pct>=25){tipEl.className='ct';tipEl.textContent='A '+pct+'% bonus adds real value: '+bn.toLocaleString()+' free points. Worth acting on with a redemption in mind.';}
   else{tipEl.className='ct';tipEl.textContent='A '+pct+'% boost is meaningful. Best used when you have a specific booking ready.';}
@@ -1008,7 +1312,7 @@ setInterval(function(){
   }catch(e){}
 },500);
  
-PP();RC();RH();CU();renderPT();
+PP();RC();RH();buildCalcDropdown();CU();renderPT();
 </script>
 </body>
 </html>
