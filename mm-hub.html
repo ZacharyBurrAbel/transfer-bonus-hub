@@ -143,7 +143,7 @@ tr:hover td{background:#fafafa}
   <div class="logo">&#x1F412;</div>
   <div>
     <div class="sn">Monkey<span>Miles</span> &#8212; Points &amp; Miles Hub</div>
-    <div class="tg">Transfer bonuses &#183; Partner matrix &#183; Calculator &#183; Strategy &#183; Updated April 2026</div>
+    <div class="tg">Transfer bonuses &#183; Partner matrix &#183; Calculator &#183; Strategy &#183; Updated <span id="hdr-date">...</span></div>
   </div>
 </div>
 <div class="tab-bar">
@@ -1313,6 +1313,13 @@ setInterval(function(){
 },500);
  
 PP();RC();RH();buildCalcDropdown();CU();renderPT();
+// Set live "Updated" month in header
+(function(){
+  var el=document.getElementById('hdr-date');
+  if(!el) return;
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  el.textContent=months[TODAY.getUTCMonth()]+' '+TODAY.getUTCFullYear();
+})();
 </script>
 </body>
 </html>
