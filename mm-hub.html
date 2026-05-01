@@ -249,17 +249,44 @@ tr:hover td{background:#fafafa}
 </div><!-- end #mm-hub -->
  
 <script>
-/* ─── LIVE DATE (no hardcoded TODAY) ─── */
-function sod(d){return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));}
-var TODAY=sod(new Date());
+/* ─── LIVE DATE ─────────────────────────────────────────────
+   Use US Eastern time to define "today" (UTC-4 during EDT).
+   This keeps a bonus visible for all of its expiry date across
+   every US timezone. A bonus expires only once the Eastern
+   calendar date has moved past its exp date.
+   sameDay bonuses (Bilt Rent Day) show only on their exact date
+   and are gone once Eastern date moves past it.
+   ─────────────────────────────────────────────────────────── */
+function getETDate(){
+  var now=new Date();
+  // EDT = UTC-4; using fixed -4 is generous (Hawaii is UTC-10, still covered)
+  var etMs=now.getTime()-(4*60*60*1000);
+  var et=new Date(etMs);
+  return new Date(Date.UTC(et.getUTCFullYear(),et.getUTCMonth(),et.getUTCDate()));
+}
+var TODAY=getETDate();
  
-/* DL: days until expiry. Returns null for bad input, negative OK for history
-   but RC() clamps to 0 so active cards never show negative. */
-function DL(ds){
+// Parse YYYY-MM-DD safely as a calendar date
+function parseDate(ds){
   if(!ds)return null;
-  var d=new Date(ds);
-  if(isNaN(d.getTime()))return null;
-  return Math.round((sod(d)-TODAY)/86400000);
+  var p=ds.split('-');
+  if(p.length!==3)return null;
+  var d=new Date(Date.UTC(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2])));
+  return isNaN(d.getTime())?null:d;
+}
+ 
+// Days remaining (negative = expired). null = bad date.
+function DL(ds){
+  var d=parseDate(ds);
+  if(!d)return null;
+  return Math.round((d-TODAY)/86400000);
+}
+ 
+// True only if the Eastern calendar date matches ds exactly
+function isToday(ds){
+  var d=parseDate(ds);
+  if(!d)return false;
+  return d.getTime()===TODAY.getTime();
 }
  
 function fmtExp(ds){
@@ -279,11 +306,9 @@ var ATH={
   'Bilt|Japan Airlines':125,'Bilt|Wyndham':125,'Bilt|Etihad':100,'Bilt|Alaska Airlines':100
 };
  
-/* isA: true if this bank+program+value matches or beats the ATH record */
 function isA(b,p,n){
-  var k=b+'|'+p;
-  var v=parseInt(n);
-  return ATH[k]!==undefined && !isNaN(v) && v>0 && v>=ATH[k];
+  var k=b+'|'+p;var v=parseInt(n);
+  return ATH[k]!==undefined&&!isNaN(v)&&v>0&&v>=ATH[k];
 }
  
 var BPIL={Chase:'pC',Amex:'pA',Citi:'pCT','Capital One':'pCO',Bilt:'pB','Wells Fargo':'pW',Rove:'pR'};
@@ -295,51 +320,64 @@ function ST(name,btn){
   btn.classList.add('on');
 }
  
-/* ─── ACTIVE BONUSES ─── */
+/* ─── ACTIVE BONUSES ──────────────────────────────────────
+   exp  = last valid date (YYYY-MM-DD). Shown while DL >= 0.
+   sameDay:true = only shown on exp date itself (Bilt Rent Day).
+   To retire a bonus: remove from CUR. It already lives in HIST.
+   ─────────────────────────────────────────────────────── */
 var CUR=[
-  {bank:'Chase',prog:'Aeroplan (Air Canada)',pk:'Aeroplan',pct:20,exp:'2026-04-30'},
-  {bank:'Chase',prog:'IHG Rewards',pk:'IHG',pct:70,exp:'2026-04-30'},
-  {bank:'Amex',prog:'Hilton Honors',pk:'Hilton',pct:20,exp:'2026-05-30'},
-  {bank:'Citi',prog:'Avianca LifeMiles',pk:'Avianca LifeMiles',pct:25,exp:'2026-04-30'},
-  {bank:'Citi',prog:'Virgin Atlantic',pk:'Virgin Atlantic',pct:30,exp:'2026-04-30'},
-  {bank:'Citi',prog:'Leading Hotels of the World',pk:'Leading Hotels of the World',pct:25,exp:'2026-05-16',isNew:true},
-  {bank:'Citi',prog:'Wyndham Rewards',pk:'Wyndham',pct:25,exp:'2026-04-30'},
-  {bank:'Capital One',prog:'Japan Airlines (JAL)',pk:'Japan Airlines',pct:30,exp:'2026-04-30'}
+  {bank:'Amex',  prog:'Hilton Honors',              pk:'Hilton',                   pct:20,  exp:'2026-05-30'},
+  {bank:'Citi',  prog:'Leading Hotels of the World', pk:'Leading Hotels of the World',pct:25, exp:'2026-05-16',isNew:true},
+  {bank:'Bilt',  prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',pct:100,  exp:'2026-05-01',
+   sameDay:true,isNew:true,
+   note:'Rent Day only &#183; 40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+'}
 ];
  
-/* ─── UPCOMING BONUSES (known future, not yet active) ─── */
-var UPCOMING=[
-  {bank:'Bilt',prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',pct:100,
-   date:'2026-05-01',note:'Bilt Rent Day only &#183; May 1 only &#183; 40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+',isNew:true}
-];
+/* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
+var UPCOMING=[];
  
 function RC(){
-  if(!CUR.length && !UPCOMING.length){
+  // Filter: sameDay only shows on exact date; others show while DL >= 0
+  var live=CUR.filter(function(b){
+    return b.sameDay?isToday(b.exp):(DL(b.exp)!==null&&DL(b.exp)>=0);
+  });
+  var soon=UPCOMING.filter(function(b){
+    var d=DL(b.date);return d!==null&&d>0;
+  });
+ 
+  if(!live.length&&!soon.length){
     document.getElementById('cards').innerHTML='<p style="color:#666;font-size:13px">No active bonuses right now. Check back soon!</p>';
     document.getElementById('sb').innerHTML='';
     document.getElementById('ath-alert').style.display='none';
     return;
   }
-  var ac=CUR.filter(function(b){return isA(b.bank,b.pk,b.pct);}).length;
+ 
+  var ac=live.filter(function(b){return isA(b.bank,b.pk,b.pct);}).length;
   document.getElementById('ath-alert').style.display=ac>0?'flex':'none';
-  var maxDays=CUR.length?Math.max.apply(null,CUR.map(function(b){var d=DL(b.exp);return d!==null?Math.max(0,d):0;})):0;
-  var maxPct=CUR.length?Math.max.apply(null,CUR.map(function(b){return b.pct;})):0;
+  var maxDays=live.length?Math.max.apply(null,live.map(function(b){
+    return b.sameDay?0:Math.max(0,DL(b.exp)||0);
+  })):0;
+  var maxPct=live.length?Math.max.apply(null,live.map(function(b){return b.pct;})):0;
+ 
   document.getElementById('sb').innerHTML=[
-    {n:CUR.length,l:'Active bonuses',a:0},
-    {n:maxPct+'%',l:'Highest bonus',a:0},
-    {n:maxDays+'d',l:'Max days left',a:0},
-    {n:ac,l:'ATH bonuses',a:1}
+    {n:live.length,l:'Active bonuses',a:0},
+    {n:maxPct+'%', l:'Highest bonus', a:0},
+    {n:maxDays+'d',l:'Max days left', a:0},
+    {n:ac,         l:'ATH bonuses',   a:1}
   ].map(function(s){
     return'<div class="sc"><div class="'+(s.a?'sna':'sn2')+'">'+s.n+'</div><div class="sl">'+s.l+'</div></div>';
   }).join('');
  
-  // Active cards
-  var activeHtml=CUR.map(function(b){
+  var activeHtml=live.map(function(b){
     var at=isA(b.bank,b.pk,b.pct);
-    var d=DL(b.exp);
-    var dShow=d!==null?Math.max(0,d):null;
-    var dc=dShow===null?'dok':dShow===0?'durg':dShow<=5?'durg':dShow<=14?'dwrn':'dok';
-    var dl=dShow===null?'Unknown':dShow===0?'Expires today':dShow+' days left';
+    var dc,dl;
+    if(b.sameDay){
+      dc='durg';dl='Today only';
+    } else {
+      var dShow=Math.max(0,DL(b.exp)||0);
+      dc=dShow===0?'durg':dShow<=5?'durg':dShow<=14?'dwrn':'dok';
+      dl=dShow===0?'Expires today':dShow+' days left';
+    }
     return'<div class="bc'+(at?' ath':'')+'">'+
       (at?'<div class="ath-rib">&#9733; ATH</div>':'')+
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
@@ -348,24 +386,24 @@ function RC(){
       '<span class="ldot"></span><span style="font-size:11px;color:#2e7d32;font-weight:700">Live</span></span></div>'+
       '<div class="bp">'+b.pct+'<span>% bonus</span></div>'+
       '<div class="bn">'+b.prog+'</div>'+
-      '<div class="bf"><span class="exp">Expires '+fmtExp(b.exp)+'</span><span class="'+dc+'">'+dl+'</span></div></div>';
+      (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
+      '<div class="bf"><span class="exp">'+(b.sameDay?'Active: '+fmtExp(b.exp):'Expires '+fmtExp(b.exp))+'</span>'+
+      '<span class="'+dc+'">'+dl+'</span></div></div>';
   }).join('');
  
-  // Upcoming cards
   var upcomingHtml='';
-  if(UPCOMING.length){
-    upcomingHtml='<div style="margin-top:14px;margin-bottom:6px;font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.06em">&#128336; Upcoming Bonuses</div>';
-    upcomingHtml+=UPCOMING.map(function(b){
+  if(soon.length){
+    upcomingHtml+='<div style="margin-top:14px;margin-bottom:6px;font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.06em">&#128336; Upcoming</div>';
+    upcomingHtml+=soon.map(function(b){
       var dUntil=DL(b.date);
-      var dLabel=dUntil===0?'Tomorrow!':dUntil===1?'In 1 day':'In '+(dUntil!==null?dUntil:'?')+' days';
-      return'<div class="bc" style="border:2px dashed #aaa;background:#fafafa;opacity:.92">'+
+      var dLabel=dUntil===1?'Tomorrow':dUntil!==null?'In '+dUntil+' days':'';
+      return'<div class="bc" style="border:2px dashed #aaa;background:#fafafa">'+
         '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
         '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
-        '<span>'+(b.isNew?'<span class="new-badge">New</span>&nbsp;':'')+
-        '<span style="font-size:11px;color:#888;font-weight:700">&#128336; Upcoming</span></span></div>'+
-        '<div class="bp" style="color:#888">'+b.pct+'<span>% max bonus</span></div>'+
+        '<span style="font-size:11px;color:#888;font-weight:700">&#128336; Upcoming</span></div>'+
+        '<div class="bp" style="color:#888">'+b.pct+'<span>% max</span></div>'+
         '<div class="bn" style="color:#555">'+b.prog+'</div>'+
-        '<div style="font-size:10px;color:#888;margin-top:6px;line-height:1.5">'+b.note+'</div>'+
+        (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
         '<div class="bf"><span class="exp">Active: '+fmtExp(b.date)+'</span>'+
         '<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#f0f0f0;color:#555">'+dLabel+'</span></div></div>';
     }).join('');
@@ -382,13 +420,8 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
-  {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/22/2026',e:'4/30/2026',y:2026,a:1},
-  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'3/22/2026',e:'4/30/2026',y:2026,a:1},
-  {b:'Citi',p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1,isNew:true},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'1/1/2026',e:'4/30/2026',y:2026,a:1},
-  {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'4/1/2026',e:'4/30/2026',y:2026,a:1},
+  {b:'Amex',  p:'Hilton',                    progs:['Hilton'],                   pct:'20%', n:20, s:'4/28/2026',e:'5/30/2026',y:2026,a:1},
+  {b:'Citi',  p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
@@ -396,7 +429,12 @@ var HIST=[
   {b:'Bilt',p:'Accor - Up to 125% transfer bonus',progs:['Accor'],pct:'Up to 125%',n:125,s:'February 2026',e:'February 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Amazon Bonus + Rent Credit Bonuses',progs:[],pct:'Varies',n:0,s:'January 2026',e:'January 2026',y:2026,a:0,isBilt:true},
   /* 2026 expired */
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:1},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'4/1/2026',e:'4/30/2026',y:2026,a:0},
+  {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'4/1/2026',e:'4/30/2026',y:2026,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/22/2026',e:'4/30/2026',y:2026,a:0},
+  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'3/22/2026',e:'4/30/2026',y:2026,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'1/1/2026',e:'4/30/2026',y:2026,a:0},
+  {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'4/1/2026',e:'4/30/2026',y:2026,a:0},
   {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/1/2026',e:'3/28/2026',y:2026,a:0},
   {b:'Capital One',p:'iPrefer',progs:['iPrefer'],pct:'30%',n:30,s:'1/1/2026',e:'3/31/2026',y:2026,a:0},
   {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'1/1/2026',e:'2/11/2026',y:2026,a:0},
