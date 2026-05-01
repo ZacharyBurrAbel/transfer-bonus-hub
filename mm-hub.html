@@ -136,6 +136,7 @@ tr:hover td{background:#fafafa}
 .src{font-size:10px;color:#666;text-align:right;margin-top:6px}
 .src a{color:#666}
 .disc{font-size:10px;color:#666;margin-top:12px;padding-top:10px;border-top:1px solid #e5e5e5;line-height:1.4}
+.zach-disc{font-size:11px;color:#7a0015;background:#fdf0f2;border-left:3px solid #C8102E;border-radius:0 4px 4px 0;padding:9px 12px;margin-top:14px;line-height:1.6}
 </style>
  
 <div id="mm-hub">
@@ -162,7 +163,8 @@ tr:hover td{background:#fafafa}
     <div class="ab-txt"><strong>&#9733; All-Time High Alert &#8212; Gotchu Bay Bay!</strong>Bonuses marked &#9733; ATH are the best ever recorded for that program.</div>
   </div>
   <div class="grid" id="cards"></div>
-  <div class="disc">Transfers are one-way and permanent. Only transfer when you have a confirmed redemption in mind. Some bonuses may be targeted. Always verify in your bank portal before transferring.</div>
+  <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
+  <div class="disc">Some bonuses may be targeted. Always verify in your bank portal before transferring. Valuations are estimates based on Zach&#39;s framework and may not reflect your specific redemption.</div>
 </div>
  
 <!-- TAB 2: BONUS HISTORY -->
@@ -190,9 +192,8 @@ tr:hover td{background:#fafafa}
     <tbody id="hbdy"></tbody></table>
   </div>
   <div id="hcnt" class="hcnt"></div>
+  <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
 </div>
- 
-<!-- TAB 3: TRANSFER PARTNERS -->
 <div id="tab-partners" class="panel">
   <div class="pt-controls">
     <div class="search-row">
@@ -209,6 +210,7 @@ tr:hover td{background:#fafafa}
   </div>
   <div id="pt-rc" class="pt-rc">Showing all 43 programs</div>
   <div id="pt-res"></div>
+  <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
 </div>
  
 <!-- TAB 4: CALCULATOR -->
@@ -304,7 +306,7 @@ tr:hover td{background:#fafafa}
     <table class="rt" id="cres"></table>
     <div class="ct ct-err" id="ctip" style="display:none"></div>
   </div></div>
- 
+  <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
 </div>
  
 <!-- TAB 5: STRATEGY -->
@@ -317,6 +319,7 @@ tr:hover td{background:#fafafa}
     <div class="sc3 ath-c"><div class="st st-a">All-time high records</div><table class="stbl"><tr><td style="color:#666">Chase to IHG</td><td>100%</td></tr><tr><td style="color:#666">Bilt Platinum (Rent Day)</td><td>200%</td></tr><tr><td style="color:#666">Citi to Turkish Airlines</td><td>50%</td></tr><tr><td style="color:#666">Chase to Marriott</td><td>70%</td></tr><tr><td style="color:#666">Rove to Japan Airlines</td><td>50%</td></tr><tr><td style="color:#666">Capital One to Etihad</td><td>40%</td></tr></table></div>
     <div class="sc3"><div class="st">Bilt Rent Day</div><ul class="sli"><li>Bonuses only on the 1st of each month</li><li>Blue / Silver / Gold / Platinum tiers earn different amounts</li><li>Transfer partners, status matches, credits and more every month</li><li>Set a calendar reminder - announced days early</li><li>See full Rent Day history in the Bonus History tab</li></ul></div>
   </div>
+  <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
 </div>
 </div><!-- end #mm-hub -->
  
@@ -398,10 +401,13 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
-  {bank:'Amex',  prog:'Hilton Honors',              pk:'Hilton',                   pct:20,  exp:'2026-05-30'},
-  {bank:'Citi',  prog:'Leading Hotels of the World', pk:'Leading Hotels of the World',pct:25, exp:'2026-05-16',isNew:true},
-  {bank:'Bilt',  prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',pct:100,  exp:'2026-05-01',
-   sameDay:true,isNew:true,
+  {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:20, exp:'2026-05-30'},
+  {bank:'Citi',        prog:'Leading Hotels of the World',  pk:'Leading Hotels of the World', progKey:'Leading Hotels of the World', pct:25, exp:'2026-05-16'},
+  {bank:'Capital One', prog:'Qantas Frequent Flyer',        pk:'Qantas',          progKey:'Qantas Frequent Flyer',      pct:20, exp:'2026-05-31',isNew:true},
+  {bank:'Chase',       prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-05-27',isNew:true},
+  {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:65, exp:'2026-05-15',isNew:true},
+  {bank:'Bilt',        prog:'British Airways / Iberia / Aer Lingus',pk:'British Airways',progKey:'British Airways Avios',pct:100,exp:'2026-05-01',
+   sameDay:true,
    note:'Rent Day only &#183; 40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+'}
 ];
  
@@ -450,6 +456,22 @@ function RC(){
       dc=dShow===0?'durg':dShow<=5?'durg':dShow<=14?'dwrn':'dok';
       dl=dShow===0?'Expires today':dShow+' days left';
     }
+    // Ratio display
+    var progKey=b.progKey||b.prog;
+    var ratio=getRatio(b.bank,progKey);
+    var baseRatio=ratio[1]/ratio[0];
+    var ratioLabel=ratio[0]+',000 \u2192 '+Math.round(ratio[1]*1000*(1+b.pct/100)).toLocaleString()+' pts';
+    var showRatio=!(ratio[0]===1&&ratio[1]===1&&b.pct===0);
+    var baseStr=ratio[0]===ratio[1]?'1:1 ratio':(ratio[0]+':'+ratio[1]+' base ratio');
+    var exampleBase=Math.round(ratio[1]/ratio[0]*1000);
+    var exampleBonus=Math.round(exampleBase*b.pct/100);
+    var exampleTotal=exampleBase+exampleBonus;
+    var ratioHtml=
+      '<div style="margin-top:8px;padding:7px 10px;background:#f7f7f7;border-radius:4px;font-size:11px;color:#555;line-height:1.6">'+
+      '<span style="color:#888">Base: </span>'+baseStr+
+      (b.pct>0?'<span style="color:#888"> &nbsp;+&nbsp;</span><span style="color:#2e7d32;font-weight:700">'+b.pct+'% bonus</span>':'')+'<br>'+
+      '<span style="color:#888">e.g. 1,000 pts </span>&#8594; <strong>'+exampleTotal.toLocaleString()+'</strong> pts received'+
+      '</div>';
     return'<div class="bc'+(at?' ath':'')+'">'+
       (at?'<div class="ath-rib">&#9733; ATH</div>':'')+
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
@@ -458,6 +480,7 @@ function RC(){
       '<span class="ldot"></span><span style="font-size:11px;color:#2e7d32;font-weight:700">Live</span></span></div>'+
       '<div class="bp">'+b.pct+'<span>% bonus</span></div>'+
       '<div class="bn">'+b.prog+'</div>'+
+      ratioHtml+
       (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
       '<div class="bf"><span class="exp">'+(b.sameDay?'Active: '+fmtExp(b.exp):'Expires '+fmtExp(b.exp))+'</span>'+
       '<span class="'+dc+'">'+dl+'</span></div></div>';
@@ -492,8 +515,11 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
-  {b:'Amex',  p:'Hilton',                    progs:['Hilton'],                   pct:'20%', n:20, s:'4/28/2026',e:'5/30/2026',y:2026,a:1},
-  {b:'Citi',  p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:1},
+  {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1},
+  {b:'Capital One',  p:'Qantas',                    progs:['Qantas'],                    pct:'20%',n:20,s:'5/1/2026', e:'5/31/2026',y:2026,a:1,isNew:true},
+  {b:'Chase',        p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'5/1/2026', e:'5/27/2026',y:2026,a:1,isNew:true},
+  {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'65%',n:65,s:'5/1/2026', e:'5/15/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
@@ -860,6 +886,9 @@ var RATIOS={
     'Hilton Honors':[1,2],
     'JetBlue TrueBlue':[5,4]
   },
+  'Bilt':{
+    'Accor Live Limitless':[2,3]
+  },
   'Capital One':{
     'Emirates Skywards':[4,3],
     'EVA Air Infinity MileageLands':[4,3],
@@ -1006,17 +1035,16 @@ function VCcalc(){
   }).join('');
 }
  
-/* ── BONUS CALCULATOR (original CU function) ──
-   Dropdown is built dynamically by buildCalcDropdown():
-   - Active bonuses from CUR appear first (with Live badge)
-   - All 43 transfer programs follow alphabetically with 0% default
-   - Custom % option always last                                    */
+/* ── BONUS CALCULATOR ──
+   Option value format: "pct|bank|progKey|isATH"
+   bank + progKey feed into getRatio() so transfer ratios
+   are applied correctly (e.g. Amex→Hilton is 1:2 base). */
 function buildCalcDropdown(){
   var sel=document.getElementById('cs');
   if(!sel) return;
   var opts=[];
  
-  // 1. Active bonuses (live CUR entries that are currently showing)
+  // 1. Active bonuses — embed bank and progKey for ratio lookup
   var liveBonuses=CUR.filter(function(b){
     return b.sameDay?isToday(b.exp):(DL(b.exp)!==null&&DL(b.exp)>=0);
   });
@@ -1024,31 +1052,28 @@ function buildCalcDropdown(){
     opts.push('<option disabled>── Active Bonuses ──</option>');
     liveBonuses.forEach(function(b){
       var at=isA(b.bank,b.pk,b.pct);
-      var label=b.pct+'% — '+b.bank+' to '+b.prog+(at?' ★ ATH':'')+(b.sameDay?' (Today only)':'');
-      opts.push('<option value="'+b.pct+'|'+b.bank+' to '+b.prog+'|'+(at?'true':'false')+'">'+label+'</option>');
+      var progKey=b.progKey||b.prog;
+      var ratio=getRatio(b.bank,progKey);
+      var ratioStr=(ratio[0]===1&&ratio[1]===1)?'1:1':(ratio[0]+':'+ratio[1]);
+      var label=b.pct+'% — '+b.bank+' \u2192 '+b.prog+' ['+ratioStr+']'+(at?' \u2605 ATH':'')+(b.sameDay?' (Today only)':'');
+      opts.push('<option value="'+b.pct+'|'+b.bank+'|'+progKey+'|'+(at?'true':'false')+'">'+label+'</option>');
     });
   }
  
-  // 2. All programs alphabetically with 0% (user can enter custom %)
-  opts.push('<option disabled>── All Programs (0% — enter bonus manually) ──</option>');
-  var allProgs=Object.keys(PROG_VAL).slice().sort();
-  allProgs.forEach(function(p){
-    opts.push('<option value="0|'+p+'|false">'+p+' ('+PROG_VAL[p]+'&#162;/pt)</option>');
+  // 2. All programs A-Z — bank unknown so no ratio applied (shown as 1:1)
+  opts.push('<option disabled>── All Programs (ratio shown when bank is known) ──</option>');
+  Object.keys(PROG_VAL).slice().sort().forEach(function(p){
+    opts.push('<option value="0|Any|'+p+'|false">'+p+' ('+PROG_VAL[p]+'\u00A2/pt)</option>');
   });
  
-  // 3. Custom
   opts.push('<option disabled>──────────────</option>');
-  opts.push('<option value="custom|Custom|false">Custom %</option>');
+  opts.push('<option value="custom|Any|Custom|false">Custom %</option>');
  
   sel.innerHTML=opts.join('');
-  // Pre-select first active bonus if available, else first program
-  if(liveBonuses.length){
-    sel.selectedIndex=1;
-  } else {
-    sel.selectedIndex=1;
-  }
+  sel.selectedIndex=1;
   CU();
 }
+ 
 function CU(){
   var cpEl=document.getElementById('cp');
   var csEl=document.getElementById('cs');
@@ -1057,56 +1082,80 @@ function CU(){
   var tipEl=document.getElementById('ctip');
   var resEl=document.getElementById('cres');
  
-  var isCustom=(csEl.value==='custom|Custom|false');
-  /* Always sync custom field visibility and clear its error on mode switch */
+  var val=csEl.value||'';
+  var isCustom=(val==='custom|Any|Custom|false');
   cstmEl.style.display=isCustom?'block':'none';
   if(!isCustom) cpctEl.classList.remove('err');
  
-  /* Validate points */
   var pts=parseInt(cpEl.value);
   if(isNaN(pts)||pts<=0){
-    cpEl.classList.add('err');
-    resEl.innerHTML='';
-    tipEl.className='ct ct-err';
-    tipEl.style.display='block';
+    cpEl.classList.add('err');resEl.innerHTML='';
+    tipEl.className='ct ct-err';tipEl.style.display='block';
     tipEl.textContent='Please enter a valid number of points greater than 0.';
     return;
   }
   cpEl.classList.remove('err');
  
-  var pct,at=false;
+  // Parse option value: "pct|bank|progKey|isATH"
+  var parts=val.split('|');
+  var pct,bank,progKey,at=false;
   if(isCustom){
     pct=parseInt(cpctEl.value);
     if(isNaN(pct)||pct<=0||pct>500){
-      cpctEl.classList.add('err');
-      resEl.innerHTML='';
-      tipEl.className='ct ct-err';
-      tipEl.style.display='block';
+      cpctEl.classList.add('err');resEl.innerHTML='';
+      tipEl.className='ct ct-err';tipEl.style.display='block';
       tipEl.textContent='Please enter a bonus % between 1 and 500.';
       return;
     }
     cpctEl.classList.remove('err');
-    at=false;
+    bank='Any';progKey='Custom';at=false;
   } else {
-    var parts=csEl.value.split('|');
-    pct=parseInt(parts[0]);
-    at=(parts[2]==='true');
-    if(isNaN(pct)) pct=0;
+    pct=parseInt(parts[0])||0;
+    bank=parts[1]||'Any';
+    progKey=parts[2]||'';
+    at=(parts[3]==='true');
   }
  
-  var bn=Math.round(pts*pct/100);
-  var tot=pts+bn;
-  var progLabel=csEl.options[csEl.selectedIndex]?csEl.options[csEl.selectedIndex].text.split('(')[0].trim():'';
+  // Apply transfer ratio
+  var ratio=getRatio(bank,progKey);        // [fromPts, toPts]
+  var baseRatio=ratio[1]/ratio[0];         // program pts per 1 bank pt
+  var baseRecv=Math.round(pts*baseRatio);  // pts after ratio, before bonus
+  var bonusPts=Math.round(baseRecv*pct/100);
+  var totalRecv=baseRecv+bonusPts;
+ 
+  var ratioStr=(ratio[0]===1&&ratio[1]===1)?'1:1 (no ratio adjustment)':(ratio[0]+':'+ratio[1]+' base ratio');
+  var ratioRow=(ratio[0]!==1||ratio[1]!==1)?
+    '<tr><td style="color:#666">After ratio ('+ratio[0]+':'+ratio[1]+')</td><td class="rv2">'+baseRecv.toLocaleString()+'</td></tr>':
+    '';
+ 
+  var progLabel=csEl.options[csEl.selectedIndex]?csEl.options[csEl.selectedIndex].text.split('[')[0].split('(')[0].trim():'';
+ 
   resEl.innerHTML=
     '<tr><td style="color:#666">Points transferred</td><td class="rv2">'+pts.toLocaleString()+'</td></tr>'+
-    '<tr><td style="color:#666">Bonus ('+pct+'%'+(at?' &#9733; ATH':'')+')</td><td class="rb">+'+bn.toLocaleString()+'</td></tr>'+
-    '<tr><td>Total received</td><td class="rv2">'+tot.toLocaleString()+'</td></tr>';
+    ratioRow+
+    '<tr><td style="color:#666">Bonus ('+pct+'%'+(at?' \u2605 ATH':'')+')</td><td class="rb">+'+(bonusPts>0?bonusPts.toLocaleString():'0')+'</td></tr>'+
+    '<tr><td>Total received</td><td class="rv2">'+totalRecv.toLocaleString()+'</td></tr>';
+ 
   tipEl.style.display='block';
-  if(pct===0){tipEl.className='ct';tipEl.textContent='No active bonus on '+progLabel+'. Enter the current bonus % in the custom field below if one is running, or use the Value Comparison tool above to check if this transfer is worth it.';}
-  else if(at){tipEl.className='ct ct-ath';tipEl.textContent='All-Time High - Gotchu Bay Bay! Best ever for this program. Worth acting on if you have a redemption ready.';}
-  else if(pct>=50){tipEl.className='ct';tipEl.textContent='A '+pct+'% bonus is exceptional - bonuses this high do not last long.';}
-  else if(pct>=25){tipEl.className='ct';tipEl.textContent='A '+pct+'% bonus adds real value: '+bn.toLocaleString()+' free points. Worth acting on with a redemption in mind.';}
-  else{tipEl.className='ct';tipEl.textContent='A '+pct+'% boost is meaningful. Best used when you have a specific booking ready.';}
+  if(pct===0&&bank==='Any'){
+    tipEl.className='ct';
+    tipEl.textContent='No active bonus shown. Use the Value Comparison tool above to check if this transfer is worth it at the current ratio.';
+  } else if(pct===0){
+    tipEl.className='ct';
+    tipEl.textContent='No active bonus on '+progLabel+'. Transfer ratio is '+ratioStr+'. Check the Value Comparison tool to see if this transfer is worth it.';
+  } else if(at){
+    tipEl.className='ct ct-ath';
+    tipEl.textContent='All-Time High - Gotchu Bay Bay! Best ever for this program. Ratio applied: '+ratioStr+'. Worth acting on if you have a redemption ready.';
+  } else if(pct>=50){
+    tipEl.className='ct';
+    tipEl.textContent='A '+pct+'% bonus is exceptional. Ratio: '+ratioStr+'. You receive '+totalRecv.toLocaleString()+' pts total.';
+  } else if(pct>=25){
+    tipEl.className='ct';
+    tipEl.textContent='A '+pct+'% bonus adds real value: '+bonusPts.toLocaleString()+' free pts after ratio ('+ratioStr+'). Have a redemption in mind.';
+  } else {
+    tipEl.className='ct';
+    tipEl.textContent='A '+pct+'% boost on a '+ratioStr+' gives you '+totalRecv.toLocaleString()+' pts. Best used with a specific booking ready.';
+  }
 }
  
 /* ─── PARTNER MATRIX ─── */
