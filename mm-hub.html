@@ -403,6 +403,7 @@ function ST(name,btn){
 var CUR=[
   {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:20, exp:'2026-05-30'},
   {bank:'Amex',        prog:'JetBlue TrueBlue',             pk:'JetBlue',         progKey:'JetBlue TrueBlue',           pct:10, exp:'2026-05-11',isNew:true},
+  {bank:'Rove',        prog:'Air Canada Aeroplan',          pk:'Aeroplan',        progKey:'Air Canada Aeroplan',        pct:25, exp:'2026-06-06',isNew:true},
   {bank:'Citi',        prog:'Leading Hotels of the World',  pk:'Leading Hotels of the World', progKey:'Leading Hotels of the World', pct:25, exp:'2026-05-16'},
   {bank:'Capital One', prog:'Qantas Frequent Flyer',        pk:'Qantas',          progKey:'Qantas Frequent Flyer',      pct:20, exp:'2026-05-31',isNew:true},
   {bank:'Chase',       prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-05-27',isNew:true},
@@ -518,6 +519,7 @@ var HIST=[
   /* 2026 active */
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:1},
   {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/1/2026', e:'5/11/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1},
   {b:'Capital One',  p:'Qantas',                    progs:['Qantas'],                    pct:'20%',n:20,s:'5/1/2026', e:'5/31/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'5/1/2026', e:'5/27/2026',y:2026,a:1,isNew:true},
@@ -911,7 +913,7 @@ var BANK_PROGS={
   'Citi':['American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Leading Hotels of the World','Malaysia Enrich','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
   'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
   'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios'],
-  'Rove':['Aer Lingus Avios','Air France/KLM Flying Blue','Air India Maharaja Club','British Airways Avios','Etihad Guest','Finnair Plus','Hainan Airlines Fortune Wings','Iberia Avios','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Accor Live Limitless']
+  'Rove':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','British Airways Avios','Etihad Guest','Finnair Plus','Hainan Airlines Fortune Wings','Iberia Avios','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Accor Live Limitless']
 };
  
 function getRatio(bank,prog){
@@ -1201,7 +1203,7 @@ var VAL={
 var PM=[
   {n:'Aer Lingus Avios',t:'a',kw:'avios british oneworld aer lingus ireland europe amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant',v:'via BA'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'?',v:'via Qatar'}},
   {n:'AeroMexico ClubPremier',t:'a',kw:'aeromexico mexico latin america amex capital one rove',A:{r:'1:1.6',s:'Instant'},CO:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
-  {n:'Air Canada Aeroplan',t:'a',kw:'aeroplan canada star alliance amex chase capital one bilt',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'}},
+  {n:'Air Canada Aeroplan',t:'a',kw:'aeroplan canada star alliance amex chase capital one bilt rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'Instant'}},
   {n:'Air France/KLM Flying Blue',t:'a',kw:'flying blue air france klm skyteam france europe netherlands amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'Instant'}},
   {n:'Air India Maharaja Club',t:'a',kw:'air india maharaja star alliance rove',R:{r:'1:1',s:'?'}},
   {n:'Alaska Atmos Rewards',t:'a',kw:'alaska atmos oneworld domestic us west coast bilt',B:{r:'1:1',s:'Instant'}},
