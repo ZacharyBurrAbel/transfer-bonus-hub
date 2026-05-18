@@ -405,6 +405,7 @@ var CUR=[
   {bank:'Amex',        prog:'JetBlue TrueBlue',             pk:'JetBlue',         progKey:'JetBlue TrueBlue',           pct:10, exp:'2026-05-11',isNew:true},
   {bank:'Rove',        prog:'Air Canada Aeroplan',          pk:'Aeroplan',        progKey:'Air Canada Aeroplan',        pct:25, exp:'2026-06-06',isNew:true},
   {bank:'Citi',        prog:'Leading Hotels of the World',  pk:'Leading Hotels of the World', progKey:'Leading Hotels of the World', pct:25, exp:'2026-05-16'},
+  {bank:'Citi',        prog:'Preferred Hotels iPrefer',     pk:'iPrefer',         progKey:'Preferred Hotels iPrefer',   pct:30, exp:'2026-06-13',isNew:true},
   {bank:'Capital One', prog:'Qantas Frequent Flyer',        pk:'Qantas',          progKey:'Qantas Frequent Flyer',      pct:20, exp:'2026-05-31',isNew:true},
   {bank:'Chase',       prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-05-27',isNew:true},
   {bank:'Chase',       prog:'Southwest Rapid Rewards',      pk:'Southwest',       progKey:'Southwest Rapid Rewards',    pct:30, exp:'2026-06-05',isNew:true},
@@ -522,6 +523,7 @@ var HIST=[
   {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/1/2026', e:'5/11/2026',y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1},
+  {b:'Citi',         p:'iPrefer',                   progs:['iPrefer'],                   pct:'30%',n:30,s:'5/1/2026', e:'6/13/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'Qantas',                    progs:['Qantas'],                    pct:'20%',n:20,s:'5/1/2026', e:'5/31/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'5/1/2026', e:'5/27/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Southwest',                  progs:['Southwest'],                 pct:'30%',n:30,s:'5/15/2026',e:'6/5/2026', y:2026,a:1,isNew:true},
@@ -903,7 +905,8 @@ var RATIOS={
   },
   'Citi':{
     'Emirates Skywards':[5,4],
-    'Leading Hotels of the World':[5,1]
+    'Leading Hotels of the World':[5,1],
+    'Preferred Hotels iPrefer':[1,2]
   }
 };
  
@@ -912,7 +915,7 @@ var BANK_PROGS={
   'Amex':['Aer Lingus Avios','AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','ANA Mileage Club','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Delta SkyMiles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Iberia Avios','JetBlue TrueBlue','Marriott Bonvoy','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Virgin Atlantic Flying Club'],
   'Bilt':['Aer Lingus Avios','Air Canada Aeroplan','Alaska Atmos Rewards','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','Japan Airlines (JAL)','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Turkish Airlines Miles&Smiles','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
   'Chase':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','British Airways Avios','Finnair Plus','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','JetBlue TrueBlue','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
-  'Citi':['American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Leading Hotels of the World','Malaysia Enrich','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
+  'Citi':['American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
   'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
   'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios'],
   'Rove':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','British Airways Avios','Etihad Guest','Finnair Plus','Hainan Airlines Fortune Wings','Iberia Avios','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Accor Live Limitless']
@@ -1244,7 +1247,7 @@ var PM=[
   {n:'IHG One Rewards',t:'h',kw:'ihg one rewards intercontinental hotel holiday inn kimpton chase bilt',C:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Leading Hotels of the World',t:'h',kw:'leading hotels world luxury boutique lhw citi',CT:{r:'5:1',s:'Instant'}},
   {n:'Marriott Bonvoy',t:'h',kw:'marriott bonvoy hotel ritz carlton w hotels sheraton amex chase bilt',A:{r:'1:1',s:'~5 days'},C:{r:'1:1',s:'~5 days'},B:{r:'1:1',s:'~5 days'}},
-  {n:'Preferred Hotels iPrefer',t:'h',kw:'preferred hotels iprefer luxury boutique independent citi capital one',CT:{r:'1:4',s:'?'},CO:{r:'1:2',s:'Instant'}},
+  {n:'Preferred Hotels iPrefer',t:'h',kw:'preferred hotels iprefer luxury boutique independent citi capital one',CT:{r:'1:2',s:'?'},CO:{r:'1:2',s:'Instant'}},
   {n:'Wyndham Rewards',t:'h',kw:'wyndham rewards hotel la quinta ramada chase citi capital one',C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'}}
 ];
 PM.sort(function(a,b){if(a.t!==b.t)return a.t==='a'?-1:1;return a.n.localeCompare(b.n);});
