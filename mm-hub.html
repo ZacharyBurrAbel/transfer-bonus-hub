@@ -417,7 +417,10 @@ var CUR=[
 ];
  
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
-var UPCOMING=[];
+var UPCOMING=[
+  {bank:'Bilt',prog:'June Rent Day Transfer Bonus',pk:'Bilt',pct:125,date:'2026-06-01',
+   note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+ &#183; Max 100k base pts &#183; June 1 only &#183; Bilt Cash upgrade available ($150 = one tier up)'}
+];
  
 function RC(){
   // Filter: sameDay only shows on exact date; others show while DL >= 0
@@ -532,6 +535,7 @@ var HIST=[
   {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'65%',n:65,s:'5/1/2026', e:'5/15/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'June Rent Day - Transfer Bonus (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:[],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Japan Airlines - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Japan Airlines'],pct:'25-125%',n:125,s:'March 2026',e:'March 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Accor - Up to 125% transfer bonus',progs:['Accor'],pct:'Up to 125%',n:125,s:'February 2026',e:'February 2026',y:2026,a:0,isBilt:true},
@@ -1382,4 +1386,3 @@ PP();RC();RH();buildCalcDropdown();CU();renderPT();
 })();
 </script>
 </body>
-</html>
