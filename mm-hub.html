@@ -415,7 +415,8 @@ var CUR=[
   {bank:'Chase',       prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-05-27',isNew:true},
   {bank:'Chase',       prog:'Southwest Rapid Rewards',      pk:'Southwest',       progKey:'Southwest Rapid Rewards',    pct:30, exp:'2026-06-05',isNew:true},
   {bank:'Chase',       prog:'Virgin Atlantic Flying Club',  pk:'Virgin Atlantic', progKey:'Virgin Atlantic Flying Club', pct:30, exp:'2026-07-07',isNew:true},
-  {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:65, exp:'2026-05-15',isNew:true},
+  {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:65, exp:'2026-05-15'},
+  {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:55, exp:'2026-06-30',isNew:true},
   {bank:'Bilt',        prog:'TAP Air Portugal - Up to 125% transfer bonus', pk:'Bilt', progKey:'TAP Air Portugal',           pct:125,exp:'2026-06-01',
    sameDay:true,isNew:true,
    note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+ &#183; Max 100k base pts &#183; June 1 only &#183; Bilt Cash upgrade: $150 = one tier up'},
@@ -542,7 +543,8 @@ var HIST=[
   {b:'Chase',        p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'5/1/2026', e:'5/27/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Southwest',                  progs:['Southwest'],                 pct:'30%',n:30,s:'5/15/2026',e:'6/5/2026', y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Virgin Atlantic',             progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/1/2026', e:'7/7/2026', y:2026,a:1,isNew:true},
-  {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'65%',n:65,s:'5/1/2026', e:'5/15/2026',y:2026,a:1,isNew:true},
+  {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'65%',n:65,s:'5/1/2026', e:'5/15/2026',y:2026,a:0},
+  {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'55%',n:55,s:'5/16/2026',e:'6/30/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:1,isBilt:true},
@@ -1396,3 +1398,4 @@ PP();RC();RH();buildCalcDropdown();CU();renderPT();
 })();
 </script>
 </body>
+</html>
