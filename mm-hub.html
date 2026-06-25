@@ -162,8 +162,8 @@ tr:hover td{background:#fafafa}
     <div style="width:34px;height:34px;border-radius:50%;background:#9a7200;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#x1F412;</div>
     <div class="ab-txt"><strong>&#9733; All-Time High Alert &#8212; Gotchu Bay Bay!</strong>Bonuses marked &#9733; ATH are the best ever recorded for that program.</div>
   </div>
-  <div class="grid" id="cards"></div>
   <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
+  <div id="cards"></div>
   <div class="disc">Some bonuses may be targeted. Always verify in your bank portal before transferring. Valuations are estimates based on Zach&#39;s framework and may not reflect your specific redemption.</div>
 </div>
  
@@ -401,8 +401,6 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
-  {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:20, exp:'2026-05-30'},
-  {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:20, exp:'2026-07-14',isNew:true},
   {bank:'Amex',        prog:'JetBlue TrueBlue',             pk:'JetBlue',         progKey:'JetBlue TrueBlue',           pct:10, exp:'2026-05-11',isNew:true},
   {bank:'Amex',        prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:20, exp:'2026-06-30',isNew:true},
   {bank:'Amex',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:25, exp:'2026-06-30',isNew:true},
@@ -429,7 +427,14 @@ var CUR=[
 ];
  
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
-var UPCOMING=[];
+var UPCOMING=[
+  {bank:'Bilt',prog:'Hilton Honors - Up to 200% transfer bonus',pk:'Hilton',pct:200,date:'2026-07-01',
+   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ (Bilt Cash upgrade) &#183; July 1 only &#183; Bilt Rent Day'},
+  {bank:'Amex',prog:'Hilton Honors',pk:'Hilton',pct:20,date:'2026-07-01',
+   leaked:true,note:'20% transfer bonus &#183; Leaked — dates and details not yet officially confirmed'},
+  {bank:'Amex',prog:'Virgin Atlantic Flying Club',pk:'Virgin Atlantic',pct:30,date:'2026-07-01',
+   leaked:true,note:'30% transfer bonus &#183; Leaked — dates and details not yet officially confirmed'}
+];
  
 function RC(){
   // Filter: sameDay only shows on exact date; others show while DL >= 0
@@ -437,10 +442,11 @@ function RC(){
     return b.sameDay?isToday(b.exp):(DL(b.exp)!==null&&DL(b.exp)>=0);
   });
   var soon=UPCOMING.filter(function(b){
-    var d=DL(b.date);return d!==null&&d>0;
+    var d=DL(b.date);return !b.leaked&&d!==null&&d>0;
   });
+  var leaked=UPCOMING.filter(function(b){return b.leaked;});
  
-  if(!live.length&&!soon.length){
+  if(!live.length&&!soon.length&&!leaked.length){
     document.getElementById('cards').innerHTML='<p style="color:#666;font-size:13px">No active bonuses right now. Check back soon!</p>';
     document.getElementById('sb').innerHTML='';
     document.getElementById('ath-alert').style.display='none';
@@ -503,25 +509,46 @@ function RC(){
       '<span class="'+dc+'">'+dl+'</span></div></div>';
   }).join('');
  
+  // Upcoming section — full-width label then own grid
   var upcomingHtml='';
   if(soon.length){
-    upcomingHtml+='<div style="margin-top:14px;margin-bottom:6px;font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.06em">&#128336; Upcoming</div>';
-    upcomingHtml+=soon.map(function(b){
+    upcomingHtml='<div style="margin-top:16px;margin-bottom:6px;font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid #e5e5e5;padding-top:12px">&#128336; Upcoming Bonuses</div>'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-bottom:14px">'+soon.map(function(b){
       var dUntil=DL(b.date);
       var dLabel=dUntil===1?'Tomorrow':dUntil!==null?'In '+dUntil+' days':'';
       return'<div class="bc" style="border:2px dashed #aaa;background:#fafafa">'+
         '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
         '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
         '<span style="font-size:11px;color:#888;font-weight:700">&#128336; Upcoming</span></div>'+
-        '<div class="bp" style="color:#888">'+b.pct+'<span>% max</span></div>'+
+        '<div class="bp" style="color:#888">'+b.pct+'<span>% bonus</span></div>'+
         '<div class="bn" style="color:#555">'+b.prog+'</div>'+
         (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
         '<div class="bf"><span class="exp">Active: '+fmtExp(b.date)+'</span>'+
         '<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#f0f0f0;color:#555">'+dLabel+'</span></div></div>';
-    }).join('');
+    }).join('')+'</div>';
   }
  
-  document.getElementById('cards').innerHTML=activeHtml+upcomingHtml;
+  // Leaked section — full-width label then own grid
+  var leakedHtml='';
+  if(leaked.length){
+    leakedHtml='<div style="margin-top:16px;margin-bottom:6px;font-size:10px;font-weight:700;color:#e65100;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid #ffe0cc;padding-top:12px">&#128161; Leaked / Unconfirmed — Not Yet Official</div>'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-bottom:14px">'+leaked.map(function(b){
+      return'<div class="bc" style="border:2px dashed #e65100;background:#fff8f5">'+
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
+        '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
+        '<span style="font-size:11px;color:#e65100;font-weight:700">&#128161; Unconfirmed</span></div>'+
+        '<div class="bp" style="color:#e65100">'+b.pct+'<span>% bonus</span></div>'+
+        '<div class="bn" style="color:#555">'+b.prog+'</div>'+
+        (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
+        '<div class="bf"><span class="exp">Est. active: '+fmtExp(b.date)+'</span>'+
+        '<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#fff3e0;color:#e65100">Unconfirmed</span></div></div>';
+    }).join('')+'</div>';
+  }
+ 
+  document.getElementById('cards').innerHTML=
+    '<div class="grid">'+activeHtml+'</div>'+
+    upcomingHtml+
+    leakedHtml;
 }
  
 /* ─── HISTORY DATA ───
@@ -533,7 +560,7 @@ function RC(){
 var HIST=[
   /* 2026 active */
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:0},
-  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/1/2026', e:'5/11/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'20%',n:20,s:'5/1/2026', e:'6/30/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'5/1/2026', e:'6/30/2026',y:2026,a:1,isNew:true},
@@ -553,6 +580,7 @@ var HIST=[
   {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'55%',n:55,s:'5/16/2026',e:'6/30/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'Hilton Honors - Up to 200% (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via Bilt Cash upgrade)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'July 2026',e:'July 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Japan Airlines - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Japan Airlines'],pct:'25-125%',n:125,s:'March 2026',e:'March 2026',y:2026,a:0,isBilt:true},
