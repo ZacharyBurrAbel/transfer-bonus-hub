@@ -405,6 +405,9 @@ var CUR=[
   {bank:'Amex',        prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:20, exp:'2026-06-30',isNew:true},
   {bank:'Amex',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:25, exp:'2026-06-30',isNew:true},
   {bank:'Amex',        prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:15, exp:'2026-07-15',isNew:true},
+  {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:20, exp:'2026-07-14',isNew:true},
+  {bank:'Amex',        prog:'Virgin Atlantic Flying Club', pk:'Virgin Atlantic', progKey:'Virgin Atlantic Flying Club', pct:30, exp:'2026-07-14',isNew:true},
+  {bank:'Capital One', prog:'EVA Air Infinity MileageLands',pk:'EVA',            progKey:'EVA Air Infinity MileageLands',pct:30,exp:'2026-07-31',isNew:true},
   {bank:'Citi',        prog:'Accor Live Limitless',         pk:'Accor',           progKey:'Accor Live Limitless',       pct:50, exp:'2026-07-18',isNew:true},
   {bank:'Citi',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',           progKey:'Qatar Privilege Club Avios', pct:30, exp:'2026-06-30',isNew:true},
   {bank:'Rove',        prog:'Air Canada Aeroplan',          pk:'Aeroplan',        progKey:'Air Canada Aeroplan',        pct:25, exp:'2026-06-06',isNew:true},
@@ -429,11 +432,7 @@ var CUR=[
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
 var UPCOMING=[
   {bank:'Bilt',prog:'Hilton Honors - Up to 200% transfer bonus',pk:'Hilton',pct:200,date:'2026-07-01',
-   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ (Bilt Cash upgrade) &#183; July 1 only &#183; Bilt Rent Day'},
-  {bank:'Amex',prog:'Hilton Honors',pk:'Hilton',pct:20,date:'2026-07-01',
-   leaked:true,note:'20% transfer bonus &#183; Leaked — dates and details not yet officially confirmed'},
-  {bank:'Amex',prog:'Virgin Atlantic Flying Club',pk:'Virgin Atlantic',pct:30,date:'2026-07-01',
-   leaked:true,note:'30% transfer bonus &#183; Leaked — dates and details not yet officially confirmed'}
+   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ (Bilt Cash upgrade) &#183; July 1 only &#183; Bilt Rent Day'}
 ];
  
 function RC(){
@@ -560,7 +559,9 @@ function RC(){
 var HIST=[
   /* 2026 active */
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:0},
-  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/1/2026', e:'7/14/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'EVA Air',                   progs:['EVA Air Infinity MileageLands'],pct:'30%',n:30,s:'6/1/2026',e:'7/31/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/1/2026', e:'5/11/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'20%',n:20,s:'5/1/2026', e:'6/30/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'5/1/2026', e:'6/30/2026',y:2026,a:1,isNew:true},
