@@ -412,6 +412,7 @@ var CUR=[
   {bank:'Citi',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',           progKey:'Qatar Privilege Club Avios', pct:30, exp:'2026-06-30',isNew:true},
   {bank:'Rove',        prog:'Air Canada Aeroplan',          pk:'Aeroplan',        progKey:'Air Canada Aeroplan',        pct:25, exp:'2026-06-06',isNew:true},
   {bank:'Rove',        prog:'Turkish Airlines Miles&Smiles', pk:'Turkish Airlines', progKey:'Turkish Airlines Miles&Smiles',pct:50, exp:'2026-06-30',isNew:true},
+  {bank:'Rove',        prog:'Qantas Frequent Flyer',        pk:'Qantas',           progKey:'Qantas Frequent Flyer',       pct:50, exp:'2026-08-14',isNew:true},
   {bank:'Citi',        prog:'Leading Hotels of the World',  pk:'Leading Hotels of the World', progKey:'Leading Hotels of the World', pct:25, exp:'2026-05-16'},
   {bank:'Citi',        prog:'Preferred Hotels iPrefer',     pk:'iPrefer',         progKey:'Preferred Hotels iPrefer',   pct:30, exp:'2026-06-13',isNew:true},
   {bank:'Citi',        prog:'Wyndham Rewards',              pk:'Wyndham',         progKey:'Wyndham Rewards',            pct:25, exp:'2026-06-13',isNew:true},
@@ -570,6 +571,7 @@ var HIST=[
   {b:'Citi',         p:'Qatar',                     progs:['Qatar'],                     pct:'30%',n:30,s:'5/1/2026', e:'6/30/2026',y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'50%',n:50,s:'5/1/2026', e:'6/30/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Qantas',                     progs:['Qantas'],                    pct:'50%',n:50,s:'7/1/2026', e:'8/14/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:1},
   {b:'Citi',         p:'iPrefer',                   progs:['iPrefer'],                   pct:'30%',n:30,s:'5/1/2026', e:'6/13/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Wyndham',                   progs:['Wyndham'],                   pct:'25%',n:25,s:'5/1/2026', e:'6/13/2026',y:2026,a:1,isNew:true},
@@ -923,7 +925,7 @@ var PROG_VAL={
   'American AAdvantage':1.8,'ANA Mileage Club':1.4,'Avianca LifeMiles':1.5,
   'British Airways Avios':1.4,'Cathay Pacific Asia Miles':1.3,'Delta SkyMiles':1.1,
   'Emirates Skywards':1.2,'Etihad Guest':1.2,'EVA Air Infinity MileageLands':1.2,
-  'Finnair Plus':1.4,'Hainan Airlines Fortune Wings':0.9,'Iberia Avios':1.4,
+  'Finnair Plus':1.4,'Frontier Miles':0.9,'Hainan Airlines Fortune Wings':0.9,'Iberia Avios':1.4,
   'Japan Airlines (JAL)':1.5,'JetBlue TrueBlue':1.4,'Lufthansa Miles & More':1.3,
   'Malaysia Enrich':1.1,'Qantas Frequent Flyer':1.3,'Qatar Privilege Club Avios':1.4,
   'SAS EuroBonus':1.1,'Singapore Airlines KrisFlyer':1.4,'Southwest Rapid Rewards':1.3,
@@ -975,7 +977,7 @@ var BANK_PROGS={
   'Citi':['American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
   'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
   'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios','Virgin Atlantic Flying Club'],
-  'Rove':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','British Airways Avios','Etihad Guest','Finnair Plus','Hainan Airlines Fortune Wings','Iberia Avios','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Virgin Atlantic Flying Club','Accor Live Limitless']
+  'Rove':['AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','Accor Live Limitless','Cathay Pacific Asia Miles','Etihad Guest','Finnair Plus','Frontier Miles','Hainan Airlines Fortune Wings','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','Qantas Frequent Flyer','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Virgin Atlantic Flying Club']
 };
  
 function getRatio(bank,prog){
@@ -1250,7 +1252,7 @@ var VAL={
   'American AAdvantage':'1.8c','ANA Mileage Club':'1.4c','Avianca LifeMiles':'1.5c',
   'British Airways Avios':'1.4c','Cathay Pacific Asia Miles':'1.3c','Delta SkyMiles':'1.1c',
   'Emirates Skywards':'1.2c','Etihad Guest':'1.2c','EVA Air Infinity MileageLands':'1.2c',
-  'Finnair Plus':'1.4c','Hainan Airlines Fortune Wings':'0.9c','Iberia Avios':'1.4c',
+  'Finnair Plus':'1.4c','Frontier Miles':'0.9c','Hainan Airlines Fortune Wings':'0.9c','Iberia Avios':'1.4c',
   'Japan Airlines (JAL)':'1.5c','JetBlue TrueBlue':'1.4c','Lufthansa Miles & More':'1.3c',
   'Malaysia Enrich':'1.1c','Qantas Frequent Flyer':'1.3c','Qatar Privilege Club Avios':'1.4c',
   'SAS EuroBonus':'1.1c','Singapore Airlines KrisFlyer':'1.4c','Southwest Rapid Rewards':'1.3c',
@@ -1263,7 +1265,7 @@ var VAL={
 };
  
 var PM=[
-  {n:'Aer Lingus Avios',t:'a',kw:'avios british oneworld aer lingus ireland europe amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant',v:'via BA'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'?',v:'via Qatar'}},
+  {n:'Aer Lingus Avios',t:'a',kw:'avios british oneworld aer lingus ireland europe amex chase citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant',v:'via BA'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'AeroMexico ClubPremier',t:'a',kw:'aeromexico mexico latin america amex capital one rove',A:{r:'1:1.6',s:'Instant'},CO:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
   {n:'Air Canada Aeroplan',t:'a',kw:'aeroplan canada star alliance amex chase capital one bilt rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'Instant'}},
   {n:'Air France/KLM Flying Blue',t:'a',kw:'flying blue air france klm skyteam france europe netherlands amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'Instant'}},
@@ -1272,20 +1274,21 @@ var PM=[
   {n:'American AAdvantage',t:'a',kw:'american airlines aadvantage oneworld domestic aa citi',CT:{r:'1:1',s:'Instant'}},
   {n:'ANA Mileage Club',t:'a',kw:'ana all nippon star alliance japan tokyo amex',A:{r:'1:1',s:'~1 day'}},
   {n:'Avianca LifeMiles',t:'a',kw:'avianca lifemiles star alliance latin colombia amex citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
-  {n:'British Airways Avios',t:'a',kw:'british airways avios oneworld uk ba europe london amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'?',v:'via Qatar'}},
+  {n:'British Airways Avios',t:'a',kw:'british airways avios oneworld uk ba europe london amex chase citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'Cathay Pacific Asia Miles',t:'a',kw:'cathay pacific asia miles hong kong oneworld amex citi capital one bilt rove',A:{r:'5:4',s:'4-8 hrs'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'1-2 days'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
   {n:'Delta SkyMiles',t:'a',kw:'delta skymiles skyteam domestic us atlanta amex',A:{r:'1:1',s:'Instant',v:'+excise tax'}},
   {n:'Emirates Skywards',t:'a',kw:'emirates skywards dubai middle east luxury first class amex citi capital one bilt',A:{r:'5:4',s:'Instant'},CT:{r:'5:4',s:'Instant'},CO:{r:'4:3',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Etihad Guest',t:'a',kw:'etihad guest abu dhabi middle east amex citi capital one bilt rove',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 hr'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'?'},R:{r:'1:1',s:'?'}},
   {n:'EVA Air Infinity MileageLands',t:'a',kw:'eva air taiwan star alliance asia citi capital one',CT:{r:'1:1',s:'Instant'},CO:{r:'4:3',s:'~1 day'}},
   {n:'Finnair Plus',t:'a',kw:'finnair plus scandinavia avios oneworld nordics helsinki amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'Instant',v:'via BA'},C:{r:'1:1',s:'Instant',v:'via BA'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant',v:'via BA'},W:{r:'1:1',s:'?',v:'via BA'},R:{r:'1:1',s:'?'}},
+  {n:'Frontier Miles',t:'a',kw:'frontier miles ultra low cost domestic us rove',R:{r:'1:1',s:'?'}},
   {n:'Hainan Airlines Fortune Wings',t:'a',kw:'hainan china fortune wings rove',R:{r:'1:1',s:'?'}},
-  {n:'Iberia Avios',t:'a',kw:'iberia avios oneworld spain europe madrid amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'12-24 hrs'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant',v:'via BA'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'?',v:'via Qatar'}},
+  {n:'Iberia Avios',t:'a',kw:'iberia avios oneworld spain europe madrid amex chase citi capital one bilt wells fargo',A:{r:'1:1',s:'12-24 hrs'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant',v:'via BA'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'Japan Airlines (JAL)',t:'a',kw:'jal japan airlines mileage bank oneworld tokyo capital one bilt rove',CO:{r:'2:1.5',s:'Instant'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'Instant'}},
   {n:'JetBlue TrueBlue',t:'a',kw:'jetblue trueblue domestic us caribbean amex chase citi capital one wells fargo',A:{r:'5:4',s:'Instant',v:'+excise'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'5:3',s:'1-2 hrs'},W:{r:'1:1',s:'?'}},
   {n:'Lufthansa Miles & More',t:'a',kw:'lufthansa miles more star alliance europe germany frankfurt rove',R:{r:'1:1',s:'Instant'}},
   {n:'Malaysia Enrich',t:'a',kw:'malaysia airlines enrich oneworld asia kuala lumpur citi',CT:{r:'1:1',s:'1-2 days'}},
-  {n:'Qantas Frequent Flyer',t:'a',kw:'qantas frequent flyer oneworld australia sydney citi capital one',CT:{r:'1:1',s:'~1 day'},CO:{r:'1:1',s:'~1 day'}},
+  {n:'Qantas Frequent Flyer',t:'a',kw:'qantas frequent flyer oneworld australia sydney citi capital one rove',CT:{r:'1:1',s:'~1 day'},CO:{r:'1:1',s:'~1 day'},R:{r:'1:1',s:'Instant'}},
   {n:'Qatar Privilege Club Avios',t:'a',kw:'qatar avios privilege club oneworld middle east doha amex chase citi capital one bilt wells fargo rove',A:{r:'1:1',s:'12-24 hrs'},C:{r:'1:1',s:'Instant',v:'via BA'},CT:{r:'1:1',s:'~1 day'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'?'}},
   {n:'SAS EuroBonus',t:'a',kw:'sas scandinavian eurobonus star alliance nordics scandinavia rove',R:{r:'1:1',s:'?'}},
   {n:'Singapore Airlines KrisFlyer',t:'a',kw:'singapore krisflyer star alliance asia changi amex chase citi capital one',A:{r:'1:1',s:'12-24 hrs'},C:{r:'1:1',s:'~1 day'},CT:{r:'1:1',s:'~1 day'},CO:{r:'1:1',s:'12-24 hrs'}},
