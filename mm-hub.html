@@ -111,13 +111,18 @@ tr:hover td{background:#fafafa}
 .bk-btn.sel{background:#444!important;color:#fff!important;border-color:#444!important}
 .pt-rc{font-size:11px;color:#666;margin-bottom:10px}
 .mx-wrap{overflow-x:auto}
-.mx{border-collapse:collapse;font-size:11px;background:#fff;border:1px solid #e5e5e5;border-radius:6px;width:100%;min-width:820px}
+.mx{border-collapse:collapse;font-size:11px;background:#fff;border:1px solid #e5e5e5;border-radius:6px;width:100%;min-width:960px}
 .mx th{padding:8px;font-size:9px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid #C8102E;text-align:center;white-space:nowrap;background:#fff}
 .mx th:first-child{text-align:left;min-width:180px;padding-left:12px}
 .mx th.mmh{background:#FFFBEA;color:#9a7200;border-bottom:2px solid #EAD060}
 .mx td{padding:7px 8px;border-bottom:1px solid #e5e5e5;text-align:center;vertical-align:middle}
 .mx td:first-child{text-align:left;font-weight:700;font-size:11px;padding-left:12px}
 .mx td.mmc{background:#FFFBEA}
+.exp-cell{font-size:10px;font-weight:600;padding:3px 7px;border-radius:4px;display:inline-block;white-space:nowrap;line-height:1.3}
+.exp-good{background:#e8f5e9;color:#1b5e20}
+.exp-ok{background:#f0f4c3;color:#556b2f}
+.exp-watch{background:#fff3e0;color:#e65100}
+.exp-strict{background:#ffebee;color:#c62828}
 .mx tr:hover td{background:#fafafa}
 .mx tr:hover td.mmc{background:#f0e890}
 .cat-r td{background:#f4f4f4!important;font-size:9px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.07em;padding:6px 12px}
@@ -938,7 +943,7 @@ var PROG_VAL={
   'Spirit Free Spirit':0.9,'TAP Air Portugal':1.0,'Thai Airways Royal Orchid Plus':1.0,
   'Turkish Airlines Miles&Smiles':1.1,'United MileagePlus':1.5,'Vietnam Airlines LotusMiles':0.9,
   'Virgin Atlantic Flying Club':1.3,
-  'Accor Live Limitless':2.0,'Choice Privileges':0.6,'Hilton Honors':0.5,
+  'Accor Live Limitless':2.3,'Choice Privileges':0.6,'Hilton Honors':0.5,
   'Hyatt World of Hyatt':1.7,'IHG One Rewards':0.5,'Leading Hotels of the World':1.0,
   'Marriott Bonvoy':0.7,'Preferred Hotels iPrefer':0.8,'Wyndham Rewards':1.0
 };
@@ -1265,9 +1270,62 @@ var VAL={
   'Spirit Free Spirit':'0.9c','TAP Air Portugal':'1.0c','Thai Airways Royal Orchid Plus':'1.0c',
   'Turkish Airlines Miles&Smiles':'1.1c','United MileagePlus':'1.5c','Vietnam Airlines LotusMiles':'0.9c',
   'Virgin Atlantic Flying Club':'1.3c',
-  'Accor Live Limitless':'2.0c','Choice Privileges':'0.6c','Hilton Honors':'0.5c',
+  'Accor Live Limitless':'2.3c','Choice Privileges':'0.6c','Hilton Honors':'0.5c',
   'Hyatt World of Hyatt':'1.7c','IHG One Rewards':'0.5c','Leading Hotels of the World':'1.0c',
   'Marriott Bonvoy':'0.7c','Preferred Hotels iPrefer':'0.8c','Wyndham Rewards':'1.0c'
+};
+ 
+/* Program expiration policies. Fields:
+   t = short table label (what shows in matrix)
+   d = detailed explanation (tooltip / expanded row)
+   s = severity for color-coding (good/ok/watch/strict)
+   good = never expires; ok = 24+ months activity resets;
+   watch = 12-18 months activity resets; strict = hard expiration or no reset */
+var EXP_POLICY={
+  'Aer Lingus Avios':{t:'36 mo inactivity',d:'Avios expire after 36 months of no earning/redemption. Any activity resets the clock.',s:'ok'},
+  'AeroMexico ClubPremier':{t:'Never expires',d:'AeroMexico Rewards points do not expire.',s:'good'},
+  'Air Canada Aeroplan':{t:'18 mo inactivity (from 11/30/26)',d:'Expiration paused through Nov 30, 2026. Starting 11/30/26, points expire after 18 months of inactivity. Any earn/redeem/transfer resets.',s:'watch'},
+  'Air France/KLM Flying Blue':{t:'24 mo inactivity',d:'Miles expire after 24 months of no earning activity. Transfer in from any bank partner resets.',s:'ok'},
+  'Air India Maharaja Club':{t:'24 mo inactivity',d:'Points expire after 24 months of no flying activity.',s:'ok'},
+  'Alaska Atmos Rewards':{t:'24 mo inactivity',d:'Miles expire after 24 months of no earning/redemption activity.',s:'ok'},
+  'American AAdvantage':{t:'24 mo inactivity',d:'Miles expire after 24 months of no earning activity. Co-branded card use resets.',s:'ok'},
+  'ANA Mileage Club':{t:'36 mo hard expiration',d:'Miles expire 36 months after earned. NO extension possible — activity does not reset.',s:'strict'},
+  'Avianca LifeMiles':{t:'12 mo inactivity (earn only)',d:'Miles expire after 12 months. Only EARNING resets — redeeming does NOT extend. Transferring in from a bank counts as earning.',s:'watch'},
+  'British Airways Avios':{t:'36 mo inactivity',d:'Avios expire after 36 months of no earning/redemption. Any activity resets.',s:'ok'},
+  'Cathay Pacific Asia Miles':{t:'18 mo inactivity',d:'Miles expire after 18 months of no earning/redemption activity. Any activity resets.',s:'watch'},
+  'Delta SkyMiles':{t:'Never expires',d:'SkyMiles do not expire regardless of account activity.',s:'good'},
+  'Emirates Skywards':{t:'~3 yrs (birth month)',d:'Miles expire at the end of your birth month, 3 years after earned. Can pay to extend 12 months.',s:'watch'},
+  'Etihad Guest':{t:'18 mo inactivity (flights only)',d:'Miles expire after 18 months. ONLY Etihad-operated flights reset the clock — transfers, purchases, and hotel bookings do NOT count.',s:'strict'},
+  'EVA Air Infinity MileageLands':{t:'36 mo inactivity',d:'Miles expire after 36 months of no earning activity.',s:'ok'},
+  'Finnair Plus':{t:'18 mo inactivity',d:'Miles expire after 18 months of no activity. Any earning/redemption resets.',s:'watch'},
+  'Frontier Miles':{t:'12 mo inactivity (earn only)',d:'Miles expire after 12 months. Only earning resets — redeeming does NOT extend.',s:'watch'},
+  'Hainan Airlines Fortune Wings':{t:'36 mo inactivity',d:'Points expire after 36 months of no activity.',s:'ok'},
+  'Iberia Avios':{t:'36 mo inactivity',d:'Avios expire after 36 months of no earning/redemption. Any activity resets.',s:'ok'},
+  'Japan Airlines (JAL)':{t:'36 mo hard expiration',d:'Miles expire 36 months after earned. NO extension possible — activity does not reset.',s:'strict'},
+  'JetBlue TrueBlue':{t:'Never expires',d:'TrueBlue points do not expire regardless of account activity.',s:'good'},
+  'Lufthansa Miles & More':{t:'36 mo hard expiration',d:'Miles expire 36 months after earned. Elite status and co-branded credit card holders exempt.',s:'strict'},
+  'Malaysia Enrich':{t:'36 mo hard expiration',d:'Miles expire 36 months after earned.',s:'strict'},
+  'Qantas Frequent Flyer':{t:'18 mo inactivity',d:'Points expire after 18 months of no earning/redemption activity.',s:'watch'},
+  'Qatar Privilege Club Avios':{t:'36 mo inactivity',d:'Avios expire after 36 months of no activity.',s:'ok'},
+  'SAS EuroBonus':{t:'Fixed date, no reset',d:'Points expire on a fixed date roughly 4-5 years after account creation month. Activity does NOT reset.',s:'strict'},
+  'Singapore Airlines KrisFlyer':{t:'36 mo hard expiration',d:'Miles expire 36 months after earned. Activity does NOT reset. Can pay $12 per 10k miles to extend 6 months.',s:'strict'},
+  'Southwest Rapid Rewards':{t:'Never expires',d:'Rapid Rewards points do not expire regardless of account activity.',s:'good'},
+  'Spirit Free Spirit':{t:'3 mo inactivity',d:'Points expire after just 3 months of no activity.',s:'strict'},
+  'TAP Air Portugal':{t:'36 mo inactivity',d:'Miles expire after 36 months of no activity.',s:'ok'},
+  'Thai Airways Royal Orchid Plus':{t:'3 yrs hard expiration',d:'Miles expire 3 years after earned.',s:'strict'},
+  'Turkish Airlines Miles&Smiles':{t:'~3 yrs hard expiration',d:'Miles expire at end of the 3rd year after earned (~4 yr window). Activity does NOT extend. Paid extension available.',s:'strict'},
+  'United MileagePlus':{t:'Never expires',d:'MileagePlus miles do not expire regardless of activity.',s:'good'},
+  'Vietnam Airlines LotusMiles':{t:'36 mo inactivity',d:'Miles expire after 36 months of no activity.',s:'ok'},
+  'Virgin Atlantic Flying Club':{t:'Never expires',d:'Virgin Points do not expire.',s:'good'},
+  'Accor Live Limitless':{t:'12 mo inactivity',d:'Rewards points expire after 12 months of no qualifying activity.',s:'watch'},
+  'Choice Privileges':{t:'18 mo inactivity',d:'Points expire after 18 months of no activity.',s:'watch'},
+  'Hilton Honors':{t:'24 mo inactivity',d:'Points expire after 24 months of no activity. Reinstatement available within 18 months at $2.50/1k pts (up to 100k pts).',s:'ok'},
+  'Hyatt World of Hyatt':{t:'24 mo inactivity',d:'Points forfeit after 24 months of no activity. Any earn/redeem/transfer resets.',s:'ok'},
+  'IHG One Rewards':{t:'12 mo inactivity',d:'Points expire after 12 months of no activity. Elite status members exempt (Platinum+ from IHG Premier card).',s:'watch'},
+  'Leading Hotels of the World':{t:'Never expires',d:'iPrefer points from Leading Hotels do not expire from inactivity in the standard program.',s:'good'},
+  'Marriott Bonvoy':{t:'24 mo inactivity',d:'Points expire after 24 months of no activity. Once forfeited, cannot be reinstated.',s:'ok'},
+  'Preferred Hotels iPrefer':{t:'18 mo inactivity',d:'iPrefer points expire after 18 months of no activity.',s:'watch'},
+  'Wyndham Rewards':{t:'18 mo inactivity',d:'Points expire after 18 months of no earning activity.',s:'watch'}
 };
  
 var PM=[
@@ -1386,8 +1444,8 @@ function renderPT(){
     document.getElementById('pt-res').innerHTML='<div class="nores">No programs match.<br><span style="color:#C8102E;cursor:pointer;font-weight:700" onclick="clearPT()">Clear filters</span></div>';
     return;
   }
-  var cols=PT_BANKS.length+2;
-  var h='<div class="mx-wrap"><table class="mx"><thead><tr><th>Program</th><th class="mmh">MM Value</th>';
+  var cols=PT_BANKS.length+3;
+  var h='<div class="mx-wrap"><table class="mx"><thead><tr><th>Program</th><th class="mmh">MM Value</th><th>Expiration</th>';
   PT_BANKS.forEach(function(b){
     h+='<th><span class="pill '+PT_PIL[b.key]+'">'+(PT_SHORT[b.label]||b.label)+'</span></th>';
   });
@@ -1395,8 +1453,11 @@ function renderPT(){
   if(air.length){
     h+='<tr><td colspan="'+cols+'" class="cat-r">Airlines - A to Z ('+air.length+')</td></tr>';
     air.forEach(function(p){
+      var ep=EXP_POLICY[p.n];
+      var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
       h+='<tr><td>'+hlText(p.n)+'<span class="type-air">AIR</span></td>';
       h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
+      h+='<td>'+expHtml+'</td>';
       PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
       h+='</tr>';
     });
@@ -1404,14 +1465,17 @@ function renderPT(){
   if(htl.length){
     h+='<tr><td colspan="'+cols+'" class="cat-r">Hotels - A to Z ('+htl.length+')</td></tr>';
     htl.forEach(function(p){
+      var ep=EXP_POLICY[p.n];
+      var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
       h+='<tr><td>'+hlText(p.n)+'<span class="type-htl">HTL</span></td>';
       h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
+      h+='<td>'+expHtml+'</td>';
       PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
       h+='</tr>';
     });
   }
   h+='</tbody></table></div>';
-  h+='<div class="leg"><span class="lgsw">Yellow = Monkey Miles value</span><span class="si">Instant</span><span>= posts right away</span><span style="color:#e65100;font-size:10px;font-style:italic">italics = indirect</span><span class="np">-</span><span>= not a partner</span></div>';
+  h+='<div class="leg"><span class="lgsw">Yellow = Monkey Miles value</span><span class="exp-cell exp-good">Never expires</span><span class="exp-cell exp-ok">24+ mo</span><span class="exp-cell exp-watch">12-18 mo</span><span class="exp-cell exp-strict">Hard expiry / no reset</span><span class="si">Instant</span><span>= posts right away</span><span style="color:#e65100;font-size:10px;font-style:italic">italics = indirect</span><span class="np">-</span><span>= not a partner</span></div>';
   h+='<div class="fn">MM valuations based on Zach&#39;s framework - lowest observed sale prices and sweet spot redemptions. Amex, Bilt & Chase (~2c); Citi & Capital One (~1.7c); Wells Fargo (~1.5c). Ratios: FrequentMiler & TPG (March 2026).</div>';
   h+='<div class="src">Valuations: <a href="https://monkeymiles.boardingarea.com/points-miles-worth/" target="_blank">MonkeyMiles.boardingarea.com</a> - Ratios: <a href="https://frequentmiler.com/transfer-partner-master-list/" target="_blank">FrequentMiler</a> & <a href="https://thepointsguy.com/credit-cards/credit-card-transfer-partners/" target="_blank">TPG</a></div>';
   document.getElementById('pt-res').innerHTML=h;
