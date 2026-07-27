@@ -442,8 +442,8 @@ var CUR=[
  
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
 var UPCOMING=[
-  {bank:'Bilt',prog:'Hilton Honors - Up to 200% transfer bonus',pk:'Hilton',pct:200,date:'2026-07-01',
-   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ (Bilt Cash upgrade) &#183; July 1 only &#183; Bilt Rent Day'}
+  {bank:'Bilt',prog:'Accor ALL Status Match',pk:'Accor',pct:0,date:'2026-08-01',
+   note:'Aug 1 Rent Day &#183; Blue/Silver &#8594; Silver, Gold &#8594; Gold, Platinum &#8594; Platinum &#183; Transfer 5,000 pts (Silver/Gold) or 15,000 pts (Platinum) &#183; Silver/Gold: email link within 24-48 hrs, status valid 12 months from activation &#183; Platinum: applied within 5 business days, valid through 12/31/2027'}
 ];
  
 function RC(){
@@ -530,7 +530,7 @@ function RC(){
         '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">'+
         '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
         '<span style="font-size:11px;color:#888;font-weight:700">&#128336; Upcoming</span></div>'+
-        '<div class="bp" style="color:#888">'+b.pct+'<span>% bonus</span></div>'+
+        '<div class="bp" style="color:#888;font-size:'+(b.pct>0?'34px':'22px')+'">'+(b.pct>0?b.pct+'<span>% bonus</span>':'Status Match')+'</div>'+
         '<div class="bn" style="color:#555">'+b.prog+'</div>'+
         (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
         '<div class="bf"><span class="exp">Active: '+fmtExp(b.date)+'</span>'+
@@ -596,6 +596,7 @@ var HIST=[
   {b:'Chase',        p:'IHG',                        progs:['IHG'],                       pct:'70%', n:70, s:'7/31/2026',e:'8/31/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'Accor ALL Status Match - Blue/Silver to Silver, Gold to Gold, Platinum to Platinum (5k pts Silver/Gold, 15k pts Platinum; Platinum valid thru 12/31/27)',progs:[],pct:'Status Match',n:0,s:'August 2026',e:'August 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Hilton Honors - Up to 200% (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via Bilt Cash upgrade)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'July 2026',e:'July 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
