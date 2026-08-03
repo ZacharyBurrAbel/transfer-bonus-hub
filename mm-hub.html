@@ -377,7 +377,7 @@ function fmtExp(ds){
 /* ─── ATH TABLE ─── */
 var ATH={
   'Chase|IHG':100,'Chase|Marriott':70,'Chase|Aeroplan':25,'Chase|Virgin Atlantic':40,'Chase|British Airways':30,'Chase|Wyndham':30,
-  'Amex|Virgin Atlantic':40,'Amex|Hilton':40,'Amex|Marriott':35,'Amex|Avianca LifeMiles':15,'Amex|British Airways':30,'Amex|Iberia':30,
+  'Amex|Virgin Atlantic':40,'Amex|Hilton':40,'Amex|Marriott':35,'Amex|Avianca LifeMiles':15,'Amex|British Airways':40,'Amex|Iberia':40,
   'Citi|Turkish Airlines':50,'Citi|Accor':50,'Citi|Virgin Atlantic':30,'Citi|Avianca LifeMiles':25,'Citi|Leading Hotels of the World':25,'Citi|Qatar':30,
   'Capital One|Japan Airlines':30,'Capital One|Etihad':40,'Capital One|Virgin Atlantic':30,'Capital One|iPrefer':30,
   'Rove|Japan Airlines':50,'Rove|Flying Blue':20,'Wells Fargo|Flying Blue':20,
@@ -406,7 +406,10 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
+  {bank:'Amex',        prog:'Avios (BA / Iberia / Aer Lingus)',pk:'British Airways',progKey:'British Airways Avios',   pct:30, exp:'2026-09-27',isNew:true,
+   note:'Covers British Airways, Iberia &amp; Aer Lingus Avios'},
   {bank:'Capital One', prog:'EVA Air Infinity MileageLands',pk:'EVA',            progKey:'EVA Air Infinity MileageLands',pct:30,exp:'2026-07-31',isNew:true},
+  {bank:'Capital One', prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:15, exp:'2026-08-31',isNew:true},
   {bank:'Citi',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-08-22',isNew:true},
   {bank:'Rove',        prog:'Qantas Frequent Flyer',        pk:'Qantas',           progKey:'Qantas Frequent Flyer',       pct:50, exp:'2026-08-14',isNew:true},
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:100,exp:'2026-07-30',isNew:true,
@@ -548,10 +551,12 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Amex',         p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'7/17/2026',e:'9/27/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:0},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
   {b:'Capital One',  p:'EVA Air',                   progs:['EVA Air Infinity MileageLands'],pct:'30%',n:30,s:'6/1/2026',e:'7/31/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'15%',n:15,s:'7/17/2026',e:'8/31/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/1/2026', e:'5/11/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'20%',n:20,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
@@ -1523,4 +1528,4 @@ PP();RC();RH();buildCalcDropdown();CU();renderPT();
 })();
 </script>
 </body>
-</html>
+
