@@ -406,11 +406,19 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
+  {bank:'Amex',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true,
+   note:'Part of the all-partners Cathay promo &#183; 5:4 base ratio'},
+  {bank:'Citi',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true},
+  {bank:'Capital One', prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true},
+  {bank:'Bilt',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true},
+  {bank:'Rove',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true,
+   note:'Also: Marriott Bonvoy &#8594; Cathay earns the 10% bonus too'},
   {bank:'Amex',        prog:'Avios (BA / Iberia / Aer Lingus)',pk:'British Airways',progKey:'British Airways Avios',   pct:30, exp:'2026-09-27',isNew:true,
    note:'Covers British Airways, Iberia &amp; Aer Lingus Avios'},
   {bank:'Capital One', prog:'EVA Air Infinity MileageLands',pk:'EVA',            progKey:'EVA Air Infinity MileageLands',pct:30,exp:'2026-07-31',isNew:true},
   {bank:'Capital One', prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:15, exp:'2026-08-31',isNew:true},
   {bank:'Citi',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-08-22',isNew:true},
+  {bank:'Citi',        prog:'Turkish Airlines Miles&Smiles', pk:'Turkish Airlines',progKey:'Turkish Airlines Miles&Smiles',pct:40,exp:'2026-08-31',isNew:true},
   {bank:'Rove',        prog:'Qantas Frequent Flyer',        pk:'Qantas',           progKey:'Qantas Frequent Flyer',       pct:50, exp:'2026-08-14',isNew:true},
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:100,exp:'2026-07-30',isNew:true,
    note:'&#9733; Early Bird 100% — July 15–30 only. Drops to 70% July 31–Aug 31.'},
@@ -551,6 +559,11 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Amex',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
+  {b:'Bilt',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Cathay Pacific (Asia Miles) + Marriott',progs:['Cathay Pacific'], pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'7/17/2026',e:'9/27/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:0},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
@@ -563,6 +576,7 @@ var HIST=[
   {b:'Amex',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'15%',n:15,s:'6/1/2026', e:'7/15/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Accor',                      progs:['Accor'],                     pct:'50%',n:50,s:'6/1/2026', e:'7/18/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'7/17/2026',e:'8/22/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'40%',n:40,s:'8/1/2026', e:'8/31/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Qatar',                     progs:['Qatar'],                     pct:'30%',n:30,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
   {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'50%',n:50,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
@@ -1528,4 +1542,4 @@ PP();RC();RH();buildCalcDropdown();CU();renderPT();
 })();
 </script>
 </body>
-
+</html>
