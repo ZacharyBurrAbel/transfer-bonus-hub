@@ -11,10 +11,14 @@ body{font-family:Arial,sans-serif;background:transparent;color:#222}
 .logo{width:50px;height:50px;border-radius:50%;border:2px solid #C8102E;background:#333;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
 .sn{color:#fff;font-size:17px;font-weight:700;font-family:Georgia,serif}.sn span{color:#C8102E}
 .tg{color:#aaa;font-size:10px;margin-top:2px}
-.tab-bar{display:flex;background:#C8102E;gap:1px;flex-wrap:wrap}
-.tab{padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border:none;background:rgba(0,0,0,.25);color:rgba(255,255,255,.75);font-family:Arial,sans-serif;white-space:nowrap}
-.tab:hover{background:rgba(0,0,0,.1);color:#fff}
-.tab.on{background:#f7f7f7;color:#C8102E}
+.tab-hint{background:#C8102E;padding:8px 14px 0;font-size:11px;color:#fff;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:6px}
+.tab-hint span{opacity:.85}
+.tab-bar{display:flex;background:#C8102E;gap:4px;flex-wrap:wrap;padding:8px 8px 0}
+.tab{padding:11px 15px;font-size:12px;font-weight:700;letter-spacing:.02em;cursor:pointer;border:none;background:rgba(255,255,255,.18);color:#fff;font-family:Arial,sans-serif;white-space:nowrap;border-radius:6px 6px 0 0;display:flex;align-items:center;gap:6px;transition:background .15s,transform .1s;position:relative}
+.tab .tab-ico{font-size:14px;line-height:1}
+.tab:hover{background:rgba(255,255,255,.32);transform:translateY(-1px)}
+.tab.on{background:#f7f7f7;color:#C8102E;box-shadow:0 -2px 6px rgba(0,0,0,.12)}
+.tab:not(.on)::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:0;height:0}
 .panel{display:none;padding:18px;background:#f7f7f7;border:1px solid #e5e5e5;border-top:none;border-radius:0 0 8px 8px}
 .panel.on{display:block}
 /* stat bar */
@@ -152,12 +156,13 @@ tr:hover td{background:#fafafa}
     <div class="tg">Transfer bonuses &#183; Partner matrix &#183; Calculator &#183; Strategy &#183; Updated <span id="hdr-date">...</span></div>
   </div>
 </div>
+<div class="tab-hint"><span>&#128072; 5 tools inside — tap to explore each one</span></div>
 <div class="tab-bar">
-  <button class="tab on" onclick="ST('cur',this)">Active Bonuses</button>
-  <button class="tab" onclick="ST('hist',this)">Bonus History</button>
-  <button class="tab" onclick="ST('partners',this)">Transfer Partners</button>
-  <button class="tab" onclick="ST('calc',this)">Calculator</button>
-  <button class="tab" onclick="ST('tips',this)">Strategy</button>
+  <button class="tab on" onclick="ST('cur',this)"><span class="tab-ico">&#128293;</span>Active Bonuses</button>
+  <button class="tab" onclick="ST('hist',this)"><span class="tab-ico">&#128197;</span>Bonus History</button>
+  <button class="tab" onclick="ST('partners',this)"><span class="tab-ico">&#128188;</span>Transfer Partners</button>
+  <button class="tab" onclick="ST('calc',this)"><span class="tab-ico">&#129518;</span>Calculator</button>
+  <button class="tab" onclick="ST('tips',this)"><span class="tab-ico">&#128161;</span>Strategy</button>
 </div>
  
 <!-- TAB 1: ACTIVE BONUSES -->
@@ -394,10 +399,12 @@ function isA(b,p,n){
 var BPIL={Chase:'pC',Amex:'pA',Citi:'pCT','Capital One':'pCO',Bilt:'pB','Wells Fargo':'pW',Rove:'pR'};
  
 function ST(name,btn){
+  // btn may be the button or a child (icon span) — resolve to the tab
+  if(btn&&!btn.classList.contains('tab')&&btn.closest) btn=btn.closest('.tab');
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
   document.getElementById('tab-'+name).classList.add('on');
-  btn.classList.add('on');
+  if(btn) btn.classList.add('on');
 }
  
 /* ─── ACTIVE BONUSES ──────────────────────────────────────
@@ -423,7 +430,8 @@ var CUR=[
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:100,exp:'2026-07-30',isNew:true,
    note:'&#9733; Early Bird 100% — July 15–30 only. Drops to 70% July 31–Aug 31.'},
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:70, exp:'2026-08-31',
-   note:'70% standard offer — July 31 through Aug 31, 2026'}
+   note:'70% standard offer — July 31 through Aug 31, 2026'},
+  {bank:'Chase',       prog:'Aeroplan (Air Canada)',        pk:'Aeroplan',        progKey:'Air Canada Aeroplan',        pct:20, exp:'2026-09-30',isNew:true}
 ];
  
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
@@ -559,6 +567,7 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Chase',        p:'Aeroplan',                   progs:['Aeroplan'],                  pct:'20%',n:20,s:'8/12/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
