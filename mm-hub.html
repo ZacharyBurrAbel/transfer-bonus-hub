@@ -456,6 +456,9 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
+  {bank:'Bilt',        prog:'Virgin Atlantic - Up to 100% transfer bonus',pk:'Virgin Atlantic',progKey:'Virgin Atlantic Flying Club',pct:100,exp:'2026-09-01',
+   sameDay:true,isNew:true,
+   note:'25% Blue / 35% Silver / 45% Gold / 75% Platinum &#183; Sept 1 only &#183; Use $200 Bilt Cash to upgrade one tier (max 100%)'},
   {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:30, exp:'2026-10-14',isNew:true},
   {bank:'Capital One', prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:30, exp:'2026-09-30',isNew:true},
   {bank:'Amex',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true,
@@ -473,6 +476,7 @@ var CUR=[
   {bank:'Citi',        prog:'Turkish Airlines Miles&Smiles', pk:'Turkish Airlines',progKey:'Turkish Airlines Miles&Smiles',pct:40,exp:'2026-08-31',isNew:true},
   {bank:'Citi',        prog:'Leading Hotels of the World',   pk:'Leading Hotels of the World',progKey:'Leading Hotels of the World',pct:25,exp:'2026-09-19',isNew:true},
   {bank:'Rove',        prog:'Qantas Frequent Flyer',        pk:'Qantas',           progKey:'Qantas Frequent Flyer',       pct:50, exp:'2026-08-14',isNew:true},
+  {bank:'Rove',        prog:'Copa ConnectMiles',            pk:'Copa',             progKey:'Copa ConnectMiles',           pct:40, exp:'2026-09-30',isNew:true},
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:100,exp:'2026-07-30',isNew:true,
    note:'&#9733; Early Bird 100% — July 15–30 only. Drops to 70% July 31–Aug 31.'},
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:70, exp:'2026-08-31',
@@ -481,10 +485,7 @@ var CUR=[
 ];
 
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
-var UPCOMING=[
-  {bank:'Bilt',prog:'Virgin Atlantic - Up to 100% transfer bonus',pk:'Virgin Atlantic',pct:100,date:'2026-09-01',
-   note:'25% Blue / 35% Silver / 45% Gold / 75% Platinum &#183; Sept 1 only &#183; Bilt Rent Day &#183; Use $200 Bilt Cash to upgrade one tier (max 100%)'}
-];
+var UPCOMING=[];
 
 var curSort='bank'; // bank | program | bonus | expiry
 function setSortCUR(mode,btn){
@@ -748,6 +749,7 @@ var HIST=[
   {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'50%',n:50,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
   {b:'Rove',         p:'Qantas',                     progs:['Qantas'],                    pct:'50%',n:50,s:'7/1/2026', e:'8/14/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'40%',n:40,s:'8/14/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:0},
   {b:'Citi',         p:'iPrefer',                   progs:['iPrefer'],                   pct:'30%',n:30,s:'5/1/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Wyndham',                   progs:['Wyndham'],                   pct:'25%',n:25,s:'5/1/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
@@ -761,7 +763,7 @@ var HIST=[
   {b:'Chase',        p:'IHG',                        progs:['IHG'],                       pct:'70%', n:70, s:'7/31/2026',e:'8/31/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
-  {b:'Bilt',p:'Virgin Atlantic Flying Club - Up to 100% (25% Blue / 35% Silver / 45% Gold / 75% Platinum; $200 Bilt Cash upgrades one tier, max 100%)',progs:['Virgin Atlantic'],pct:'25-100%',n:100,s:'September 2026',e:'September 2026',y:2026,a:0,isBilt:true},
+  {b:'Bilt',p:'Virgin Atlantic Flying Club - Up to 100% (25% Blue / 35% Silver / 45% Gold / 75% Platinum; $200 Bilt Cash upgrades one tier, max 100%)',progs:['Virgin Atlantic'],pct:'25-100%',n:100,s:'September 2026',e:'September 2026',y:2026,a:1,isBilt:true},
   {b:'Bilt',p:'Accor ALL Status Match - Blue/Silver to Silver, Gold to Gold, Platinum to Platinum (5k pts Silver/Gold, 15k pts Platinum; Platinum valid thru 12/31/27)',progs:[],pct:'Status Match',n:0,s:'August 2026',e:'August 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Hilton Honors - Up to 200% (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via Bilt Cash upgrade)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'July 2026',e:'July 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:1,isBilt:true},
@@ -1103,7 +1105,7 @@ var PROG_VAL={
   'Aer Lingus Avios':1.4,'AeroMexico ClubPremier':0.8,'Air Canada Aeroplan':1.5,
   'Air France/KLM Flying Blue':1.3,'Air India Maharaja Club':1.0,'Alaska Atmos Rewards':1.5,
   'American AAdvantage':1.8,'ANA Mileage Club':1.4,'Avianca LifeMiles':1.5,
-  'British Airways Avios':1.4,'Cathay Pacific Asia Miles':1.3,'Delta SkyMiles':1.1,
+  'British Airways Avios':1.4,'Cathay Pacific Asia Miles':1.3,'Copa ConnectMiles':1.3,'Delta SkyMiles':1.1,
   'Emirates Skywards':1.2,'Ethiopian ShebaMiles':1.1,'Etihad Guest':1.2,'EVA Air Infinity MileageLands':1.2,
   'Finnair Plus':1.4,'Frontier Miles':0.9,'Hainan Airlines Fortune Wings':0.9,'Iberia Avios':1.4,
   'Japan Airlines (JAL)':1.5,'JetBlue TrueBlue':1.4,'Lufthansa Miles & More':1.3,
@@ -1161,7 +1163,7 @@ var BANK_PROGS={
   'Citi':['Air France/KLM Flying Blue','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
   'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
   'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios','Virgin Atlantic Flying Club'],
-  'Rove':['AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','Accor Live Limitless','Cathay Pacific Asia Miles','Etihad Guest','Finnair Plus','Frontier Miles','Hainan Airlines Fortune Wings','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','Qantas Frequent Flyer','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Virgin Atlantic Flying Club'],
+  'Rove':['AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','Accor Live Limitless','Cathay Pacific Asia Miles','Copa ConnectMiles','Etihad Guest','Finnair Plus','Frontier Miles','Hainan Airlines Fortune Wings','Japan Airlines (JAL)','Lufthansa Miles & More','Qatar Privilege Club Avios','Qantas Frequent Flyer','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Virgin Atlantic Flying Club'],
   'US Bank':['Air France/KLM Flying Blue','Qantas Frequent Flyer','Ethiopian ShebaMiles','Accor Live Limitless']
 };
 
@@ -1465,7 +1467,7 @@ var VAL={
   'Aer Lingus Avios':'1.4c','AeroMexico ClubPremier':'0.8c','Air Canada Aeroplan':'1.5c',
   'Air France/KLM Flying Blue':'1.3c','Air India Maharaja Club':'1.0c','Alaska Atmos Rewards':'1.5c',
   'American AAdvantage':'1.8c','ANA Mileage Club':'1.4c','Avianca LifeMiles':'1.5c',
-  'British Airways Avios':'1.4c','Cathay Pacific Asia Miles':'1.3c','Delta SkyMiles':'1.1c',
+  'British Airways Avios':'1.4c','Cathay Pacific Asia Miles':'1.3c','Copa ConnectMiles':'1.3c','Delta SkyMiles':'1.1c',
   'Emirates Skywards':'1.2c','Ethiopian ShebaMiles':'1.1c','Etihad Guest':'1.2c','EVA Air Infinity MileageLands':'1.2c',
   'Finnair Plus':'1.4c','Frontier Miles':'0.9c','Hainan Airlines Fortune Wings':'0.9c','Iberia Avios':'1.4c',
   'Japan Airlines (JAL)':'1.5c','JetBlue TrueBlue':'1.4c','Lufthansa Miles & More':'1.3c',
@@ -1497,6 +1499,7 @@ var EXP_POLICY={
   'Avianca LifeMiles':{t:'12 mo inactivity (earn only)',d:'Miles expire after 12 months. Only EARNING resets — redeeming does NOT extend. Transferring in from a bank counts as earning.',s:'watch'},
   'British Airways Avios':{t:'36 mo inactivity',d:'Avios expire after 36 months of no earning/redemption. Any activity resets.',s:'ok'},
   'Cathay Pacific Asia Miles':{t:'18 mo inactivity',d:'Miles expire after 18 months of no earning/redemption activity. Any activity resets.',s:'watch'},
+  'Copa ConnectMiles':{t:'12 mo inactivity',d:'ConnectMiles expire after 12 months of no qualifying activity. Any earning or redemption resets the clock.',s:'watch'},
   'Delta SkyMiles':{t:'Never expires',d:'SkyMiles do not expire regardless of account activity.',s:'good'},
   'Emirates Skywards':{t:'~3 yrs (birth month)',d:'Miles expire at the end of your birth month, 3 years after earned. Can pay to extend 12 months.',s:'watch'},
   'Etihad Guest':{t:'18 mo inactivity (flights only)',d:'Miles expire after 18 months. ONLY Etihad-operated flights reset the clock — transfers, purchases, and hotel bookings do NOT count.',s:'strict'},
@@ -1545,6 +1548,7 @@ var PM=[
   {n:'Avianca LifeMiles',t:'a',kw:'avianca lifemiles star alliance latin colombia amex citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'British Airways Avios',t:'a',kw:'british airways avios oneworld uk ba europe london amex chase citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'Cathay Pacific Asia Miles',t:'a',kw:'cathay pacific asia miles hong kong oneworld amex citi capital one bilt rove',A:{r:'5:4',s:'4-8 hrs'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'1-2 days'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
+  {n:'Copa ConnectMiles',t:'a',kw:'copa connectmiles panama star alliance latin america rove',R:{r:'1:1',s:'?'}},
   {n:'Delta SkyMiles',t:'a',kw:'delta skymiles skyteam domestic us atlanta amex',A:{r:'1:1',s:'Instant',v:'+excise tax'}},
   {n:'Emirates Skywards',t:'a',kw:'emirates skywards dubai middle east luxury first class amex citi capital one bilt',A:{r:'5:4',s:'Instant'},CT:{r:'5:4',s:'Instant'},CO:{r:'4:3',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Etihad Guest',t:'a',kw:'etihad guest abu dhabi middle east amex citi capital one bilt rove',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 hr'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'?'},R:{r:'1:1',s:'?'}},
