@@ -456,6 +456,8 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
+  {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:30, exp:'2026-10-14',isNew:true},
+  {bank:'Capital One', prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:30, exp:'2026-09-30',isNew:true},
   {bank:'Amex',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true,
    note:'Part of the all-partners Cathay promo &#183; 5:4 base ratio'},
   {bank:'Citi',        prog:'Cathay Pacific Asia Miles',   pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-08-28',isNew:true},
@@ -480,8 +482,8 @@ var CUR=[
 
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
 var UPCOMING=[
-  {bank:'Bilt',prog:'Accor ALL Status Match',pk:'Accor',pct:0,date:'2026-08-01',
-   note:'Aug 1 Rent Day &#183; Blue/Silver &#8594; Silver, Gold &#8594; Gold, Platinum &#8594; Platinum &#183; Transfer 5,000 pts (Silver/Gold) or 15,000 pts (Platinum) &#183; Silver/Gold: email link within 24-48 hrs, status valid 12 months from activation &#183; Platinum: applied within 5 business days, valid through 12/31/2027'}
+  {bank:'Bilt',prog:'Virgin Atlantic - Up to 100% transfer bonus',pk:'Virgin Atlantic',pct:100,date:'2026-09-01',
+   note:'25% Blue / 35% Silver / 45% Gold / 75% Platinum &#183; Sept 1 only &#183; Bilt Rent Day &#183; Use $200 Bilt Cash to upgrade one tier (max 100%)'}
 ];
 
 var curSort='bank'; // bank | program | bonus | expiry
@@ -720,6 +722,8 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'30%',n:30,s:'9/1/2026', e:'10/14/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'8/14/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Aeroplan',                   progs:['Aeroplan'],                  pct:'20%',n:20,s:'8/12/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:1,isNew:true},
@@ -757,6 +761,7 @@ var HIST=[
   {b:'Chase',        p:'IHG',                        progs:['IHG'],                       pct:'70%', n:70, s:'7/31/2026',e:'8/31/2026',y:2026,a:1,isNew:true},
   /* Bilt Rent Day 2026 */
   {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'Virgin Atlantic Flying Club - Up to 100% (25% Blue / 35% Silver / 45% Gold / 75% Platinum; $200 Bilt Cash upgrades one tier, max 100%)',progs:['Virgin Atlantic'],pct:'25-100%',n:100,s:'September 2026',e:'September 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Accor ALL Status Match - Blue/Silver to Silver, Gold to Gold, Platinum to Platinum (5k pts Silver/Gold, 15k pts Platinum; Platinum valid thru 12/31/27)',progs:[],pct:'Status Match',n:0,s:'August 2026',e:'August 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Hilton Honors - Up to 200% (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via Bilt Cash upgrade)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'July 2026',e:'July 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:1,isBilt:true},
