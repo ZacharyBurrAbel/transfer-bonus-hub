@@ -468,7 +468,12 @@ var CUR=[
 ];
 
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
-var UPCOMING=[];
+var UPCOMING=[
+  {bank:'Bilt',prog:'Hilton Honors - Up to 200% + instant status',pk:'Hilton',pct:200,date:'2026-10-01',
+   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ ($200 Bilt Cash upgrade) &#183; Oct 1 only &#183; 1:1 base &#183; Max 100k bonus pts &#183; Any transfer = instant Hilton status thru EOY 2026 (Silver/Silver/Gold/Diamond/Diamond by tier); complete the nights challenge by EOY to keep status thru 2027'},
+  {bank:'Bilt',prog:'Amtrak Guest Rewards - Up to 125%',pk:'Amtrak',pct:125,date:'2026-10-01',
+   note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up &#183; Oct 1 only &#183; 2:1 base rate &#183; $400 Bilt Cash buy-up &#183; Max 100k bonus pts'}
+];
 
 var curSort='bank'; // bank | program | bonus | expiry
 function setSortCUR(mode,btn){
@@ -706,6 +711,8 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Bilt',p:'Hilton Honors - Up to 200% + Instant Status (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via $200 Bilt Cash; instant status thru EOY 2026, nights challenge to keep thru 2027; max 100k bonus pts)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
+  {b:'Bilt',p:'Amtrak Guest Rewards - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up; 2:1 base, $400 Bilt Cash buy-up, max 100k bonus pts)',progs:['Amtrak Guest Rewards'],pct:'25-125%',n:125,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
   {b:'Citi',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'25%',n:25,s:'9/21/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Marriott',                  progs:['Marriott'],                  pct:'70%',n:70,s:'9/19/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
@@ -1089,7 +1096,7 @@ var BANK_VAL={
 // Program values in cents per point (Zach MM framework)
 var PROG_VAL={
   'Aer Lingus Avios':1.4,'AeroMexico ClubPremier':0.8,'Air Canada Aeroplan':1.5,
-  'Air France/KLM Flying Blue':1.3,'Air India Maharaja Club':1.0,'Alaska Atmos Rewards':1.5,
+  'Air France/KLM Flying Blue':1.3,'Air India Maharaja Club':1.0,'Alaska Atmos Rewards':1.5,'Amtrak Guest Rewards':2.0,
   'American AAdvantage':1.8,'ANA Mileage Club':1.4,'Avianca LifeMiles':1.5,
   'British Airways Avios':1.4,'Cathay Pacific Asia Miles':1.3,'Copa ConnectMiles':1.3,'Delta SkyMiles':1.1,
   'Emirates Skywards':1.2,'Ethiopian ShebaMiles':1.1,'Etihad Guest':1.2,'EVA Air Infinity MileageLands':1.2,
@@ -1122,6 +1129,7 @@ var RATIOS={
     'Hyatt World of Hyatt':[4,3]  // Sapphire Preferred & Ink Business Preferred; Reserve cards remain 1:1
   },
   'Bilt':{
+    'Amtrak Guest Rewards':[2,1],
     'Accor Live Limitless':[2,3],
     'Preferred Hotels iPrefer':[1,2]
   },
@@ -1144,7 +1152,7 @@ var RATIOS={
 // Which programs each bank can transfer to (keys from PM array)
 var BANK_PROGS={
   'Amex':['Aer Lingus Avios','AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','ANA Mileage Club','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Delta SkyMiles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Iberia Avios','JetBlue TrueBlue','Leading Hotels of the World','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Virgin Atlantic Flying Club'],
-  'Bilt':['Aer Lingus Avios','Air Canada Aeroplan','Alaska Atmos Rewards','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','Japan Airlines (JAL)','Marriott Bonvoy','Preferred Hotels iPrefer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Turkish Airlines Miles&Smiles','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
+  'Bilt':['Aer Lingus Avios','Air Canada Aeroplan','Alaska Atmos Rewards','Amtrak Guest Rewards','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','Japan Airlines (JAL)','Marriott Bonvoy','Preferred Hotels iPrefer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Turkish Airlines Miles&Smiles','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
   'Chase':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','British Airways Avios','Finnair Plus','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','JetBlue TrueBlue','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
   'Citi':['Air France/KLM Flying Blue','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Japan Airlines (JAL)','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
   'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
@@ -1451,7 +1459,7 @@ var PT_SHORT={'Capital One':'Cap1','Wells Fargo':'WF','US Bank':'USB'};
 
 var VAL={
   'Aer Lingus Avios':'1.4c','AeroMexico ClubPremier':'0.8c','Air Canada Aeroplan':'1.5c',
-  'Air France/KLM Flying Blue':'1.3c','Air India Maharaja Club':'1.0c','Alaska Atmos Rewards':'1.5c',
+  'Air France/KLM Flying Blue':'1.3c','Air India Maharaja Club':'1.0c','Alaska Atmos Rewards':'1.5c','Amtrak Guest Rewards':'2.0c',
   'American AAdvantage':'1.8c','ANA Mileage Club':'1.4c','Avianca LifeMiles':'1.5c',
   'British Airways Avios':'1.4c','Cathay Pacific Asia Miles':'1.3c','Copa ConnectMiles':'1.3c','Delta SkyMiles':'1.1c',
   'Emirates Skywards':'1.2c','Ethiopian ShebaMiles':'1.1c','Etihad Guest':'1.2c','EVA Air Infinity MileageLands':'1.2c',
@@ -1480,6 +1488,7 @@ var EXP_POLICY={
   'Air France/KLM Flying Blue':{t:'24 mo inactivity',d:'Miles expire after 24 months of no earning activity. Transfer in from any bank partner resets.',s:'ok'},
   'Air India Maharaja Club':{t:'24 mo inactivity',d:'Points expire after 24 months of no flying activity.',s:'ok'},
   'Alaska Atmos Rewards':{t:'24 mo inactivity',d:'Miles expire after 24 months of no earning/redemption activity.',s:'ok'},
+  'Amtrak Guest Rewards':{t:'24 mo inactivity',d:'Points expire after 24 months of no qualifying activity. Any earning or redemption resets the clock.',s:'ok'},
   'American AAdvantage':{t:'24 mo inactivity',d:'Miles expire after 24 months of no earning activity. Co-branded card use resets.',s:'ok'},
   'ANA Mileage Club':{t:'36 mo hard expiration',d:'Miles expire 36 months after earned. NO extension possible — activity does not reset.',s:'strict'},
   'Avianca LifeMiles':{t:'12 mo inactivity (earn only)',d:'Miles expire after 12 months. Only EARNING resets — redeeming does NOT extend. Transferring in from a bank counts as earning.',s:'watch'},
@@ -1529,6 +1538,7 @@ var PM=[
   {n:'Air France/KLM Flying Blue',t:'a',kw:'flying blue air france klm skyteam france europe netherlands amex chase citi capital one bilt wells fargo rove us bank',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'Instant'},U:{r:'1:1',s:'?'}},
   {n:'Air India Maharaja Club',t:'a',kw:'air india maharaja star alliance rove',R:{r:'1:1',s:'?'}},
   {n:'Alaska Atmos Rewards',t:'a',kw:'alaska atmos oneworld domestic us west coast bilt',B:{r:'1:1',s:'Instant'}},
+  {n:'Amtrak Guest Rewards',t:'a',kw:'amtrak guest rewards train rail domestic us bilt',B:{r:'2:1',s:'Instant'}},
   {n:'American AAdvantage',t:'a',kw:'american airlines aadvantage oneworld domestic aa citi',CT:{r:'1:1',s:'Instant'}},
   {n:'ANA Mileage Club',t:'a',kw:'ana all nippon star alliance japan tokyo amex',A:{r:'1:1',s:'~1 day'}},
   {n:'Avianca LifeMiles',t:'a',kw:'avianca lifemiles star alliance latin colombia amex citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
