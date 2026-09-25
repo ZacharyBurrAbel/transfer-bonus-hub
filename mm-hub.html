@@ -130,6 +130,7 @@ tr:hover td{background:#fafafa}
 /* partner matrix */
 .type-air{background:#EBF4FF;color:#0a3d7a;font-size:8px;padding:1px 5px;border-radius:8px;font-weight:700;margin-left:4px;vertical-align:middle}
 .type-htl{background:#F0FFF4;color:#1b5e20;font-size:8px;padding:1px 5px;border-radius:8px;font-weight:700;margin-left:4px;vertical-align:middle}
+.type-rail{background:#F3EEFF;color:#4527a0;font-size:8px;padding:1px 5px;border-radius:8px;font-weight:700;margin-left:4px;vertical-align:middle}
 .pt-controls{padding:0 0 12px;display:flex;flex-direction:column;gap:10px}
 .search-row{display:flex;align-items:center;gap:8px}
 .search-box{flex:1;position:relative}
@@ -1538,7 +1539,7 @@ var PM=[
   {n:'Air France/KLM Flying Blue',t:'a',kw:'flying blue air france klm skyteam france europe netherlands amex chase citi capital one bilt wells fargo rove us bank',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'},R:{r:'1:1',s:'Instant'},U:{r:'1:1',s:'?'}},
   {n:'Air India Maharaja Club',t:'a',kw:'air india maharaja star alliance rove',R:{r:'1:1',s:'?'}},
   {n:'Alaska Atmos Rewards',t:'a',kw:'alaska atmos oneworld domestic us west coast bilt',B:{r:'1:1',s:'Instant'}},
-  {n:'Amtrak Guest Rewards',t:'a',kw:'amtrak guest rewards train rail domestic us bilt',B:{r:'2:1',s:'Instant'}},
+  {n:'Amtrak Guest Rewards',t:'r',kw:'amtrak guest rewards train rail domestic us bilt',B:{r:'2:1',s:'Instant'}},
   {n:'American AAdvantage',t:'a',kw:'american airlines aadvantage oneworld domestic aa citi',CT:{r:'1:1',s:'Instant'}},
   {n:'ANA Mileage Club',t:'a',kw:'ana all nippon star alliance japan tokyo amex',A:{r:'1:1',s:'~1 day'}},
   {n:'Avianca LifeMiles',t:'a',kw:'avianca lifemiles star alliance latin colombia amex citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
@@ -1639,6 +1640,7 @@ function renderPT(){
   var filtered=PM.filter(function(p){return ptMatches(p);});
   var air=filtered.filter(function(p){return p.t==='a';});
   var htl=filtered.filter(function(p){return p.t==='h';});
+  var rail=filtered.filter(function(p){return p.t==='r';});
   var total=filtered.length;
   var bankLabel='';
   if(ptBank) PT_BANKS.forEach(function(b){if(b.key===ptBank) bankLabel=b.label;});
@@ -1674,6 +1676,18 @@ function renderPT(){
       var ep=EXP_POLICY[p.n];
       var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
       h+='<tr><td>'+hlText(p.n)+'<span class="type-htl">HTL</span></td>';
+      h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
+      h+='<td>'+expHtml+'</td>';
+      PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
+      h+='</tr>';
+    });
+  }
+  if(rail.length){
+    h+='<tr><td colspan="'+cols+'" class="cat-r">Rail - A to Z ('+rail.length+')</td></tr>';
+    rail.forEach(function(p){
+      var ep=EXP_POLICY[p.n];
+      var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
+      h+='<tr><td>'+hlText(p.n)+'<span class="type-rail">RAIL</span></td>';
       h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
       h+='<td>'+expHtml+'</td>';
       PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
