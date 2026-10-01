@@ -429,7 +429,7 @@ var ATH={
   'Amex|Virgin Atlantic':40,'Amex|Hilton':40,'Amex|Marriott':35,'Amex|Avianca LifeMiles':15,'Amex|British Airways':40,'Amex|Iberia':40,
   'Citi|Turkish Airlines':50,'Citi|Accor':50,'Citi|Virgin Atlantic':30,'Citi|Avianca LifeMiles':25,'Citi|Leading Hotels of the World':25,'Citi|Qatar':30,
   'Capital One|Japan Airlines':30,'Capital One|Etihad':40,'Capital One|Virgin Atlantic':30,'Capital One|iPrefer':30,
-  'Rove|Japan Airlines':50,'Rove|Flying Blue':20,'Wells Fargo|Flying Blue':20,
+  'Rove|Japan Airlines':50,'Rove|Flying Blue':40,'Wells Fargo|Flying Blue':20,
   'Bilt|IHG':100,'Bilt|Hawaiian':100,'Bilt|Flying Blue':100,'Bilt|Virgin Atlantic':150,'Bilt|Aeroplan':150,'Bilt|Emirates':150,
   'Bilt|Avianca LifeMiles':100,'Bilt|Hilton':200,'Bilt|British Airways':100,'Bilt|Accor':200,
   'Bilt|Japan Airlines':125,'Bilt|Wyndham':125,'Bilt|Etihad':100,'Bilt|Alaska Airlines':100
@@ -457,24 +457,28 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
+  {bank:'Bilt',        prog:'Hilton Honors - Up to 200% + instant status',pk:'Hilton',progKey:'Hilton Honors',pct:200,exp:'2026-10-01',
+   sameDay:true,isNew:true,
+   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ ($200 Bilt Cash upgrade) &#183; Oct 1 only &#183; 1:1 base &#183; Max 100k bonus pts &#183; Any transfer = instant Hilton status thru EOY 2026; complete the nights challenge by EOY to keep thru 2027'},
+  {bank:'Bilt',        prog:'Amtrak Guest Rewards - Up to 125%',pk:'Amtrak',progKey:'Amtrak Guest Rewards',pct:125,exp:'2026-10-01',
+   sameDay:true,isNew:true,
+   note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up &#183; Oct 1 only &#183; 2:1 base rate &#183; $400 Bilt Cash buy-up &#183; Max 100k bonus pts'},
   {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:30, exp:'2026-10-14',isNew:true},
-  {bank:'Capital One', prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:30, exp:'2026-09-30',isNew:true},
-  {bank:'Amex',        prog:'Avios (BA / Iberia / Aer Lingus)',pk:'British Airways',progKey:'British Airways Avios',   pct:30, exp:'2026-09-27',isNew:true,
-   note:'Covers British Airways, Iberia &amp; Aer Lingus Avios'},
-  {bank:'Rove',        prog:'Copa ConnectMiles',            pk:'Copa',             progKey:'Copa ConnectMiles',           pct:40, exp:'2026-09-30',isNew:true},
-  {bank:'Chase',       prog:'Aeroplan (Air Canada)',        pk:'Aeroplan',        progKey:'Air Canada Aeroplan',        pct:20, exp:'2026-09-30',isNew:true},
+  {bank:'Amex',        prog:'AeroMexico ClubPremier',       pk:'AeroMexico',     progKey:'AeroMexico ClubPremier',     pct:20, exp:'2026-10-30',isNew:true},
+  {bank:'Amex',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:25, exp:'2026-10-15',isNew:true},
+  {bank:'Rove',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:50, exp:'2026-10-31',isNew:true},
+  {bank:'Rove',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:40, exp:'2026-10-31',isNew:true},
+  {bank:'Rove',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',          progKey:'Qatar Privilege Club Avios', pct:35, exp:'2026-10-31',isNew:true,
+   note:'Tiered: 15% up to 49,999 pts &#183; 25% for 50k-99,999 &#183; 35% for 100k+ transferred'},
   {bank:'Citi',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:30, exp:'2026-10-24',isNew:true},
   {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:70, exp:'2026-10-15',isNew:true},
-  {bank:'Citi',        prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:25, exp:'2026-10-24',isNew:true}
+  {bank:'Citi',        prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:25, exp:'2026-10-24',isNew:true},
+  {bank:'Capital One', prog:'British Airways Avios',         pk:'British Airways',progKey:'British Airways Avios',        pct:20, exp:'2026-10-30',isNew:true,
+   note:'Opens the Avios &ldquo;backdoor&rdquo;: convert to BA Avios, then move to Iberia, Aer Lingus, Qatar or other Avios programs'}
 ];
 
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
-var UPCOMING=[
-  {bank:'Bilt',prog:'Hilton Honors - Up to 200% + instant status',pk:'Hilton',pct:200,date:'2026-10-01',
-   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ ($200 Bilt Cash upgrade) &#183; Oct 1 only &#183; 1:1 base &#183; Max 100k bonus pts &#183; Any transfer = instant Hilton status thru EOY 2026 (Silver/Silver/Gold/Diamond/Diamond by tier); complete the nights challenge by EOY to keep status thru 2027'},
-  {bank:'Bilt',prog:'Amtrak Guest Rewards - Up to 125%',pk:'Amtrak',pct:125,date:'2026-10-01',
-   note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up &#183; Oct 1 only &#183; 2:1 base rate &#183; $400 Bilt Cash buy-up &#183; Max 100k bonus pts'}
-];
+var UPCOMING=[];
 
 var curSort='bank'; // bank | program | bonus | expiry
 function setSortCUR(mode,btn){
@@ -712,20 +716,26 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
-  {b:'Bilt',p:'Hilton Honors - Up to 200% + Instant Status (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via $200 Bilt Cash; instant status thru EOY 2026, nights challenge to keep thru 2027; max 100k bonus pts)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
-  {b:'Bilt',p:'Amtrak Guest Rewards - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up; 2:1 base, $400 Bilt Cash buy-up, max 100k bonus pts)',progs:['Amtrak Guest Rewards'],pct:'25-125%',n:125,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
+  {b:'Capital One',  p:'British Airways',            progs:['British Airways'],           pct:'20%',n:20,s:'10/1/2026',e:'10/30/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'AeroMexico',                 progs:['AeroMexico'],                pct:'20%',n:20,s:'10/1/2026',e:'10/30/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'10/1/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'50%',n:50,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'40%',n:40,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Qatar',                      progs:['Qatar'],                     pct:'15-35%',n:35,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
+  {b:'Bilt',p:'Hilton Honors - Up to 200% + Instant Status (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via $200 Bilt Cash; instant status thru EOY 2026, nights challenge to keep thru 2027; max 100k bonus pts)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'October 2026',e:'October 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'Amtrak Guest Rewards - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up; 2:1 base, $400 Bilt Cash buy-up, max 100k bonus pts)',progs:['Amtrak Guest Rewards'],pct:'25-125%',n:125,s:'October 2026',e:'October 2026',y:2026,a:1,isBilt:true},
   {b:'Citi',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'25%',n:25,s:'9/21/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Marriott',                  progs:['Marriott'],                  pct:'70%',n:70,s:'9/19/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'30%',n:30,s:'9/1/2026', e:'10/14/2026',y:2026,a:1,isNew:true},
-  {b:'Capital One',  p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'8/14/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
-  {b:'Chase',        p:'Aeroplan',                   progs:['Aeroplan'],                  pct:'20%',n:20,s:'8/12/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'8/14/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
+  {b:'Chase',        p:'Aeroplan',                   progs:['Aeroplan'],                  pct:'20%',n:20,s:'8/12/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Capital One',  p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Bilt',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Rove',         p:'Cathay Pacific (Asia Miles) + Marriott',progs:['Cathay Pacific'], pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'7/17/2026',e:'9/27/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'7/17/2026',e:'9/27/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:0},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
@@ -743,7 +753,7 @@ var HIST=[
   {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'50%',n:50,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
   {b:'Rove',         p:'Qantas',                     progs:['Qantas'],                    pct:'50%',n:50,s:'7/1/2026', e:'8/14/2026',y:2026,a:0,isNew:true},
-  {b:'Rove',         p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'40%',n:40,s:'8/14/2026',e:'9/30/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'40%',n:40,s:'8/14/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:0},
   {b:'Citi',         p:'iPrefer',                   progs:['iPrefer'],                   pct:'30%',n:30,s:'5/1/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Wyndham',                   progs:['Wyndham'],                   pct:'25%',n:25,s:'5/1/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
