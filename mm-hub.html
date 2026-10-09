@@ -1868,14 +1868,13 @@ function buBtn(name){
   return '<button type="button" class="bu" data-bui="'+i+'" aria-haspopup="dialog" aria-expanded="false" aria-label="Best uses of '+buEsc(name)+'">Best uses</button>';
 }
 var buPopBtn=null, buLast=null, buTimer=null, buTouch=false;
-function buFine(){return window.matchMedia('(hover:hover) and (pointer:fine)').matches;}
 function buHidePop(){
   var p=document.getElementById('bu-pop');
   if(p) p.hidden=true;
   if(buPopBtn){buPopBtn.setAttribute('aria-expanded','false');buPopBtn=null;}
 }
 function buShowPop(btn){
-  if(!buFine()||buTouch) return;
+  if(buTouch) return;
   var d=BEST[BU_NAMES[+btn.getAttribute('data-bui')]];
   if(!d) return;
   var p=document.getElementById('bu-pop');
@@ -1922,6 +1921,7 @@ function buOpen(name){
   document.getElementById('bu-x').focus();
 }
 document.addEventListener('pointerdown',function(e){buTouch=(e.pointerType==='touch'||e.pointerType==='pen');},true);
+document.addEventListener('pointermove',function(e){if(e.pointerType==='mouse') buTouch=false;},true);
 document.addEventListener('click',function(e){
   var b=e.target.closest&&e.target.closest('.bu');
   if(b){e.preventDefault();buOpen(BU_NAMES[+b.getAttribute('data-bui')]);return;}
