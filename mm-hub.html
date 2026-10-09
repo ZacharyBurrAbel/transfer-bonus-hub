@@ -164,7 +164,36 @@ tr:hover td{background:#fafafa}
 .nl-prompt{display:none;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding:10px 12px;background:#fff;border:1px solid #e5e5e5;border-left:3px solid #C8102E;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.45}
 .nl-prompt a{color:#fff;background:#C8102E;text-decoration:none;font-weight:700;font-size:11px;padding:8px 12px;border-radius:20px;white-space:nowrap}
 .nl-prompt a:hover{background:#a50d26}
+.bu{display:inline-block;margin-top:4px;padding:0;border:0;background:none;color:#C8102E;font:700 11px Arial,sans-serif;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.bu:hover{color:#a50d26}
+.bu:focus{outline:2px solid #C8102E;outline-offset:2px}
+.bu-pop{position:fixed;z-index:80;width:min(300px,calc(100vw - 16px));background:#fff;border:1px solid #e5e5e5;border-radius:8px;box-shadow:0 8px 22px rgba(0,0,0,.16);padding:10px 12px;font-size:11px;line-height:1.35;color:#222}
+.bu-ph{font-family:Georgia,serif;font-size:13px;font-weight:700;margin-bottom:6px}
+.bu-pl{list-style:none;margin:0;padding:0}
+.bu-pl li{padding:5px 0;border-top:1px solid #f0f0f0}
+.bu-pl b{display:block;font-size:12px}
+.bu-pl span{display:block;color:#666}
+.bu-pl .bu-pw{color:#444;font-weight:400}
+.bu-pm,.bu-pn{margin-top:6px;color:#666;font-size:10px}
+.bu-ov{position:fixed;inset:0;z-index:90;background:rgba(17,17,17,.48);display:flex;align-items:flex-start;justify-content:center;padding:18px 12px;overflow:auto}
+.bu-ov[hidden],.bu-pop[hidden]{display:none}
+.bu-md{background:#fff;border-radius:8px;width:min(560px,100%);margin:12px auto 24px;padding:16px 16px 14px;position:relative;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.bu-x{position:absolute;top:8px;right:8px;width:32px;height:32px;border:0;border-radius:50%;background:#f4f4f4;cursor:pointer;font-size:18px;line-height:1;color:#333}
+.bu-x:hover{background:#eee}
+.bu-x:focus{outline:2px solid #C8102E}
+.bu-mt{font-family:Georgia,serif;font-size:20px;font-weight:700;padding-right:36px;line-height:1.25}
+.bu-ms{font-size:11px;color:#666;margin:4px 0 10px;line-height:1.45}
+.bu-row{padding:8px 0;border-top:1px solid #eee}
+.bu-route{font-size:13px;font-weight:700}
+.bu-meta{font-size:11px;color:#C8102E;font-weight:700;margin-top:2px}
+.bu-why{font-size:12px;color:#444;margin-top:2px;line-height:1.4}
+.bu-foot{margin-top:10px;font-size:10px;color:#888;line-height:1.4}
+.bu-nl{margin-top:10px;padding-top:10px;border-top:1px solid #eee;font-size:12px;color:#555;line-height:1.45}
+.bu-nl a{color:#C8102E;font-weight:700}
 @media(max-width:520px){
+  .bu-ov{padding:0;align-items:stretch}
+  .bu-md{margin:0;border-radius:0;min-height:100%}
+
   .nl-bar{flex-wrap:wrap;align-items:flex-start;padding:10px 12px;gap:8px}
   .nl-title{font-size:13px}
   .nl-copy{flex:1 1 calc(100% - 42px)}
@@ -174,6 +203,17 @@ tr:hover td{background:#fafafa}
 </style>
 
 <div id="mm-hub">
+<div id="bu-pop" class="bu-pop" hidden role="tooltip"></div>
+<div id="bu-ov" class="bu-ov" hidden>
+  <div class="bu-md" role="dialog" aria-modal="true" aria-labelledby="bu-title">
+    <button type="button" class="bu-x" id="bu-x" aria-label="Close">&#215;</button>
+    <div class="bu-mt" id="bu-title"></div>
+    <div class="bu-ms" id="bu-sub"></div>
+    <div id="bu-list"></div>
+    <div class="bu-foot" id="bu-src"></div>
+    <p class="bu-nl">Sweet spots are more useful when a transfer bonus is live. <a href="https://magic.beehiiv.com/v1/b82b40b7-7dcb-4c8b-9ca5-6b52bd1674e7" target="_blank" rel="noopener noreferrer" onclick="return openNl(event)">Get the free Monkey Miles newsletter</a>.</p>
+  </div>
+</div>
 <div class="hdr">
   <div class="logo">&#x1F412;</div>
   <div>
@@ -323,7 +363,8 @@ tr:hover td{background:#fafafa}
   </div>
 
   <!-- Result verdict -->
-  <div id="vc-verdict" style="display:none;border-radius:6px;padding:14px 16px;margin-bottom:18px"></div>
+  <div id="vc-verdict" style="display:none;border-radius:6px;padding:14px 16px;margin-bottom:8px"></div>
+  <div id="vc-uses" style="margin-bottom:12px"></div>
 
   <!-- Value breakdown table -->
   <div id="vc-table" style="display:none;background:#fff;border:1px solid #e5e5e5;border-radius:6px;overflow:hidden;margin-bottom:18px">
@@ -360,6 +401,7 @@ tr:hover td{background:#fafafa}
     </div>
     <table class="rt" id="cres"></table>
     <div class="ct ct-err" id="ctip" style="display:none"></div>
+    <div id="cu-uses" style="margin-top:8px"></div>
     <div id="nl-cu" class="nl-prompt">
       <span>Get transfer bonus alerts in your inbox, free.</span>
       <a href="https://magic.beehiiv.com/v1/b82b40b7-7dcb-4c8b-9ca5-6b52bd1674e7" target="_blank" rel="noopener noreferrer" onclick="return openNl(event)">Sign up</a>
@@ -590,7 +632,7 @@ function RC(){
       '<span>'+(b.isNew?'<span class="new-badge">New</span>&nbsp;':'')+
       '<span class="ldot"></span><span style="font-size:11px;color:#2e7d32;font-weight:700">Live</span></span></div>'+
       '<div class="bp">'+b.pct+'<span>% bonus</span></div>'+
-      '<div class="bn">'+b.prog+'</div>'+
+      '<div class="bn">'+b.prog+'</div>'+buBtn(progKey)+
       ratioHtml+
       (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
       '<div class="bf"><span class="exp">'+(b.sameDay?'Active: '+fmtExp(b.exp):'Expires '+fmtExp(b.exp))+'</span>'+
@@ -637,7 +679,7 @@ function RC(){
         '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
         '<span style="font-size:11px;color:#888;font-weight:700">&#128336; Upcoming</span></div>'+
         '<div class="bp" style="color:#888;font-size:'+(b.pct>0?'34px':'22px')+'">'+(b.pct>0?b.pct+'<span>% bonus</span>':'Status Match')+'</div>'+
-        '<div class="bn" style="color:#555">'+b.prog+'</div>'+
+        '<div class="bn" style="color:#555">'+b.prog+'</div>'+buBtn(b.progKey||b.prog)+
         (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
         '<div class="bf"><span class="exp">Active: '+fmtExp(b.date)+'</span>'+
         '<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#f0f0f0;color:#555">'+dLabel+'</span></div></div>';
@@ -654,7 +696,7 @@ function RC(){
         '<span class="pill '+BPIL[b.bank]+'">'+b.bank+'</span>'+
         '<span style="font-size:11px;color:#e65100;font-weight:700">&#128161; Unconfirmed</span></div>'+
         '<div class="bp" style="color:#e65100">'+b.pct+'<span>% bonus</span></div>'+
-        '<div class="bn" style="color:#555">'+b.prog+'</div>'+
+        '<div class="bn" style="color:#555">'+b.prog+'</div>'+buBtn(b.progKey||b.prog)+
         (b.note?'<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.5">'+b.note+'</div>':'')+
         '<div class="bf"><span class="exp">Est. active: '+fmtExp(b.date)+'</span>'+
         '<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;background:#fff3e0;color:#e65100">Unconfirmed</span></div></div>';
@@ -1208,6 +1250,8 @@ function VCcalc(){
     verdictEl.style.display='none';
     tableEl.style.display='none';
     showNl('nl-vc',false);
+    var vcUses0=document.getElementById('vc-uses');
+    if(vcUses0) vcUses0.innerHTML='';
     fromValEl.textContent='';
     toValEl.textContent='';
     recvEl.textContent='—';
@@ -1261,6 +1305,8 @@ function VCcalc(){
   verdictEl.style.borderRadius='0 6px 6px 0';
   verdictEl.innerHTML='<div style="font-weight:700;font-size:13px;color:'+verdictBorder+';margin-bottom:4px">'+verdictText+'</div>'+
     '<div style="font-size:12px;color:#444;line-height:1.5">'+verdictSub+'</div>';
+  var vcUses=document.getElementById('vc-uses');
+  if(vcUses) vcUses.innerHTML=buBtn(prog);
 
   // Table
   tableEl.style.display='block';
@@ -1345,6 +1391,8 @@ function CU(){
     tipEl.className='ct ct-err';tipEl.style.display='block';
     tipEl.textContent='Please enter a valid number of points greater than 0.';
     showNl('nl-cu',false);
+    var cuUses0=document.getElementById('cu-uses');
+    if(cuUses0) cuUses0.innerHTML='';
     return;
   }
   cpEl.classList.remove('err');
@@ -1359,6 +1407,8 @@ function CU(){
       tipEl.className='ct ct-err';tipEl.style.display='block';
       tipEl.textContent='Please enter a bonus % between 1 and 500.';
       showNl('nl-cu',false);
+      var cuUses1=document.getElementById('cu-uses');
+      if(cuUses1) cuUses1.innerHTML='';
       return;
     }
     cpctEl.classList.remove('err');
@@ -1411,6 +1461,8 @@ function CU(){
     tipEl.className='ct';
     tipEl.textContent='A '+pct+'% boost on a '+ratioStr+' gives you '+totalRecv.toLocaleString()+' pts. Best used with a specific booking ready.';
   }
+  var cuUses=document.getElementById('cu-uses');
+  if(cuUses) cuUses.innerHTML=(progKey&&progKey!=='Custom')?buBtn(progKey):'';
 }
 
 /* ─── PARTNER MATRIX ─── */
@@ -1638,7 +1690,7 @@ function renderPT(){
     air.forEach(function(p){
       var ep=EXP_POLICY[p.n];
       var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
-      h+='<tr><td>'+hlText(p.n)+'<span class="type-air">AIR</span></td>';
+      h+='<tr><td>'+hlText(p.n)+'<span class="type-air">AIR</span><br>'+buBtn(p.n)+'</td>';
       h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
       h+='<td>'+expHtml+'</td>';
       PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
@@ -1650,7 +1702,7 @@ function renderPT(){
     htl.forEach(function(p){
       var ep=EXP_POLICY[p.n];
       var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
-      h+='<tr><td>'+hlText(p.n)+'<span class="type-htl">HTL</span></td>';
+      h+='<tr><td>'+hlText(p.n)+'<span class="type-htl">HTL</span><br>'+buBtn(p.n)+'</td>';
       h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
       h+='<td>'+expHtml+'</td>';
       PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
@@ -1662,7 +1714,7 @@ function renderPT(){
     rail.forEach(function(p){
       var ep=EXP_POLICY[p.n];
       var expHtml=ep?'<span class="exp-cell exp-'+ep.s+'" title="'+ep.d+'">'+ep.t+'</span>':'<span style="color:#ccc">?</span>';
-      h+='<tr><td>'+hlText(p.n)+'<span class="type-rail">RAIL</span></td>';
+      h+='<tr><td>'+hlText(p.n)+'<span class="type-rail">RAIL</span><br>'+buBtn(p.n)+'</td>';
       h+='<td class="mmc"><span class="mrv">'+(VAL[p.n]||'-')+'</span></td>';
       h+='<td>'+expHtml+'</td>';
       PT_BANKS.forEach(function(b){h+=ptCell(p[b.key]);});
@@ -1694,6 +1746,225 @@ setInterval(function(){
     }
   }catch(e){}
 },500);
+
+/* ── BEST USES ── last reviewed with the charts cited below */
+var BEST_REVIEWED='October 9, 2026';
+var BEST={
+'Virgin Atlantic Flying Club':{note:'ANA awards below are one-way on the Virgin Atlantic chart. Taxes are extra, space is limited, and ANA awards are booked by phone. Virgin\u2019s own flights are priced dynamically and are not listed.',src:'Virgin Atlantic ANA partner chart',u:[
+['ANA First, Japan\u2013Western USA, Canada, or Australia','72,500','First','One-way. The same cabin to the US East or Central, Mexico, or Europe is 85,000.'],
+['ANA First, Japan\u2013US East, US Central, Mexico, or Europe','85,000','First','One-way on ANA metal. This is the top of the published ANA First chart.'],
+['ANA Business, Japan\u2013Western USA, Canada, or Australia','52,500','Business','One-way. East or Central USA, Mexico, and Europe are 60,000.'],
+['ANA Business, Japan\u2013US East, US Central, Mexico, or Europe','60,000','Business','One-way. A strong use when West Coast First at 72,500 is not the trip you need.'],
+['ANA First, Japan\u2013Hawaii, India, or Indonesia','57,500','First','One-way. Business on the same routes is 37,500.'],
+['ANA Business, Japan\u2013Singapore, Bangkok, Kuala Lumpur, or Vietnam','35,000','Business','One-way. First on these routes is 52,500.'],
+['ANA First, Japan\u2013China, Hong Kong, Taipei, Manila, or Guam','30,000','First','One-way. Business is 22,500.'],
+['ANA First, Japan\u2013Seoul','25,000','First','One-way, the shortest international First price on this chart. Business is 17,500.'],
+['ANA Economy, Japan\u2013Western USA or Canada','30,000','Economy','One-way. East Coast, Mexico, and Europe economy is 32,500.']
+]},
+'Hyatt World of Hyatt':{note:'Standard-room rates since May 20, 2026 use five tiers: Lowest, Low, Moderate, Upper, and Top. Mr & Mrs Smith hotels are dynamic and are not on this chart. A hotel\u2019s category can change, so check it before you transfer.',src:'World of Hyatt chart via TPG, May 20, 2026',u:[
+['Category 1 standard room','3,000\u20139,000','Standard room','Per night, Lowest through Top. The floor of the published chart.'],
+['Category 4 standard room','12,000\u201325,000','Standard room','Per night. A common band for full-service Hyatts.'],
+['Category 6 standard room','20,000\u201340,000','Standard room','Per night, Lowest through Top.'],
+['Category 7 standard room','25,000\u201355,000','Standard room','Per night. Upper and Top dates are where this category gets expensive.'],
+['Category 8 standard room','35,000\u201375,000','Standard room','Per night. The top published standard-room band, excluding Miraval and all-inclusives.'],
+['Club, suite, or premium-suite upgrade on a paid stay','3,000 / 6,000 / 9,000','Upgrade','Per night. Club is 3,000, a standard suite is 6,000, and a premium suite is 9,000.'],
+['All-inclusive Category A standard room','12,000\u201325,000','Standard room','Per night for two guests. A third or fourth guest is extra points. Higher all-inclusive categories cost more.'],
+['Miraval standard room, two guests','60,000\u201395,000','Standard room','Per night, Lowest through Top, meals and a resort credit included. One guest is 40,000\u201375,000.']
+]},
+'Air Canada Aeroplan':{note:'Partner prices below are one-way from Air Canada\u2019s June 2026 reward chart for \u201call other partners.\u201d Air Canada and select partners can price higher (\u201cstarting at\u201d or a median). The price follows distance flown. A partner fee and taxes are extra.',src:'Air Canada Aeroplan flight reward chart, June 2026',u:[
+['US or Canada East to Western Europe, under 4,000 miles flown','60,000','Business','Partner business, one-way. Economy in this band is 32,500 and partner first is 90,000.'],
+['Longer North America\u2013Europe, Middle East, Africa, or India (4,001\u20136,000 miles)','75,000','Business','Partner business. Many West Coast and deeper-Europe routings land here. Economy is 42,500; partner first is 120,000.'],
+['North America\u2013Pacific under 5,000 miles','55,000','Business','Partner business, one-way. Partner first in this band is 90,000.'],
+['North America\u2013Pacific, 5,001\u20137,500 miles','85,000','Business','Partner business, one-way. Partner first is 120,000.'],
+['North America\u2013deep Asia or Pacific, 7,501\u201311,000 miles','102,500','Business','Partner business, one-way. This band covers many US\u2013Southeast Asia routings. Partner first is 140,000.'],
+['Short hop inside North America, under 500 miles','15,000','Business','Partner business. Partner economy in this band is 6,000.'],
+['Inside North America, 501\u20131,500 miles','20,000','Business','Partner business. Partner economy is 10,000.'],
+['North America\u2013South America, 2,501\u20134,500 miles','50,000','Business','Partner business, one-way. Partner economy is 30,000.']
+]},
+'Singapore Airlines KrisFlyer':{note:'Saver awards on Singapore Airlines metal, one-way, from the chart updated November 1, 2025 and still the published saver table in March 2026. Advantage awards cost more. Saver space is limited.',src:'KrisFlyer saver chart (Nov 1, 2025); Mainly Miles Nov 19, 2025; Suitesmile Mar 28, 2026',u:[
+['Singapore\u2013Tokyo or Seoul','54,500','Business','Saver, one-way. First is 81,000 and economy is 25,500.'],
+['Singapore\u2013Bangkok, Vietnam, or the Philippines','25,000','Business','Saver, one-way. Economy is 13,000.'],
+['Singapore\u2013Hong Kong or Taipei','35,500','Business','Saver, one-way. First is 47,500 and economy is 15,500.'],
+['Singapore\u2013London, Frankfurt, Amsterdam, or Zurich','108,500','Business','Saver, one-way. Suites or First is 148,000 and economy is 44,000.'],
+['Singapore\u2013Los Angeles or San Francisco','112,500','Business','Saver, one-way. First is 154,000 and economy is 44,000.'],
+['Singapore\u2013New York or Newark','117,000','Business','Saver, one-way. First is 156,000 and economy is 46,000.'],
+['Singapore\u2013Sydney','72,000','Business','Saver, one-way. First is 98,000 and economy is 29,000.'],
+['Singapore\u2013Kuala Lumpur or Jakarta','22,000','Business','Saver, one-way. Economy is 8,000. First to Jakarta is 32,000.']
+]},
+'British Airways Avios':{note:'One-way prices from London on British Airways flights, Reward Flight Saver, most Avios and least cash. Off-peak is shown. Peak costs more (all of August 2026 is peak). Other Avios-plus-cash mixes exist. Partner awards use a different distance chart and are not listed here.',src:'Head for Points BA price table, August 1, 2026',u:[
+['London\u2013New York Club World','88,000 + \u00a3249.50','Business','Off-peak, one-way. Peak is 99,000 Avios. Economy off-peak is 27,500 + \u00a375.'],
+['London\u2013Washington, Philadelphia, Baltimore, or Toronto','88,000 + \u00a3249.50','Business','Off-peak Club World, one-way, same band as New York. Peak is 99,000 Avios.'],
+['London\u2013San Francisco, Seattle, Vancouver, or Orlando','99,000 + \u00a3299.50','Business','Off-peak Club World, one-way. Peak is 110,000 Avios. Economy off-peak is 33,000 + \u00a395.'],
+['London\u2013Tokyo, Bangkok, or Shanghai','110,000 + \u00a3349.50','Business','Off-peak Club World, one-way. Peak is 121,000 Avios.'],
+['London\u2013Singapore','121,000 + \u00a3385','Business','Off-peak Club World, one-way. Peak is 132,000 Avios. Economy off-peak is 44,000 + \u00a3145.'],
+['London\u2013Sydney','159,500 + \u00a3449.50','Business','Off-peak Club World, one-way. Peak is 187,000 Avios. This is the most expensive long-haul band in the table.'],
+['London\u2013Paris, Amsterdam, or Nice','16,500 + \u00a320','Business','Off-peak Club Europe, one-way. Peak is 18,000. Economy off-peak is 10,000 + \u00a32.50.'],
+['London\u2013Rome or Barcelona','22,000 + \u00a320','Business','Off-peak Club Europe, one-way. Peak is 24,500. Economy off-peak is 13,000 + \u00a32.50.']
+]},
+'Japan Airlines (JAL)':{note:'JAL partner awards are priced on total itinerary distance, not a city pair. A connection can jump a band. Figures are the miles JAL deducts. Fuel surcharges and taxes are extra. JAL\u2019s own-metal seasonal chart is separate and is not listed here.',src:'JAL Mileage Bank partner award chart',u:[
+['Partner business, 1\u20131,000 miles total','24,000','Business','The short-haul partner business band. Economy in this band is 12,000.'],
+['Partner business, 2,001\u20134,000 miles total','42,000','Business','Fits many intra-Asia and shorter transatlantic partner itineraries. Economy is 23,000.'],
+['Partner business, 4,001\u20136,000 miles total','60,000','Business','A nonstop US West Coast\u2013Japan itinerary is often in this band. Economy is 37,000. First is 90,000.'],
+['Partner business, 6,001\u20138,000 miles total','80,000','Business','A nonstop US East Coast\u2013Japan itinerary is often in this band. First is 120,000. Economy is 45,000.'],
+['Partner first, 4,001\u20136,000 miles total','90,000','First','Same distance band as the 60,000-mile business price.'],
+['Partner first, 8,001\u201310,000 miles total','135,000','First','Business in this band is 85,000 and economy is 47,000.'],
+['Partner economy, 1\u20131,000 miles total','12,000','Economy','The cheapest partner band on the chart.'],
+['American two-cabin \u201cfirst\u201d','Business-band price','First seat','On American flights with only economy and first, JAL charges the business mileage for that first seat.']
+]},
+'ANA Mileage Club':{note:'Partner awards below are round trip, using the revised prices for tickets issued on or after April 18, 2024. Japan zone 1-A is the base Japan price; routings ANA puts in zone 1-B cost more. Fuel surcharges are common. One-way pricing was not confirmed on the chart page, so it is not listed.',src:'ANA Mileage Club partner award chart',u:[
+['Japan\u2013North America','110,000','Business','Round trip, zone 1-A. Economy is 50,000 and first is 170,000.'],
+['Japan\u2013Europe','115,000','Business','Round trip, zone 1-A. Economy is 55,000 and first is 190,000.'],
+['Japan\u2013Hawaii','85,000','Business','Round trip, zone 1-A. Economy is 40,000 and first is 140,000.'],
+['Japan\u2013South Korea','30,000','Business','Round trip, zone 1-A. Economy is 15,000 and first is 45,000.'],
+['Japan\u2013Asia 1 (much of nearby Asia)','40,000','Business','Round trip, zone 1-A. Economy is 20,000 and first is 60,000.'],
+['North America\u2013Europe','100,000','Business','Round trip on partners. Economy is 55,000 and first is 165,000.'],
+['North America\u2013Hawaii','85,000','Business','Round trip. Economy is 47,000 and first is 135,000.'],
+['Inside North America','55,000','Business','Round trip. Economy is 30,000 and first is 90,000.']
+]},
+'Qatar Privilege Club Avios':{note:'Partner prices are Qatar\u2019s published distance chart, one-way, with no peak or off-peak. Qatar does not publish a chart for its own flights. The Qsuites examples are AwardFares\u2019 2026 readings of Qatar\u2019s calculator and can change, so confirm them before you transfer.',src:'AwardFares Privilege Club guide, 2026, citing Qatar\u2019s published partner charts and calculator',u:[
+['US\u2013Doha Qsuites, off-peak saver','70,000','Business','JFK, LAX, Chicago, and Miami in the AwardFares calculator reading. Peak saver was 94,500. Not a published chart.'],
+['London or Paris\u2013Doha Qsuites, off-peak saver','42,500','Business','Calculator reading. Peak saver was 55,000. First off-peak on these routes was listed at 60,000.'],
+['Doha\u2013Tokyo Qsuites, off-peak saver','60,000','Business','Calculator reading. Peak saver was 75,000. Economy off-peak was 25,000.'],
+['Partner business, 1\u2013650 miles','12,500','Business','Published general partner chart (not American or Alaska). Economy is 6,000.'],
+['Partner business, 3,001\u20134,000 miles','42,500','Business','Published general partner chart. Many Europe\u2013US East nonstops on partners other than American or Alaska. Economy is 18,000. First is 68,000.'],
+['Partner business, 4,001\u20135,500 miles','50,000','Business','Published general partner chart. Economy is 24,000 and first is 85,000.'],
+['American or Alaska, under 650 miles','20,000','Business','Separate, higher chart. Economy is 9,500. Do not use the general 12,500 business price on AA or Alaska.'],
+['American or Alaska, 651\u20131,151 miles','26,000','Business','Separate chart. Economy is 12,000.']
+]},
+'Wyndham Rewards':{note:'Free nights are a flat points price per bedroom per night. On September 15, 2026 Wyndham moved to four tiers and dropped the old 7,500-point tier. Which hotel sits in which tier changed, so check the hotel.',src:'Wyndham Rewards reward-tier update, September 15, 2026',u:[
+['Go-tier free night','5,000','Standard night','The new lowest tier, per bedroom per night.'],
+['Mid-tier free night','15,000','Standard night','Per bedroom per night. Still the largest group of hotels after the reshuffle.'],
+['Upper-tier free night','30,000','Standard night','Per bedroom per night.'],
+['Elevated free night','45,000','Standard night','A small set of hotels, including some resort and city properties. Per bedroom per night.'],
+['Points + cash on a 5,000-point night','From 500 + cash','Standard night','Points + cash starts at about 10% of the tier: 500, 1,500, 3,000, or 4,500 points plus cash.']
+]},
+'Accor Live Limitless':{note:'ALL Reward points are a fixed discount, not a free-night chart. 1,000 points equal 20 euros off. Accor\u2019s US page cited about $22 per 1,000 points using the September 28, 2026 exchange rate.',src:'ALL Accor, booking with points',u:[
+['Any eligible Accor stay','1,000 points = \u20ac20','Room rate discount','Apply points at booking, at the hotel, or by phone. No blackout dates on eligible rates.'],
+['Larger discount','2,000 points = \u20ac40','Room rate discount','The same fixed value, in the increment Accor uses to explain the program.'],
+['Dining, spa, and experiences','Same \u20ac20 per 1,000','On-property credit','Points can also cover eligible dining and experiences, not only the room.']
+]},
+'Aer Lingus Avios':{note:'A current Aer Lingus route chart was not confirmed, so no Aer Lingus prices are listed.',src:'AwardFares Privilege Club guide, 2026',u:[
+['Move Avios to British Airways, Iberia, Qatar, or Finnair','1:1','Same Avios','These five programs share Avios. Move them, then book where you can see a current price.']
+]},
+'Iberia Avios':{note:'A current Iberia route chart was not confirmed, so no Iberia prices are listed.',src:'AwardFares Privilege Club guide, 2026',u:[
+['Move Avios to British Airways, Qatar, Aer Lingus, or Finnair','1:1','Same Avios','These five programs share Avios. Move them, then book where you can see a current price.']
+]},
+'Finnair Plus':{note:'A current Finnair award chart was not confirmed, so no Finnair route prices are listed.',src:'AwardFares Privilege Club guide, 2026',u:[
+['Move Avios to British Airways, Iberia, Qatar, or Aer Lingus','1:1','Same Avios','These five programs share Avios. Move them, then book where you can see a current price.']
+]},
+'Hilton Honors':{note:'Hilton does not publish an award chart. Standard-room prices move with demand, so no hotel prices are listed.',src:'Hilton pricing is dynamic (no chart)',u:[]},
+'Marriott Bonvoy':{note:'Marriott has not published an award chart since it dropped categories. Nightly prices are dynamic, so no hotel prices are listed.',src:'Marriott Bonvoy dynamic pricing',u:[]},
+'Alaska Atmos Rewards':{note:'Atmos Rewards publishes distance-based \u201cstarting at\u201d charts, but the chart page did not load for this review, so no prices are listed.',src:'',u:[]}
+};
+['AeroMexico ClubPremier','Air France/KLM Flying Blue','Air India Maharaja Club','Amtrak Guest Rewards','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Copa ConnectMiles','Delta SkyMiles','Emirates Skywards','Ethiopian ShebaMiles','Etihad Guest','EVA Air Infinity MileageLands','Frontier Miles','Hainan Airlines Fortune Wings','JetBlue TrueBlue','Lufthansa Miles & More','Malaysia Enrich','Qantas Frequent Flyer','SAS EuroBonus','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','United MileagePlus','Vietnam Airlines LotusMiles','Choice Privileges','IHG One Rewards','Leading Hotels of the World','Preferred Hotels iPrefer'].forEach(function(n){
+  BEST[n]={note:'Reviewed '+BEST_REVIEWED+'. A current award chart from the program, Frequent Miler, TPG, or OMAAT was not confirmed, so no route prices are listed.',src:'',u:[]};
+});
+var BU_NAMES=[];
+function buEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function buBtn(name){
+  if(!name||!BEST[name]) return '';
+  var i=BU_NAMES.indexOf(name);
+  if(i<0){i=BU_NAMES.length;BU_NAMES.push(name);}
+  return '<button type="button" class="bu" data-bui="'+i+'" aria-haspopup="dialog" aria-expanded="false" aria-label="Best uses of '+buEsc(name)+'">Best uses</button>';
+}
+var buPopBtn=null, buLast=null, buTimer=null, buTouch=false;
+function buFine(){return window.matchMedia('(hover:hover) and (pointer:fine)').matches;}
+function buHidePop(){
+  var p=document.getElementById('bu-pop');
+  if(p) p.hidden=true;
+  if(buPopBtn){buPopBtn.setAttribute('aria-expanded','false');buPopBtn=null;}
+}
+function buShowPop(btn){
+  if(!buFine()||buTouch) return;
+  var d=BEST[BU_NAMES[+btn.getAttribute('data-bui')]];
+  if(!d) return;
+  var p=document.getElementById('bu-pop');
+  var uses=(d.u||[]).slice(0,4);
+  var html='<div class="bu-ph">'+buEsc(BU_NAMES[+btn.getAttribute('data-bui')])+'</div>';
+  if(uses.length){
+    html+='<ul class="bu-pl">'+uses.map(function(u){
+      return '<li><b>'+buEsc(u[0])+'</b><span>'+buEsc(u[1])+' \u00b7 '+buEsc(u[2])+'</span><span class="bu-pw">'+buEsc(u[3])+'</span></li>';
+    }).join('')+'</ul>';
+    html+='<div class="bu-pm">'+(d.u.length>4?('Click for '+(d.u.length-4)+' more'):'Click for the details')+'</div>';
+  } else html+='<p class="bu-pn">'+buEsc(d.note)+'</p>';
+  p.innerHTML=html;
+  p.hidden=false;
+  var r=btn.getBoundingClientRect();
+  var left=Math.max(8,Math.min(r.left,window.innerWidth-p.offsetWidth-8));
+  var top=r.bottom+6;
+  if(top+p.offsetHeight>window.innerHeight-8) top=Math.max(8,r.top-p.offsetHeight-6);
+  p.style.left=left+'px';p.style.top=top+'px';
+  if(buPopBtn&&buPopBtn!==btn) buPopBtn.setAttribute('aria-expanded','false');
+  btn.setAttribute('aria-expanded','true');
+  buPopBtn=btn;
+}
+function buClose(){
+  var ov=document.getElementById('bu-ov');
+  if(!ov||ov.hidden) return;
+  ov.hidden=true;
+  if(buLast&&buLast.focus) buLast.focus();
+  buLast=null;
+}
+function buOpen(name){
+  var d=BEST[name];
+  if(!d) return;
+  buHidePop();
+  var ov=document.getElementById('bu-ov');
+  document.getElementById('bu-title').textContent=name;
+  document.getElementById('bu-sub').textContent=d.note||'';
+  var list=d.u||[];
+  document.getElementById('bu-list').innerHTML=list.length?list.map(function(u){
+    return '<div class="bu-row"><div class="bu-route">'+buEsc(u[0])+'</div><div class="bu-meta">'+buEsc(u[1])+' \u00b7 '+buEsc(u[2])+'</div><div class="bu-why">'+buEsc(u[3])+'</div></div>';
+  }).join(''):'';
+  document.getElementById('bu-src').textContent='Last reviewed '+BEST_REVIEWED+(d.src?(' \u00b7 '+d.src):'')+'. Taxes, fees, and award space are extra. Confirm the price before you transfer.';
+  buLast=document.activeElement;
+  ov.hidden=false;
+  document.getElementById('bu-x').focus();
+}
+document.addEventListener('pointerdown',function(e){buTouch=(e.pointerType==='touch'||e.pointerType==='pen');},true);
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.bu');
+  if(b){e.preventDefault();buOpen(BU_NAMES[+b.getAttribute('data-bui')]);return;}
+  if(e.target.id==='bu-x'){buClose();return;}
+  if(e.target.id==='bu-ov') buClose();
+});
+document.addEventListener('keydown',function(e){
+  var ov=document.getElementById('bu-ov');
+  if(!ov||ov.hidden){if(e.key==='Escape') buHidePop();return;}
+  if(e.key==='Escape'){e.preventDefault();buClose();return;}
+  if(e.key!=='Tab') return;
+  var f=ov.querySelectorAll('button,a[href]');
+  if(!f.length) return;
+  var first=f[0], last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
+document.addEventListener('mouseover',function(e){
+  var b=e.target.closest&&e.target.closest('.bu');
+  if(!b) return;
+  clearTimeout(buTimer);
+  buTimer=setTimeout(function(){buShowPop(b);},160);
+});
+document.addEventListener('mouseout',function(e){
+  var b=e.target.closest&&e.target.closest('.bu');
+  if(!b) return;
+  clearTimeout(buTimer);
+  setTimeout(function(){
+    var pop=document.getElementById('bu-pop');
+    if(pop&&pop.matches(':hover')) return;
+    if(b.matches(':hover')) return;
+    buHidePop();
+  },140);
+});
+document.addEventListener('focusin',function(e){
+  var b=e.target.closest&&e.target.closest('.bu');
+  if(b) buShowPop(b);
+});
+document.addEventListener('focusout',function(e){
+  var b=e.target.closest&&e.target.closest('.bu');
+  if(b) setTimeout(buHidePop,120);
+});
+window.addEventListener('scroll',buHidePop,true);
 
 PP();RC();RH();buildCalcDropdown();CU();renderPT();
 // Data-updated date (when the bonus tables were last checked), not today's clock.
