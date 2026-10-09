@@ -176,6 +176,22 @@ tr:hover td{background:#fafafa}
 .src{font-size:10px;color:#666;text-align:right;margin-top:6px}
 .src a{color:#666}
 .disc{font-size:10px;color:#666;margin-top:12px;padding-top:10px;border-top:1px solid #e5e5e5;line-height:1.4}
+.nl-bar{display:flex;align-items:center;gap:12px;margin:0;padding:11px 14px;background:#111;color:#fff;text-decoration:none;border-bottom:3px solid #C8102E}
+.nl-bar:hover{background:#1a1a1a}
+.nl-mark{width:28px;height:28px;border-radius:50%;border:2px solid #C8102E;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;line-height:1}
+.nl-copy{min-width:0;flex:1}
+.nl-title{font-family:Georgia,serif;font-size:14px;font-weight:700;line-height:1.3}
+.nl-sub{display:block;font-size:11px;color:#bbb;margin-top:2px;line-height:1.35}
+.nl-cta{flex-shrink:0;background:#C8102E;color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:20px;white-space:nowrap}
+.nl-prompt{display:none;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding:10px 12px;background:#fff;border:1px solid #e5e5e5;border-left:3px solid #C8102E;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.45}
+.nl-prompt a{color:#fff;background:#C8102E;text-decoration:none;font-weight:700;font-size:11px;padding:8px 12px;border-radius:20px;white-space:nowrap}
+.nl-prompt a:hover{background:#a50d26}
+@media(max-width:520px){
+  .nl-bar{flex-wrap:wrap;align-items:flex-start;padding:10px 12px;gap:8px}
+  .nl-title{font-size:13px}
+  .nl-copy{flex:1 1 calc(100% - 42px)}
+  .nl-cta{margin-left:40px}
+}
 .zach-disc{font-size:11px;color:#7a0015;background:#fdf0f2;border-left:3px solid #C8102E;border-radius:0 4px 4px 0;padding:9px 12px;margin-top:14px;line-height:1.6}
 </style>
 
@@ -195,6 +211,14 @@ tr:hover td{background:#fafafa}
   <button class="tab" onclick="ST('calc',this)"><span class="tab-ico">&#129518;</span>Calculator</button>
   <button class="tab" onclick="ST('tips',this)"><span class="tab-ico">&#128161;</span>Strategy</button>
 </div>
+<a class="nl-bar" href="https://magic.beehiiv.com/v1/b82b40b7-7dcb-4c8b-9ca5-6b52bd1674e7" target="_blank" rel="noopener noreferrer" onclick="return openNl(event)">
+  <span class="nl-mark" aria-hidden="true">&#9993;</span>
+  <span class="nl-copy">
+    <span class="nl-title">Get transfer bonus alerts in your inbox, free</span>
+    <span class="nl-sub">New bonuses and last-call expirations from Monkey Miles.</span>
+  </span>
+  <span class="nl-cta">Sign up</span>
+</a>
 
 <!-- TAB 1: ACTIVE BONUSES -->
 <div id="tab-cur" class="panel on">
@@ -338,6 +362,10 @@ tr:hover td{background:#fafafa}
       <tbody id="vc-tbody"></tbody>
     </table>
   </div>
+  <div id="nl-vc" class="nl-prompt">
+    <span>Want a heads-up before the next bonus ends? Get transfer bonus alerts in your inbox, free.</span>
+    <a href="https://magic.beehiiv.com/v1/b82b40b7-7dcb-4c8b-9ca5-6b52bd1674e7" target="_blank" rel="noopener noreferrer" onclick="return openNl(event)">Sign up</a>
+  </div>
 
   <!-- divider -->
   <div style="border-top:1px solid #e5e5e5;margin-bottom:16px;padding-top:16px">
@@ -358,6 +386,10 @@ tr:hover td{background:#fafafa}
     </div>
     <table class="rt" id="cres"></table>
     <div class="ct ct-err" id="ctip" style="display:none"></div>
+    <div id="nl-cu" class="nl-prompt">
+      <span>Get transfer bonus alerts in your inbox, free.</span>
+      <a href="https://magic.beehiiv.com/v1/b82b40b7-7dcb-4c8b-9ca5-6b52bd1674e7" target="_blank" rel="noopener noreferrer" onclick="return openNl(event)">Sign up</a>
+    </div>
   </div></div>
   <div class="zach-disc">&#128679; <strong>Before you transfer:</strong> Zach does not recommend speculative transfers in most cases. Transfers are irreversible — once sent, points cannot be returned. Always have a confirmed award booking or immediate use in mind before transferring.</div>
 </div>
@@ -435,12 +467,40 @@ var ATH={
   'Bilt|Japan Airlines':125,'Bilt|Wyndham':125,'Bilt|Etihad':100,'Bilt|Alaska Airlines':100
 };
 
+/* History and the live cards have used both "Japan Airlines" and
+   "Japan Airlines (JAL)" for the same program. ATH keys use the short name. */
+function athProg(p){
+  if(p==='Japan Airlines (JAL)'||p==='JAL') return 'Japan Airlines';
+  return p;
+}
 function isA(b,p,n){
-  var k=b+'|'+p;var v=parseInt(n);
+  var k=b+'|'+athProg(p);var v=parseInt(n);
   return ATH[k]!==undefined&&!isNaN(v)&&v>0&&v>=ATH[k];
 }
 
 var BPIL={Chase:'pC',Amex:'pA',Citi:'pCT','Capital One':'pCO',Bilt:'pB','Wells Fargo':'pW',Rove:'pR','US Bank':'pU'};
+var NL_URL='https://magic.beehiiv.com/v1/b82b40b7-7dcb-4c8b-9ca5-6b52bd1674e7';
+/* New tab when the browser allows it. Inside the blog iframe a blocked
+   popup falls through to the top window so Beehiiv is not loaded in-frame. */
+function openNl(e){
+  var framed=false;
+  try{ framed=window.self!==window.top; }catch(err){ framed=true; }
+  if(!framed) return true;
+  var w=null;
+  try{ w=window.open(NL_URL,'_blank'); }catch(err2){ w=null; }
+  if(w){
+    if(e&&e.preventDefault) e.preventDefault();
+    try{ w.opener=null; }catch(err3){}
+    return false;
+  }
+  if(e&&e.preventDefault) e.preventDefault();
+  try{ window.top.location.href=NL_URL; }catch(err4){ window.location.href=NL_URL; }
+  return false;
+}
+function showNl(id,on){
+  var el=document.getElementById(id);
+  if(el) el.style.display=on?'flex':'none';
+}
 
 function ST(name,btn){
   // btn may be the button or a child (icon span) — resolve to the tab
@@ -465,7 +525,7 @@ var CUR=[
    note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up &#183; Oct 1 only &#183; 2:1 base rate &#183; $400 Bilt Cash buy-up &#183; Max 100k bonus pts'},
   {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:30, exp:'2026-10-14',isNew:true},
   {bank:'Amex',        prog:'AeroMexico ClubPremier',       pk:'AeroMexico',     progKey:'AeroMexico ClubPremier',     pct:20, exp:'2026-10-30',isNew:true},
-  {bank:'Amex',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:25, exp:'2026-10-15',isNew:true},
+  {bank:'Amex',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:25, exp:'2026-10-31',isNew:true},
   {bank:'Rove',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:50, exp:'2026-10-31',isNew:true},
   {bank:'Rove',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:40, exp:'2026-10-31',isNew:true},
   {bank:'Rove',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',          progKey:'Qatar Privilege Club Avios', pct:35, exp:'2026-10-31',isNew:true,
@@ -473,7 +533,9 @@ var CUR=[
   {bank:'Citi',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:30, exp:'2026-10-24',isNew:true},
   {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:70, exp:'2026-10-15',isNew:true},
   {bank:'Citi',        prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:25, exp:'2026-10-24',isNew:true},
-  {bank:'Capital One', prog:'British Airways Avios',         pk:'British Airways',progKey:'British Airways Avios',        pct:20, exp:'2026-10-30',isNew:true,
+  {bank:'Citi',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',          progKey:'Qatar Privilege Club Avios', pct:35, exp:'2026-10-31',isNew:true,
+   note:'Up to 35%, tiered per transaction: 15% / 25% / 35%'},
+  {bank:'Capital One', prog:'British Airways Avios',         pk:'British Airways',progKey:'British Airways Avios',        pct:20, exp:'2026-10-31',isNew:true,
    note:'Opens the Avios &ldquo;backdoor&rdquo;: convert to BA Avios, then move to Iberia, Aer Lingus, Qatar or other Avios programs'}
 ];
 
@@ -716,61 +778,62 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
-  {b:'Capital One',  p:'British Airways',            progs:['British Airways'],           pct:'20%',n:20,s:'10/1/2026',e:'10/30/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'British Airways',            progs:['British Airways'],           pct:'20%',n:20,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'AeroMexico',                 progs:['AeroMexico'],                pct:'20%',n:20,s:'10/1/2026',e:'10/30/2026',y:2026,a:1,isNew:true},
-  {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'10/1/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
-  {b:'Rove',         p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'50%',n:50,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
+  {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Japan Airlines',       progs:['Japan Airlines'],      pct:'50%',n:50,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'40%',n:40,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
   {b:'Rove',         p:'Qatar',                      progs:['Qatar'],                     pct:'15-35%',n:35,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
-  {b:'Bilt',p:'Hilton Honors - Up to 200% + Instant Status (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via $200 Bilt Cash; instant status thru EOY 2026, nights challenge to keep thru 2027; max 100k bonus pts)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'October 2026',e:'October 2026',y:2026,a:1,isBilt:true},
-  {b:'Bilt',p:'Amtrak Guest Rewards - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up; 2:1 base, $400 Bilt Cash buy-up, max 100k bonus pts)',progs:['Amtrak Guest Rewards'],pct:'25-125%',n:125,s:'October 2026',e:'October 2026',y:2026,a:1,isBilt:true},
-  {b:'Citi',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'25%',n:25,s:'9/21/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
-  {b:'Chase',        p:'Marriott',                  progs:['Marriott'],                  pct:'70%',n:70,s:'9/19/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
-  {b:'Citi',         p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Qatar',                      progs:['Qatar'],                     pct:'Up to 35%',n:35,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
+  {b:'Bilt',p:'Hilton Honors - Up to 200% + Instant Status (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via $200 Bilt Cash; instant status thru EOY 2026, nights challenge to keep thru 2027; max 100k bonus pts)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
+  {b:'Bilt',p:'Amtrak Guest Rewards - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up; 2:1 base, $400 Bilt Cash buy-up, max 100k bonus pts)',progs:['Amtrak Guest Rewards'],pct:'25-125%',n:125,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
+  {b:'Citi',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'25%',n:25,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
+  {b:'Chase',        p:'Marriott',                  progs:['Marriott'],                  pct:'70%',n:70,s:'9/15/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Japan Airlines',       progs:['Japan Airlines'],      pct:'30%',n:30,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'30%',n:30,s:'9/1/2026', e:'10/14/2026',y:2026,a:1,isNew:true},
-  {b:'Capital One',  p:'Japan Airlines (JAL)',       progs:['Japan Airlines (JAL)'],      pct:'30%',n:30,s:'8/14/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
+  {b:'Capital One',  p:'Japan Airlines',       progs:['Japan Airlines'],      pct:'30%',n:30,s:'9/1/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Chase',        p:'Aeroplan',                   progs:['Aeroplan'],                  pct:'20%',n:20,s:'8/12/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Capital One',  p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Bilt',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
   {b:'Rove',         p:'Cathay Pacific (Asia Miles) + Marriott',progs:['Cathay Pacific'], pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'7/17/2026',e:'9/27/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'8/3/2026',e:'9/27/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'4/28/2026',e:'5/30/2026',y:2026,a:0},
-  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
-  {b:'Capital One',  p:'EVA Air',                   progs:['EVA Air Infinity MileageLands'],pct:'30%',n:30,s:'6/1/2026',e:'7/31/2026',y:2026,a:0,isNew:true},
-  {b:'Capital One',  p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'15%',n:15,s:'7/17/2026',e:'8/31/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/1/2026', e:'5/11/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'20%',n:20,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
-  {b:'Amex',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'15%',n:15,s:'6/1/2026', e:'7/15/2026',y:2026,a:0,isNew:true},
-  {b:'Citi',         p:'Accor',                      progs:['Accor'],                     pct:'50%',n:50,s:'6/1/2026', e:'7/18/2026',y:2026,a:0,isNew:true},
-  {b:'Citi',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'7/17/2026',e:'8/22/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'20%',n:20,s:'7/1/2026', e:'7/14/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'7/1/2026', e:'7/31/2026',y:2026,a:0,isNew:true},
+  {b:'Capital One',  p:'EVA Air',                   progs:['EVA Air Infinity MileageLands'],pct:'30%',n:30,s:'7/1/2026',e:'7/31/2026',y:2026,a:0,isNew:true},
+  {b:'Capital One',  p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'15%',n:15,s:'8/1/2026',e:'8/31/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'JetBlue',                   progs:['JetBlue'],                   pct:'10%',n:10,s:'5/4/2026', e:'5/11/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'20%',n:20,s:'6/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'25%',n:25,s:'6/2/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'15%',n:15,s:'6/15/2026', e:'7/15/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'Accor',                      progs:['Accor'],                     pct:'50%',n:50,s:'6/14/2026', e:'7/18/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'7/19/2026',e:'8/22/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'40%',n:40,s:'8/1/2026', e:'8/31/2026',y:2026,a:0,isNew:true},
-  {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'8/14/2026',e:'9/19/2026',y:2026,a:0,isNew:true},
-  {b:'Citi',         p:'Qatar',                     progs:['Qatar'],                     pct:'30%',n:30,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
-  {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/1/2026', e:'6/6/2026', y:2026,a:1,isNew:true},
-  {b:'Rove',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'50%',n:50,s:'5/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
-  {b:'Rove',         p:'Qantas',                     progs:['Qantas'],                    pct:'50%',n:50,s:'7/1/2026', e:'8/14/2026',y:2026,a:0,isNew:true},
-  {b:'Rove',         p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'40%',n:40,s:'8/14/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'8/23/2026',e:'9/19/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'Qatar',                     progs:['Qatar'],                     pct:'30%',n:30,s:'6/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
+  {b:'Rove',         p:'Aeroplan',                  progs:['Aeroplan'],                  pct:'25%',n:25,s:'5/7/2026', e:'6/6/2026', y:2026,a:0,isNew:true},
+  {b:'Rove',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'50%',n:50,s:'6/1/2026', e:'6/30/2026',y:2026,a:0,isNew:true},
+  {b:'Rove',         p:'Qantas',                     progs:['Qantas'],                    pct:'50%',n:50,s:'7/15/2026', e:'8/14/2026',y:2026,a:0,isNew:true},
+  {b:'Rove',         p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'40%',n:40,s:'9/1/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Citi',         p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'4/19/2026',e:'5/16/2026',y:2026,a:0},
-  {b:'Citi',         p:'iPrefer',                   progs:['iPrefer'],                   pct:'30%',n:30,s:'5/1/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
-  {b:'Citi',         p:'Wyndham',                   progs:['Wyndham'],                   pct:'25%',n:25,s:'5/1/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'iPrefer',                   progs:['iPrefer'],                   pct:'30%',n:30,s:'5/17/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'Wyndham',                   progs:['Wyndham'],                   pct:'25%',n:25,s:'5/17/2026', e:'6/13/2026',y:2026,a:0,isNew:true},
   {b:'Capital One',  p:'Qantas',                    progs:['Qantas'],                    pct:'20%',n:20,s:'5/1/2026', e:'5/31/2026',y:2026,a:0,isNew:true},
   {b:'Chase',        p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'5/1/2026', e:'5/27/2026',y:2026,a:0,isNew:true},
-  {b:'Chase',        p:'Southwest',                  progs:['Southwest'],                 pct:'30%',n:30,s:'5/15/2026',e:'6/5/2026', y:2026,a:1,isNew:true},
-  {b:'Chase',        p:'Virgin Atlantic',             progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/1/2026', e:'7/7/2026', y:2026,a:1,isNew:true},
+  {b:'Chase',        p:'Southwest',                  progs:['Southwest'],                 pct:'30%',n:30,s:'5/15/2026',e:'6/5/2026', y:2026,a:0,isNew:true},
+  {b:'Chase',        p:'Virgin Atlantic',             progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'6/9/2026', e:'7/14/2026', y:2026,a:0,isNew:true},
   {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'65%',n:65,s:'5/1/2026', e:'5/15/2026',y:2026,a:0},
   {b:'Chase',        p:'Marriott',                   progs:['Marriott'],                  pct:'55%',n:55,s:'5/16/2026',e:'6/30/2026',y:2026,a:0,isNew:true},
   {b:'Chase',        p:'IHG',                        progs:['IHG'],                       pct:'100%',n:100,s:'7/15/2026',e:'7/30/2026',y:2026,a:0,isNew:true},
   {b:'Chase',        p:'IHG',                        progs:['IHG'],                       pct:'70%', n:70, s:'7/31/2026',e:'8/31/2026',y:2026,a:0,isNew:true},
   /* Bilt Rent Day 2026 */
-  {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'British Airways / Iberia / Aer Lingus (40% Blue / 50% Silver / 60% Gold / 75% Platinum / 100% Platinum+)',progs:['British Airways','Iberia','Aer Lingus'],pct:'40-100%',n:100,s:'May 2026',e:'May 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Virgin Atlantic Flying Club - Up to 100% (25% Blue / 35% Silver / 45% Gold / 75% Platinum; $200 Bilt Cash upgrades one tier, max 100%)',progs:['Virgin Atlantic'],pct:'25-100%',n:100,s:'September 2026',e:'September 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Accor ALL Status Match - Blue/Silver to Silver, Gold to Gold, Platinum to Platinum (5k pts Silver/Gold, 15k pts Platinum; Platinum valid thru 12/31/27)',progs:[],pct:'Status Match',n:0,s:'August 2026',e:'August 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Hilton Honors - Up to 200% (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via Bilt Cash upgrade)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'July 2026',e:'July 2026',y:2026,a:0,isBilt:true},
-  {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:1,isBilt:true},
+  {b:'Bilt',p:'TAP Air Portugal - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum+) Max 100k pts',progs:['TAP Air Portugal'],pct:'25-125%',n:125,s:'June 2026',e:'June 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Wyndham - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Wyndham'],pct:'25-125%',n:125,s:'April 2026',e:'April 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Japan Airlines - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum)',progs:['Japan Airlines'],pct:'25-125%',n:125,s:'March 2026',e:'March 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Accor - Up to 125% transfer bonus',progs:['Accor'],pct:'Up to 125%',n:125,s:'February 2026',e:'February 2026',y:2026,a:0,isBilt:true},
@@ -778,22 +841,22 @@ var HIST=[
   /* 2026 expired */
   {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'4/1/2026',e:'4/30/2026',y:2026,a:0},
   {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'4/1/2026',e:'4/30/2026',y:2026,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/22/2026',e:'4/30/2026',y:2026,a:0},
-  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'3/22/2026',e:'4/30/2026',y:2026,a:0},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'1/1/2026',e:'4/30/2026',y:2026,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'Up to 25%',n:25,s:'3/22/2026',e:'4/18/2026',y:2026,a:0},
+  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'Up to 30%',n:30,s:'3/22/2026',e:'4/18/2026',y:2026,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'2/22/2026',e:'3/21/2026',y:2026,a:0},
   {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'4/1/2026',e:'4/30/2026',y:2026,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/1/2026',e:'3/28/2026',y:2026,a:0},
-  {b:'Capital One',p:'iPrefer',progs:['iPrefer'],pct:'30%',n:30,s:'1/1/2026',e:'3/31/2026',y:2026,a:0},
-  {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'1/1/2026',e:'2/11/2026',y:2026,a:0},
-  {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'1/1/2026',e:'2/28/2026',y:2026,a:0},
-  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'20%',n:20,s:'1/1/2026',e:'3/31/2026',y:2026,a:0},
-  {b:'Chase',p:'Wyndham',progs:['Wyndham'],pct:'30%',n:30,s:'1/1/2026',e:'3/31/2026',y:2026,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'1/1/2026',e:'2/28/2026',y:2026,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'1/1/2026',e:'2/28/2026',y:2026,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'25%',n:25,s:'12/1/2025',e:'1/5/2026',y:2026,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/18/2026',e:'3/28/2026',y:2026,a:0},
+  {b:'Capital One',p:'iPrefer',progs:['iPrefer'],pct:'30%',n:30,s:'3/1/2026',e:'3/31/2026',y:2026,a:0},
+  {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'1/12/2026',e:'2/11/2026',y:2026,a:0},
+  {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'2/1/2026',e:'2/28/2026',y:2026,a:0},
+  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'20%',n:20,s:'3/1/2026',e:'3/31/2026',y:2026,a:0},
+  {b:'Chase',p:'Wyndham',progs:['Wyndham'],pct:'30%',n:30,s:'3/5/2026',e:'3/31/2026',y:2026,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'2/1/2026',e:'2/28/2026',y:2026,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'2/14/2026',e:'2/28/2026',y:2026,a:0},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'Up to 25%',n:25,s:'11/24/2025',e:'1/5/2026',y:2026,a:0},
   {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'12/1/2025',e:'1/15/2026',y:2026,a:0},
   {b:'Rove',p:'Japan Airlines',progs:['Japan Airlines'],pct:'50%',n:50,s:'3/2/2026',e:'3/31/2026',y:2026,a:0},
-  {b:'Rove',p:'SAS',progs:['SAS'],pct:'20%',n:20,s:'3/1/2026',e:'4/8/2026',y:2026,a:0},
+  {b:'Rove',p:'SAS',progs:['SAS'],pct:'20%',n:20,s:'3/9/2026',e:'4/8/2026',y:2026,a:0},
   /* Bilt Rent Day 2025 */
   {b:'Bilt',p:'British Airways / Aer Lingus / Iberia - Up to 100% transfer bonus',progs:['British Airways','Aer Lingus','Iberia'],pct:'Up to 100%',n:100,s:'December 2025',e:'December 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Etihad - Up to 100% transfer bonus',progs:['Etihad'],pct:'Up to 100%',n:100,s:'November 2025',e:'November 2025',y:2025,a:0,isBilt:true},
@@ -807,57 +870,57 @@ var HIST=[
   {b:'Bilt',p:'Avianca LifeMiles (20% Blue / 40% Silver / 50% Gold / 100% Platinum)',progs:['Avianca LifeMiles'],pct:'20-100%',n:100,s:'February 2025',e:'February 2025',y:2025,a:0,isBilt:true},
   {b:'Bilt',p:'Accor Status Match',progs:[],pct:'Status Match',n:0,s:'January 2025',e:'January 2025',y:2025,a:0,isBilt:true},
   /* 2025 other */
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'11/20/2025',e:'12/31/2025',y:2025,a:0},
+  {b:'Amex',p:'Virgin Atlantic (targeted)',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'11/21/2025',e:'12/31/2025',y:2025,a:0},
   {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'30%',n:30,s:'10/1/2025',e:'11/30/2025',y:2025,a:0},
-  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'9/1/2025',e:'10/31/2025',y:2025,a:0},
+  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'10/1/2025',e:'10/31/2025',y:2025,a:0},
   {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'30%',n:30,s:'9/1/2025',e:'10/31/2025',y:2025,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'9/3/2025',e:'9/23/2025',y:2025,a:0},
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'9/2/2025',e:'9/23/2025',y:2025,a:0},
   {b:'Amex',p:'Hilton (targeted)',progs:['Hilton'],pct:'30%',n:30,s:'6/1/2025',e:'7/15/2025',y:2025,a:0},
-  {b:'Amex',p:'British Airways / Aer Lingus / Iberia',progs:['British Airways','Aer Lingus','Iberia'],pct:'30%',n:30,s:'6/2/2025',e:'7/15/2025',y:2025,a:0},
-  {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'20%',n:20,s:'6/1/2025',e:'7/14/2025',y:2025,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'6/1/2025',e:'7/31/2025',y:2025,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'6/1/2025',e:'6/15/2025',y:2025,a:0},
+  {b:'Amex',p:'British Airways / Aer Lingus / Iberia',progs:['British Airways','Aer Lingus','Iberia'],pct:'30%',n:30,s:'6/1/2025',e:'7/15/2025',y:2025,a:0},
+  {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'20%',n:20,s:'7/1/2025',e:'7/14/2025',y:2025,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'7/7/2025',e:'7/31/2025',y:2025,a:0},
+  {b:'Amex',p:'Hilton (targeted)',progs:['Hilton'],pct:'Up to 25%',n:25,s:'6/1/2025',e:'6/30/2025',y:2025,a:0},
   {b:'Amex',p:'Etihad',progs:['Etihad'],pct:'20%',n:20,s:'4/1/2025',e:'4/30/2025',y:2025,a:0},
   {b:'Amex',p:'AeroMexico',progs:['AeroMexico'],pct:'20%',n:20,s:'4/1/2025',e:'4/30/2025',y:2025,a:0},
   {b:'Amex',p:'Qatar',progs:['Qatar'],pct:'20%',n:20,s:'2/24/2025',e:'3/31/2025',y:2025,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'3/1/2025',e:'3/15/2025',y:2025,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'1/1/2025',e:'2/28/2025',y:2025,a:0},
-  {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'9/1/2025',e:'10/22/2025',y:2025,a:0},
-  {b:'Capital One',p:'British Airways',progs:['British Airways'],pct:'20%',n:20,s:'9/1/2025',e:'11/21/2025',y:2025,a:0},
-  {b:'Capital One',p:'Virgin Red',progs:['Virgin Red'],pct:'30%',n:30,s:'8/1/2025',e:'10/1/2025',y:2025,a:0},
-  {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'7/1/2025',e:'8/31/2025',y:2025,a:0},
-  {b:'Capital One',p:'Qantas',progs:['Qantas'],pct:'20%',n:20,s:'4/1/2025',e:'5/30/2025',y:2025,a:0},
-  {b:'Capital One',p:'Etihad',progs:['Etihad'],pct:'40%',n:40,s:'1/1/2025',e:'3/31/2025',y:2025,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'11/1/2025',e:'12/5/2025',y:2025,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'10/1/2025',e:'11/20/2025',y:2025,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'70%',n:70,s:'10/1/2025',e:'11/30/2025',y:2025,a:0},
-  {b:'Chase',p:'IHG',progs:['IHG'],pct:'80%',n:80,s:'10/1/2025',e:'10/31/2025',y:2025,a:0},
-  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'9/1/2025',e:'10/31/2025',y:2025,a:0},
-  {b:'Chase',p:'Southwest',progs:['Southwest'],pct:'25%',n:25,s:'9/1/2025',e:'11/6/2025',y:2025,a:0},
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'2/14/2025',e:'3/14/2025',y:2025,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/3/2025',e:'2/28/2025',y:2025,a:0},
+  {b:'Capital One',p:'Japan Airlines',progs:['Japan Airlines'],pct:'30%',n:30,s:'9/23/2025',e:'10/22/2025',y:2025,a:0},
+  {b:'Capital One',p:'British Airways',progs:['British Airways'],pct:'20%',n:20,s:'11/2/2025',e:'11/21/2025',y:2025,a:0},
+  {b:'Capital One',p:'Virgin Red',progs:['Virgin Red'],pct:'30%',n:30,s:'9/2/2025',e:'10/1/2025',y:2025,a:0},
+  {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'8/1/2025',e:'8/31/2025',y:2025,a:0},
+  {b:'Capital One',p:'Qantas',progs:['Qantas'],pct:'20%',n:20,s:'5/1/2025',e:'5/31/2025',y:2025,a:0},
+  {b:'Capital One',p:'Etihad',progs:['Etihad'],pct:'Up to 40%',n:40,s:'3/3/2025',e:'3/31/2025',y:2025,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'11/21/2025',e:'12/5/2025',y:2025,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'11/7/2025',e:'11/20/2025',y:2025,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'70%',n:70,s:'11/14/2025',e:'11/30/2025',y:2025,a:0},
+  {b:'Chase',p:'IHG',progs:['IHG'],pct:'80%',n:80,s:'10/1/2025',e:'10/22/2025',y:2025,a:0},
+  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'10/1/2025',e:'10/31/2025',y:2025,a:0},
+  {b:'Chase',p:'Southwest',progs:['Southwest'],pct:'25%',n:25,s:'10/23/2025',e:'11/6/2025',y:2025,a:0},
   {b:'Chase',p:'IHG',progs:['IHG'],pct:'100%',n:100,s:'8/16/2025',e:'9/4/2025',y:2025,a:0},
   {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'7/1/2025',e:'8/15/2025',y:2025,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'6/1/2025',e:'7/15/2025',y:2025,a:0},
-  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'4/1/2025',e:'5/30/2025',y:2025,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'25%',n:25,s:'4/1/2025',e:'5/30/2025',y:2025,a:0},
-  {b:'Chase',p:'IHG',progs:['IHG'],pct:'80%',n:80,s:'3/1/2025',e:'4/30/2025',y:2025,a:0},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'6/5/2025',e:'7/17/2025',y:2025,a:0},
+  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'5/1/2025',e:'5/31/2025',y:2025,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'25%',n:25,s:'5/1/2025',e:'6/15/2025',y:2025,a:0},
+  {b:'Chase',p:'IHG',progs:['IHG'],pct:'80%',n:80,s:'4/1/2025',e:'4/30/2025',y:2025,a:0},
   {b:'Chase',p:'British Airways / Iberia / Aer Lingus / Qatar',progs:['British Airways','Iberia','Aer Lingus','Qatar'],pct:'20%',n:20,s:'3/1/2025',e:'3/31/2025',y:2025,a:0},
   {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'2/15/2025',e:'3/31/2025',y:2025,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'1/1/2025',e:'2/17/2025',y:2025,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'2/3/2025',e:'2/17/2025',y:2025,a:0},
   {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'9/21/2025',e:'10/18/2025',y:2025,a:0},
   {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'9/21/2025',e:'10/18/2025',y:2025,a:0},
   {b:'Citi',p:'Turkish Airlines',progs:['Turkish Airlines'],pct:'50%',n:50,s:'9/21/2025',e:'10/18/2025',y:2025,a:0},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'8/1/2025',e:'9/20/2025',y:2025,a:0},
-  {b:'Citi',p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'7/1/2025',e:'8/31/2025',y:2025,a:0},
-  {b:'Citi',p:'Accor',progs:['Accor'],pct:'50%',n:50,s:'6/20/2025',e:'7/19/2025',y:2025,a:0},
-  {b:'Citi',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'6/20/2025',e:'7/19/2025',y:2025,a:0},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'5/1/2025',e:'6/21/2025',y:2025,a:0},
-  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'4/1/2025',e:'5/30/2025',y:2025,a:0},
-  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'4/1/2025',e:'5/17/2025',y:2025,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/1/2025',e:'4/12/2025',y:2025,a:0},
-  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'20%',n:20,s:'2/1/2025',e:'3/15/2025',y:2025,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'8/24/2025',e:'9/20/2025',y:2025,a:0},
+  {b:'Citi',p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'7/20/2025',e:'8/23/2025',y:2025,a:0},
+  {b:'Citi',p:'Accor',progs:['Accor'],pct:'50%',n:50,s:'6/22/2025',e:'7/19/2025',y:2025,a:0},
+  {b:'Citi',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'6/22/2025',e:'7/19/2025',y:2025,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'5/18/2025',e:'6/21/2025',y:2025,a:0},
+  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'5/1/2025',e:'5/31/2025',y:2025,a:0},
+  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'4/13/2025',e:'5/17/2025',y:2025,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/16/2025',e:'4/12/2025',y:2025,a:0},
+  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'20%',n:20,s:'2/16/2025',e:'3/15/2025',y:2025,a:0},
   {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'25%',n:25,s:'1/1/2025',e:'2/28/2025',y:2025,a:0},
   {b:'Rove',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'9/22/2025',e:'10/22/2025',y:2025,a:0},
-  {b:'Rove',p:'Finnair',progs:['Finnair'],pct:'20%',n:20,s:'1/1/2025',e:'12/31/2025',y:2025,a:0},
+  {b:'Rove',p:'Finnair',progs:['Finnair'],pct:'20%',n:20,s:'9/22/2025',e:'12/31/2025',y:2025,a:0},
   {b:'Wells Fargo',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'9/22/2025',e:'10/22/2025',y:2025,a:0},
   /* Bilt Rent Day 2024 */
   {b:'Bilt',p:'Amazon Bonuses + 3x on Groceries',progs:[],pct:'3x Groceries',n:0,s:'December 2024',e:'December 2024',y:2024,a:0,isBilt:true},
@@ -873,56 +936,56 @@ var HIST=[
   {b:'Bilt',p:'Aeroplan Transfer Bonus (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Aeroplan'],pct:'75-150%',n:150,s:'February 2024',e:'February 2024',y:2024,a:0,isBilt:true},
   {b:'Bilt',p:'Virgin Atlantic / Flying Blue / IHG (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Virgin Atlantic','Flying Blue','IHG'],pct:'75-150%',n:150,s:'January 2024',e:'January 2024',y:2024,a:0,isBilt:true},
   /* 2024 other */
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'12/2/2024',e:'12/31/2024',y:2024,a:0},
+  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'12/1/2024',e:'12/31/2024',y:2024,a:0},
   {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'35%',n:35,s:'11/1/2024',e:'12/31/2024',y:2024,a:0},
-  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'10/1/2024',e:'11/10/2024',y:2024,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'10/1/2024',e:'11/30/2024',y:2024,a:0},
-  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'10/1/2024',e:'11/30/2024',y:2024,a:0},
+  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'10/10/2024',e:'11/10/2024',y:2024,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'11/1/2024',e:'11/30/2024',y:2024,a:0},
+  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'11/1/2024',e:'11/30/2024',y:2024,a:0},
   {b:'Amex',p:'British Airways / Aer Lingus / Iberia',progs:['British Airways','Aer Lingus','Iberia'],pct:'30%',n:30,s:'8/1/2024',e:'9/30/2024',y:2024,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'8/1/2024',e:'9/30/2024',y:2024,a:0},
-  {b:'Amex',p:'Hawaiian',progs:['Hawaiian'],pct:'20%',n:20,s:'7/1/2024',e:'8/31/2024',y:2024,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'5/1/2024',e:'6/30/2024',y:2024,a:0},
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'4/1/2024',e:'5/31/2024',y:2024,a:0},
-  {b:'Amex',p:'Hilton (targeted)',progs:['Hilton'],pct:'40%',n:40,s:'4/1/2024',e:'5/31/2024',y:2024,a:0},
-  {b:'Amex',p:'AeroMexico',progs:['AeroMexico'],pct:'20%',n:20,s:'4/1/2024',e:'5/31/2024',y:2024,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/1/2024',e:'3/15/2024',y:2024,a:0},
-  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'10%',n:10,s:'2/1/2024',e:'3/31/2024',y:2024,a:0},
-  {b:'Amex',p:'Etihad',progs:['Etihad'],pct:'20%',n:20,s:'2/1/2024',e:'4/4/2024',y:2024,a:0},
-  {b:'Capital One',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'20%',n:20,s:'10/1/2024',e:'12/1/2024',y:2024,a:0},
-  {b:'Capital One',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'8/1/2024',e:'9/29/2024',y:2024,a:0},
-  {b:'Capital One',p:'Qantas',progs:['Qantas'],pct:'20%',n:20,s:'7/1/2024',e:'8/31/2024',y:2024,a:0},
-  {b:'Capital One',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'2/1/2024',e:'4/30/2024',y:2024,a:0},
-  {b:'Capital One',p:'Etihad',progs:['Etihad'],pct:'40%',n:40,s:'1/1/2024',e:'3/31/2024',y:2024,a:0},
-  {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'12/1/2024',e:'1/15/2025',y:2024,a:0},
-  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'12/1/2024',e:'1/15/2025',y:2024,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'12/1/2024',e:'1/15/2025',y:2024,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'10/1/2024',e:'11/30/2024',y:2024,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'10/1/2024',e:'11/15/2024',y:2024,a:0},
-  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'9/1/2024',e:'10/31/2024',y:2024,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'70%',n:70,s:'7/1/2024',e:'8/31/2024',y:2024,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'6/1/2024',e:'7/31/2024',y:2024,a:0},
-  {b:'Chase',p:'IHG',progs:['IHG'],pct:'80%',n:80,s:'6/1/2024',e:'7/31/2024',y:2024,a:0},
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'9/1/2024',e:'9/30/2024',y:2024,a:0},
+  {b:'Amex',p:'Hawaiian',progs:['Hawaiian'],pct:'20%',n:20,s:'8/1/2024',e:'8/31/2024',y:2024,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'6/3/2024',e:'6/30/2024',y:2024,a:0},
+  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'4/22/2024',e:'5/31/2024',y:2024,a:0},
+  {b:'Amex',p:'Hilton (targeted)',progs:['Hilton'],pct:'40%',n:40,s:'5/9/2024',e:'5/31/2024',y:2024,a:0},
+  {b:'Amex',p:'AeroMexico',progs:['AeroMexico'],pct:'20%',n:20,s:'5/1/2024',e:'5/31/2024',y:2024,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'2/26/2024',e:'3/15/2024',y:2024,a:0},
+  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'10%',n:10,s:'12/29/2023',e:'3/31/2024',y:2024,a:0},
+  {b:'Amex',p:'Etihad (targeted)',progs:['Etihad'],pct:'20%',n:20,s:'3/4/2024',e:'4/4/2024',y:2024,a:0},
+  {b:'Capital One',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'20%',n:20,s:'11/1/2024',e:'12/1/2024',y:2024,a:0},
+  {b:'Capital One',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'8/29/2024',e:'9/29/2024',y:2024,a:0},
+  {b:'Capital One',p:'Qantas',progs:['Qantas'],pct:'20%',n:20,s:'8/1/2024',e:'8/31/2024',y:2024,a:0},
+  {b:'Capital One',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'4/1/2024',e:'4/30/2024',y:2024,a:0},
+  {b:'Capital One',p:'Etihad',progs:['Etihad'],pct:'40%',n:40,s:'3/1/2024',e:'3/31/2024',y:2024,a:0},
+  {b:'Chase',p:'IHG',progs:['IHG'],pct:'70%',n:70,s:'12/4/2024',e:'1/15/2025',y:2024,a:0},
+  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'12/4/2024',e:'1/15/2025',y:2024,a:0},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'12/4/2024',e:'1/15/2025',y:2024,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'40%',n:40,s:'10/15/2024',e:'11/30/2024',y:2024,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'9/15/2024',e:'11/15/2024',y:2024,a:0},
+  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'10/1/2024',e:'10/31/2024',y:2024,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'70%',n:70,s:'8/1/2024',e:'8/14/2024',y:2024,a:0},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'Up to 30%',n:30,s:'6/15/2024',e:'7/31/2024',y:2024,a:0},
+  {b:'Chase',p:'IHG',progs:['IHG'],pct:'80%',n:80,s:'7/1/2024',e:'7/31/2024',y:2024,a:0},
   {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'5/1/2024',e:'6/15/2024',y:2024,a:0},
   {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'40%',n:40,s:'5/1/2024',e:'6/15/2024',y:2024,a:0},
-  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'3/1/2024',e:'4/30/2024',y:2024,a:0},
-  {b:'Chase',p:'IHG',progs:['IHG'],pct:'60%',n:60,s:'1/1/2024',e:'3/1/2024',y:2024,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'1/1/2024',e:'1/15/2024',y:2024,a:0},
-  {b:'Chase',p:'JetBlue (targeted)',progs:['JetBlue'],pct:'25%',n:25,s:'12/1/2023',e:'1/10/2024',y:2024,a:0},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'20%',n:20,s:'10/1/2024',e:'11/16/2024',y:2024,a:0},
-  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2024',e:'11/16/2024',y:2024,a:0},
-  {b:'Citi',p:'Etihad (tiered)',progs:['Etihad'],pct:'20-40%',n:40,s:'10/1/2024',e:'11/30/2024',y:2024,a:0},
-  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'25%',n:25,s:'9/1/2024',e:'10/31/2024',y:2024,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'9/1/2024',e:'10/19/2024',y:2024,a:0},
-  {b:'Citi',p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'9/1/2024',e:'10/19/2024',y:2024,a:0},
-  {b:'Citi',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'7/1/2024',e:'8/17/2024',y:2024,a:0},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'20%',n:20,s:'7/1/2024',e:'8/17/2024',y:2024,a:0},
-  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'5/1/2024',e:'6/20/2024',y:2024,a:0},
-  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'4/1/2024',e:'5/31/2024',y:2024,a:0},
-  {b:'Citi',p:'Turkish Airlines',progs:['Turkish Airlines'],pct:'50%',n:50,s:'4/1/2024',e:'6/15/2024',y:2024,a:0},
-  {b:'Citi',p:'Accor',progs:['Accor'],pct:'50%',n:50,s:'3/1/2024',e:'5/11/2024',y:2024,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/1/2024',e:'4/13/2024',y:2024,a:0},
+  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'3/15/2024',e:'4/30/2024',y:2024,a:0},
+  {b:'Chase',p:'IHG',progs:['IHG'],pct:'60%',n:60,s:'2/1/2024',e:'3/1/2024',y:2024,a:0},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'12/4/2023',e:'1/15/2024',y:2024,a:0},
+  {b:'Chase',p:'JetBlue (targeted)',progs:['JetBlue'],pct:'25%',n:25,s:'11/15/2023',e:'1/10/2024',y:2024,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'20%',n:20,s:'10/20/2024',e:'11/16/2024',y:2024,a:0},
+  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/20/2024',e:'11/16/2024',y:2024,a:0},
+  {b:'Citi',p:'Etihad (tiered)',progs:['Etihad'],pct:'20-40%',n:40,s:'10/1/2024',e:'10/31/2024',y:2024,a:0},
+  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'Up to 35%',n:35,s:'10/1/2024',e:'10/31/2024',y:2024,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'9/15/2024',e:'10/19/2024',y:2024,a:0},
+  {b:'Citi',p:'Leading Hotels of the World',progs:['Leading Hotels of the World'],pct:'25%',n:25,s:'9/15/2024',e:'10/19/2024',y:2024,a:0},
+  {b:'Citi',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'7/21/2024',e:'8/17/2024',y:2024,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'20%',n:20,s:'7/21/2024',e:'8/17/2024',y:2024,a:0},
+  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'6/16/2024',e:'7/20/2024',y:2024,a:0},
+  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'5/1/2024',e:'5/31/2024',y:2024,a:0},
+  {b:'Citi',p:'Turkish Airlines (targeted)',progs:['Turkish Airlines'],pct:'50%',n:50,s:'5/15/2024',e:'6/15/2024',y:2024,a:0},
+  {b:'Citi',p:'Accor',progs:['Accor'],pct:'50%',n:50,s:'4/14/2024',e:'5/11/2024',y:2024,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'3/18/2024',e:'4/13/2024',y:2024,a:0},
   {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'2/18/2024',e:'3/16/2024',y:2024,a:0},
-  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'10%',n:10,s:'2/1/2024',e:'3/31/2024',y:2024,a:0},
+  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'10%',n:10,s:'12/29/2023',e:'3/31/2024',y:2024,a:0},
   /* Bilt Rent Day 2023 */
   {b:'Bilt',p:'2x Shopping + 10x Bilt Dining',progs:[],pct:'2x/10x',n:0,s:'December 2023',e:'December 2023',y:2023,a:0,isBilt:true},
   {b:'Bilt',p:'Emirates Skywards (75% Blue / 100% Silver / 125% Gold / 150% Platinum)',progs:['Emirates'],pct:'75-150%',n:150,s:'November 2023',e:'November 2023',y:2023,a:0,isBilt:true},
@@ -937,79 +1000,79 @@ var HIST=[
   {b:'Bilt',p:'Hawaiian Airlines - 100% transfer bonus',progs:['Hawaiian'],pct:'100%',n:100,s:'February 2023',e:'February 2023',y:2023,a:0,isBilt:true},
   {b:'Bilt',p:'Bonus points with Trivia',progs:[],pct:'Bonus pts',n:0,s:'January 2023',e:'January 2023',y:2023,a:0,isBilt:true},
   /* 2023 other */
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2023',e:'12/31/2023',y:2023,a:0},
-  {b:'Amex',p:'Singapore Airlines',progs:['Singapore Airlines'],pct:'20%',n:20,s:'10/1/2023',e:'12/31/2023',y:2023,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'10/1/2023',e:'12/31/2023',y:2023,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'10/1/2023',e:'12/10/2023',y:2023,a:0},
-  {b:'Amex',p:'Qatar',progs:['Qatar'],pct:'10%',n:10,s:'10/1/2023',e:'12/3/2023',y:2023,a:0},
+  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'12/1/2023',e:'12/31/2023',y:2023,a:0},
+  {b:'Amex',p:'Singapore Airlines (targeted)',progs:['Singapore Airlines'],pct:'20%',n:20,s:'12/1/2023',e:'12/31/2023',y:2023,a:0},
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'11/8/2023',e:'12/31/2023',y:2023,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'11/13/2023',e:'12/10/2023',y:2023,a:0},
+  {b:'Amex',p:'Qatar',progs:['Qatar'],pct:'10%',n:10,s:'11/19/2023',e:'12/3/2023',y:2023,a:0},
   {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'9/1/2023',e:'11/30/2023',y:2023,a:0},
-  {b:'Amex',p:'JetBlue',progs:['JetBlue'],pct:'25%',n:25,s:'9/1/2023',e:'11/30/2023',y:2023,a:0},
-  {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'20%',n:20,s:'9/1/2023',e:'11/30/2023',y:2023,a:0},
-  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'7/1/2023',e:'9/22/2023',y:2023,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'6/1/2023',e:'8/31/2023',y:2023,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'6/1/2023',e:'8/31/2023',y:2023,a:0},
-  {b:'Amex',p:'British Airways',progs:['British Airways'],pct:'30%',n:30,s:'6/1/2023',e:'8/31/2023',y:2023,a:0},
+  {b:'Amex',p:'JetBlue',progs:['JetBlue'],pct:'25%',n:25,s:'10/10/2023',e:'11/30/2023',y:2023,a:0},
+  {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'20%',n:20,s:'11/1/2023',e:'11/30/2023',y:2023,a:0},
+  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'9/1/2023',e:'9/22/2023',y:2023,a:0},
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'25%',n:25,s:'8/1/2023',e:'8/31/2023',y:2023,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'8/1/2023',e:'8/31/2023',y:2023,a:0},
+  {b:'Amex',p:'British Airways',progs:['British Airways'],pct:'30%',n:30,s:'7/1/2023',e:'8/31/2023',y:2023,a:0},
   {b:'Amex',p:'Iberia',progs:['Iberia'],pct:'30%',n:30,s:'6/1/2023',e:'8/31/2023',y:2023,a:0},
-  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'20%',n:20,s:'4/1/2023',e:'6/14/2023',y:2023,a:0},
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'4/1/2023',e:'6/14/2023',y:2023,a:0},
-  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'3/1/2023',e:'5/22/2023',y:2023,a:0},
+  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'20%',n:20,s:'5/15/2023',e:'6/14/2023',y:2023,a:0},
+  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'5/23/2023',e:'6/14/2023',y:2023,a:0},
+  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'5/1/2023',e:'5/22/2023',y:2023,a:0},
   {b:'Amex',p:'Hawaiian',progs:['Hawaiian'],pct:'20%',n:20,s:'1/1/2023',e:'1/31/2023',y:2023,a:0},
-  {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'7/1/2023',e:'9/30/2023',y:2023,a:0},
-  {b:'Capital One',p:'Virgin Red',progs:['Virgin Red'],pct:'30%',n:30,s:'1/1/2023',e:'3/30/2023',y:2023,a:0},
-  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'10/1/2023',e:'11/30/2023',y:2023,a:0},
-  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'9/1/2023',e:'11/15/2023',y:2023,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'7/1/2023',e:'9/30/2023',y:2023,a:0},
-  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'7/1/2023',e:'9/22/2023',y:2023,a:0},
+  {b:'Capital One',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'9/15/2023',e:'9/30/2023',y:2023,a:0},
+  {b:'Capital One',p:'Virgin Red',progs:['Virgin Red'],pct:'30%',n:30,s:'3/1/2023',e:'3/31/2023',y:2023,a:0},
+  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'10/16/2023',e:'11/30/2023',y:2023,a:0},
+  {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2023',e:'11/15/2023',y:2023,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'8/1/2023',e:'9/30/2023',y:2023,a:0},
+  {b:'Chase',p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'8/29/2023',e:'9/22/2023',y:2023,a:0},
   {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'5/1/2023',e:'6/15/2023',y:2023,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'5/1/2023',e:'7/31/2023',y:2023,a:0},
-  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'3/1/2023',e:'5/15/2023',y:2023,a:0},
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'20%',n:20,s:'6/15/2023',e:'7/31/2023',y:2023,a:0},
+  {b:'Chase',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'4/1/2023',e:'5/15/2023',y:2023,a:0},
   {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'3/1/2023',e:'5/15/2023',y:2023,a:0},
-  {b:'Citi',p:'Accor',progs:['Accor'],pct:'50%',n:50,s:'11/1/2023',e:'12/31/2023',y:2023,a:0},
+  {b:'Citi',p:'Accor',progs:['Accor'],pct:'50%',n:50,s:'11/3/2023',e:'11/30/2023',y:2023,a:0},
   {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'25%',n:25,s:'10/1/2023',e:'11/30/2023',y:2023,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'10/1/2023',e:'11/4/2023',y:2023,a:0},
-  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'10/1/2023',e:'11/10/2023',y:2023,a:0},
-  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'9/1/2023',e:'10/14/2023',y:2023,a:0},
-  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'20%',n:20,s:'8/1/2023',e:'9/16/2023',y:2023,a:0},
-  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'6/1/2023',e:'7/22/2023',y:2023,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'5/1/2023',e:'6/30/2023',y:2023,a:0},
-  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'5/1/2023',e:'6/30/2023',y:2023,a:0},
-  {b:'Citi',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'4/1/2023',e:'6/17/2023',y:2023,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'10%',n:10,s:'3/1/2023',e:'4/30/2023',y:2023,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'10/15/2023',e:'11/4/2023',y:2023,a:0},
+  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'11/1/2023',e:'11/10/2023',y:2023,a:0},
+  {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'9/18/2023',e:'10/16/2023',y:2023,a:0},
+  {b:'Citi',p:'Wyndham',progs:['Wyndham'],pct:'20%',n:20,s:'8/21/2023',e:'9/16/2023',y:2023,a:0},
+  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'6/20/2023',e:'7/22/2023',y:2023,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'6/5/2023',e:'6/30/2023',y:2023,a:0},
+  {b:'Citi',p:'Qatar',progs:['Qatar'],pct:'30%',n:30,s:'6/1/2023',e:'6/30/2023',y:2023,a:0},
+  {b:'Citi',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'5/15/2023',e:'6/17/2023',y:2023,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'20%',n:20,s:'3/1/2023',e:'3/31/2023',y:2023,a:0},
   {b:'Citi',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'2/19/2023',e:'3/18/2023',y:2023,a:0},
   {b:'Citi',p:'Avianca LifeMiles (targeted)',progs:['Avianca LifeMiles'],pct:'20%',n:20,s:'2/1/2023',e:'3/31/2023',y:2023,a:0},
   /* Bilt Rent Day 2022 */
   {b:'Bilt',p:'IHG - 100% transfer bonus',progs:['IHG'],pct:'100%',n:100,s:'December 2022',e:'December 2022',y:2022,a:0,isBilt:true},
   {b:'Bilt',p:'United Airlines Status Trial and Challenge',progs:[],pct:'Status Match',n:0,s:'November 2022',e:'November 2022',y:2022,a:0,isBilt:true},
   /* 2022 other */
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2022',e:'12/29/2022',y:2022,a:0},
-  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'10/1/2022',e:'12/10/2022',y:2022,a:0},
-  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'10/1/2022',e:'11/12/2022',y:2022,a:0},
+  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'12/8/2022',e:'12/29/2022',y:2022,a:0},
+  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'11/16/2022',e:'12/7/2022',y:2022,a:0},
+  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'Up to 15%',n:15,s:'9/14/2022',e:'11/12/2022',y:2022,a:0},
   {b:'Amex',p:'Choice Hotels',progs:['Choice Hotels'],pct:'25%',n:25,s:'9/1/2022',e:'10/31/2022',y:2022,a:0},
   {b:'Amex',p:'Marriott',progs:['Marriott'],pct:'20%',n:20,s:'9/1/2022',e:'10/31/2022',y:2022,a:0},
-  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Hilton',progs:['Hilton'],pct:'30%',n:30,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
   {b:'Amex',p:'Aer Lingus',progs:['Aer Lingus'],pct:'25%',n:25,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'British Airways',progs:['British Airways'],pct:'25%',n:25,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'AeroMexico',progs:['AeroMexico'],pct:'20%',n:20,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'Qantas',progs:['Qantas'],pct:'20%',n:20,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'Hawaiian',progs:['Hawaiian'],pct:'20%',n:20,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'Aeroplan',progs:['Aeroplan'],pct:'15%',n:15,s:'8/1/2022',e:'9/30/2022',y:2022,a:0},
-  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'7/1/2022',e:'8/31/2022',y:2022,a:0},
-  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'20%',n:20,s:'6/1/2022',e:'8/31/2022',y:2022,a:0},
-  {b:'Capital One',p:'Accor',progs:['Accor'],pct:'20%',n:20,s:'10/1/2022',e:'12/1/2022',y:2022,a:0},
-  {b:'Capital One',p:'British Airways',progs:['British Airways'],pct:'20%',n:20,s:'10/1/2022',e:'12/1/2022',y:2022,a:0},
-  {b:'Capital One',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'10/1/2022',e:'11/12/2022',y:2022,a:0},
-  {b:'Capital One',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'9/1/2022',e:'10/31/2022',y:2022,a:0},
-  {b:'Capital One',p:'British Airways',progs:['British Airways'],pct:'20%',n:20,s:'7/1/2022',e:'8/31/2022',y:2022,a:0},
-  {b:'Capital One',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'7/1/2022',e:'8/31/2022',y:2022,a:0},
+  {b:'Amex',p:'Flying Blue',progs:['Flying Blue'],pct:'25%',n:25,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'British Airways',progs:['British Airways'],pct:'25%',n:25,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'AeroMexico',progs:['AeroMexico'],pct:'20%',n:20,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Qantas',progs:['Qantas'],pct:'20%',n:20,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Hawaiian',progs:['Hawaiian'],pct:'20%',n:20,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Aeroplan',progs:['Aeroplan'],pct:'15%',n:15,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'15%',n:15,s:'9/1/2022',e:'9/30/2022',y:2022,a:0},
+  {b:'Amex',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'20%',n:20,s:'8/1/2022',e:'8/31/2022',y:2022,a:0},
+  {b:'Capital One',p:'Accor',progs:['Accor'],pct:'20%',n:20,s:'11/1/2022',e:'11/30/2022',y:2022,a:0},
+  {b:'Capital One',p:'British Airways',progs:['British Airways'],pct:'20%',n:20,s:'11/1/2022',e:'11/30/2022',y:2022,a:0},
+  {b:'Capital One',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'Up to 15%',n:15,s:'9/14/2022',e:'11/12/2022',y:2022,a:0},
+  {b:'Capital One',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/16/2022',e:'10/31/2022',y:2022,a:0},
+  {b:'Capital One',p:'British Airways',progs:['British Airways'],pct:'20%',n:20,s:'8/1/2022',e:'8/31/2022',y:2022,a:0},
+  {b:'Capital One',p:'Flying Blue',progs:['Flying Blue'],pct:'20%',n:20,s:'8/1/2022',e:'8/31/2022',y:2022,a:0},
   {b:'Chase',p:'Virgin Atlantic',progs:['Virgin Atlantic'],pct:'30%',n:30,s:'10/1/2022',e:'11/12/2022',y:2022,a:0},
   {b:'Chase',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'10/1/2022',e:'11/12/2022',y:2022,a:0},
-  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'30%',n:30,s:'10/1/2022',e:'11/30/2022',y:2022,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'40%',n:40,s:'10/1/2022',e:'12/20/2022',y:2022,a:0},
-  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'7/1/2022',e:'8/19/2022',y:2022,a:0},
-  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'15%',n:15,s:'10/1/2022',e:'11/12/2022',y:2022,a:0},
-  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'7/1/2022',e:'8/31/2022',y:2022,a:0}
+  {b:'Chase',p:'Aeroplan',progs:['Aeroplan'],pct:'30%',n:30,s:'11/1/2022',e:'11/30/2022',y:2022,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'40%',n:40,s:'11/1/2022',e:'12/20/2022',y:2022,a:0},
+  {b:'Chase',p:'Marriott',progs:['Marriott'],pct:'50%',n:50,s:'6/1/2022',e:'8/19/2022',y:2022,a:0},
+  {b:'Citi',p:'Cathay Pacific',progs:['Cathay Pacific'],pct:'Up to 15%',n:15,s:'9/14/2022',e:'11/12/2022',y:2022,a:0},
+  {b:'Citi',p:'Avianca LifeMiles',progs:['Avianca LifeMiles'],pct:'25%',n:25,s:'8/1/2022',e:'8/31/2022',y:2022,a:0}
 ];
 
 /* ─── PROGRAM DROPDOWN ───
@@ -1063,7 +1126,7 @@ function RH(){
     var athCell='';
     if(at){
       athCell='<span class="ath-badge">&#9733; ATH</span>';
-    } else if(x.n>0 && ATH[x.b+'|'+x.p] && parseInt(x.n)<ATH[x.b+'|'+x.p]){
+    } else if(x.n>0 && ATH[x.b+'|'+athProg(x.p)] && parseInt(x.n)<ATH[x.b+'|'+athProg(x.p)]){
       athCell='<span class="past-ath">Below ATH</span>';
     }
     /* "Also covers" for any row (Bilt or not) with multiple progs */
@@ -1247,6 +1310,7 @@ function VCcalc(){
   if(!bank||!prog||pts<=0){
     verdictEl.style.display='none';
     tableEl.style.display='none';
+    showNl('nl-vc',false);
     fromValEl.textContent='';
     toValEl.textContent='';
     recvEl.textContent='—';
@@ -1294,6 +1358,7 @@ function VCcalc(){
   }
 
   verdictEl.style.display='block';
+  showNl('nl-vc',true);
   verdictEl.style.background=verdictColor;
   verdictEl.style.borderLeft='4px solid '+verdictBorder;
   verdictEl.style.borderRadius='0 6px 6px 0';
@@ -1382,6 +1447,7 @@ function CU(){
     cpEl.classList.add('err');resEl.innerHTML='';
     tipEl.className='ct ct-err';tipEl.style.display='block';
     tipEl.textContent='Please enter a valid number of points greater than 0.';
+    showNl('nl-cu',false);
     return;
   }
   cpEl.classList.remove('err');
@@ -1395,6 +1461,7 @@ function CU(){
       cpctEl.classList.add('err');resEl.innerHTML='';
       tipEl.className='ct ct-err';tipEl.style.display='block';
       tipEl.textContent='Please enter a bonus % between 1 and 500.';
+      showNl('nl-cu',false);
       return;
     }
     cpctEl.classList.remove('err');
@@ -1427,6 +1494,7 @@ function CU(){
     '<tr><td>Total received</td><td class="rv2">'+totalRecv.toLocaleString()+'</td></tr>';
 
   tipEl.style.display='block';
+  showNl('nl-cu',true);
   if(pct===0&&bank==='Any'){
     tipEl.className='ct';
     tipEl.textContent='No active bonus shown. Use the Value Comparison tool above to check if this transfer is worth it at the current ratio.';
@@ -1737,12 +1805,11 @@ PP();RC();RH();buildCalcDropdown();CU();renderPT();
     if(el) el.innerHTML=renderCarousel(p[1]);
   });
 })();
-// Set live "Updated" month in header
+// Data-updated date (when the bonus tables were last checked), not today's clock.
+var DATA_UPDATED='October 9, 2026';
 (function(){
   var el=document.getElementById('hdr-date');
-  if(!el) return;
-  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  el.textContent=months[TODAY.getUTCMonth()]+' '+TODAY.getUTCFullYear();
+  if(el) el.textContent=DATA_UPDATED;
 })();
 </script>
 </body>
