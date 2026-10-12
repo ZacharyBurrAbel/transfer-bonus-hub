@@ -187,6 +187,8 @@ tr:hover td{background:#fafafa}
 .bu-route{font-size:13px;font-weight:700}
 .bu-meta{font-size:11px;color:#C8102E;font-weight:700;margin-top:2px}
 .bu-why{font-size:12px;color:#444;margin-top:2px;line-height:1.4}
+.bu-tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;vertical-align:middle;background:#f4f4f4;color:#555;border:1px solid #e5e5e5}
+.bu-tag.y{background:#fff8e6;color:#8a6500;border-color:#f0e0b0}
 .bu-foot{margin-top:10px;font-size:10px;color:#888;line-height:1.4}
 .bu-nl{margin-top:10px;padding-top:10px;border-top:1px solid #eee;font-size:12px;color:#555;line-height:1.45}
 .bu-nl a{color:#C8102E;font-weight:700}
@@ -1748,9 +1750,9 @@ setInterval(function(){
 },500);
 
 /* ── BEST USES ── last reviewed with the charts cited below */
-var BEST_REVIEWED='October 9, 2026';
+var BEST_REVIEWED='October 12, 2026';
 var BEST={
-'Virgin Atlantic Flying Club':{note:'ANA awards below are one-way on the Virgin Atlantic chart. Taxes are extra, space is limited, and ANA awards are booked by phone. Virgin\u2019s own flights are priced dynamically and are not listed.',src:'Virgin Atlantic ANA partner chart',u:[
+'Virgin Atlantic Flying Club':{t:'c',note:'ANA awards below are one-way on the Virgin Atlantic chart. Taxes are extra, space is limited, and ANA awards are booked by phone. Virgin\u2019s own flights are priced dynamically and are not listed.',src:'Virgin Atlantic ANA partner chart',u:[
 ['ANA First, Japan\u2013Western USA, Canada, or Australia','72,500','First','One-way. The same cabin to the US East or Central, Mexico, or Europe is 85,000.'],
 ['ANA First, Japan\u2013US East, US Central, Mexico, or Europe','85,000','First','One-way on ANA metal. This is the top of the published ANA First chart.'],
 ['ANA Business, Japan\u2013Western USA, Canada, or Australia','52,500','Business','One-way. East or Central USA, Mexico, and Europe are 60,000.'],
@@ -1761,7 +1763,7 @@ var BEST={
 ['ANA First, Japan\u2013Seoul','25,000','First','One-way, the shortest international First price on this chart. Business is 17,500.'],
 ['ANA Economy, Japan\u2013Western USA or Canada','30,000','Economy','One-way. East Coast, Mexico, and Europe economy is 32,500.']
 ]},
-'Hyatt World of Hyatt':{note:'Standard-room rates since May 20, 2026 use five tiers: Lowest, Low, Moderate, Upper, and Top. Mr & Mrs Smith hotels are dynamic and are not on this chart. A hotel\u2019s category can change, so check it before you transfer.',src:'World of Hyatt chart via TPG, May 20, 2026',u:[
+'Hyatt World of Hyatt':{t:'c',note:'Standard-room rates since May 20, 2026 use five tiers: Lowest, Low, Moderate, Upper, and Top. Mr & Mrs Smith hotels are dynamic and are not on this chart. A hotel\u2019s category can change, so check it before you transfer.',src:'World of Hyatt chart via TPG, May 20, 2026',u:[
 ['Category 1 standard room','3,000\u20139,000','Standard room','Per night, Lowest through Top. The floor of the published chart.'],
 ['Category 4 standard room','12,000\u201325,000','Standard room','Per night. A common band for full-service Hyatts.'],
 ['Category 6 standard room','20,000\u201340,000','Standard room','Per night, Lowest through Top.'],
@@ -1769,9 +1771,13 @@ var BEST={
 ['Category 8 standard room','35,000\u201375,000','Standard room','Per night. The top published standard-room band, excluding Miraval and all-inclusives.'],
 ['Club, suite, or premium-suite upgrade on a paid stay','3,000 / 6,000 / 9,000','Upgrade','Per night. Club is 3,000, a standard suite is 6,000, and a premium suite is 9,000.'],
 ['All-inclusive Category A standard room','12,000\u201325,000','Standard room','Per night for two guests. A third or fourth guest is extra points. Higher all-inclusive categories cost more.'],
-['Miraval standard room, two guests','60,000\u201395,000','Standard room','Per night, Lowest through Top, meals and a resort credit included. One guest is 40,000\u201375,000.']
+['Miraval standard room, two guests','60,000\u201395,000','Standard room','Per night, Lowest through Top, meals and a resort credit included. One guest is 40,000\u201375,000.'],
+['Andaz 5th Avenue or Hotel du Louvre, Paris','35,000\u201375,000','Category 8','TPG reported both moved from Category 7 to 8 on May 20, 2026. The night still depends on the five-tier date.'],
+['Hyatt Regency Aruba','35,000\u201375,000','Category 8','Moved from Category 7 to 8 on May 20, 2026, per TPG. Park Hyatt Paris-Vendome is also Category 8.'],
+['Hyatt Place London City East','Category 3','Standard room','Dropped from Category 4 to 3 on May 20, 2026, per TPG. Check the five-tier price for that category before you transfer.'],
+['The Standard, Singapore','Category 4','Standard room','Dropped from Category 5 to 4 on May 20, 2026. Category 4 standard rooms on the published chart are 12,000\u201325,000.']
 ]},
-'Air Canada Aeroplan':{note:'Partner prices below are one-way from Air Canada\u2019s June 2026 reward chart for \u201call other partners.\u201d Air Canada and select partners can price higher (\u201cstarting at\u201d or a median). The price follows distance flown. A partner fee and taxes are extra.',src:'Air Canada Aeroplan flight reward chart, June 2026',u:[
+'Air Canada Aeroplan':{t:'c',note:'Partner prices below are one-way from Air Canada\u2019s June 2026 reward chart for \u201call other partners.\u201d Air Canada and select partners can price higher (\u201cstarting at\u201d or a median). The price follows distance flown. A partner fee and taxes are extra.',src:'Air Canada flight reward chart, August 2026; stopover rule via Frequent Miler Aeroplan guide, 2026',u:[
 ['US or Canada East to Western Europe, under 4,000 miles flown','60,000','Business','Partner business, one-way. Economy in this band is 32,500 and partner first is 90,000.'],
 ['Longer North America\u2013Europe, Middle East, Africa, or India (4,001\u20136,000 miles)','75,000','Business','Partner business. Many West Coast and deeper-Europe routings land here. Economy is 42,500; partner first is 120,000.'],
 ['North America\u2013Pacific under 5,000 miles','55,000','Business','Partner business, one-way. Partner first in this band is 90,000.'],
@@ -1779,9 +1785,10 @@ var BEST={
 ['North America\u2013deep Asia or Pacific, 7,501\u201311,000 miles','102,500','Business','Partner business, one-way. This band covers many US\u2013Southeast Asia routings. Partner first is 140,000.'],
 ['Short hop inside North America, under 500 miles','15,000','Business','Partner business. Partner economy in this band is 6,000.'],
 ['Inside North America, 501\u20131,500 miles','20,000','Business','Partner business. Partner economy is 10,000.'],
-['North America\u2013South America, 2,501\u20134,500 miles','50,000','Business','Partner business, one-way. Partner economy is 30,000.']
+['North America\u2013South America, 2,501\u20134,500 miles','50,000','Business','Partner business, one-way. Partner economy is 30,000.'],
+['Add one stopover','+5,000','Stopover','One stopover over 24 hours, up to 45 days, on a one-way award. Not allowed in Canada or the United States. A longer routing can also jump a distance band.']
 ]},
-'Singapore Airlines KrisFlyer':{note:'Saver awards on Singapore Airlines metal, one-way, from the chart updated November 1, 2025 and still the published saver table in March 2026. Advantage awards cost more. Saver space is limited.',src:'KrisFlyer saver chart (Nov 1, 2025); Mainly Miles Nov 19, 2025; Suitesmile Mar 28, 2026',u:[
+'Singapore Airlines KrisFlyer':{t:'c',note:'Saver awards on Singapore Airlines metal, one-way, from the chart updated November 1, 2025 and still the published saver table in March 2026. Advantage awards cost more. Saver space is limited.',src:'KrisFlyer saver chart (Nov 1, 2025); Mainly Miles Nov 19, 2025; Suitesmile Mar 28, 2026',u:[
 ['Singapore\u2013Tokyo or Seoul','54,500','Business','Saver, one-way. First is 81,000 and economy is 25,500.'],
 ['Singapore\u2013Bangkok, Vietnam, or the Philippines','25,000','Business','Saver, one-way. Economy is 13,000.'],
 ['Singapore\u2013Hong Kong or Taipei','35,500','Business','Saver, one-way. First is 47,500 and economy is 15,500.'],
@@ -1791,7 +1798,7 @@ var BEST={
 ['Singapore\u2013Sydney','72,000','Business','Saver, one-way. First is 98,000 and economy is 29,000.'],
 ['Singapore\u2013Kuala Lumpur or Jakarta','22,000','Business','Saver, one-way. Economy is 8,000. First to Jakarta is 32,000.']
 ]},
-'British Airways Avios':{note:'One-way prices from London on British Airways flights, Reward Flight Saver, most Avios and least cash. Off-peak is shown. Peak costs more (all of August 2026 is peak). Other Avios-plus-cash mixes exist. Partner awards use a different distance chart and are not listed here.',src:'Head for Points BA price table, August 1, 2026',u:[
+'British Airways Avios':{t:'c',note:'One-way prices from London on British Airways flights, Reward Flight Saver, most Avios and least cash. Off-peak is shown. Peak costs more (all of August 2026 is peak). Other Avios-plus-cash mixes exist. Partner awards use a different distance chart and are not listed here.',src:'Head for Points, August 1, 2026; TPG Avios guide for First and partner bands',u:[
 ['London\u2013New York Club World','88,000 + \u00a3249.50','Business','Off-peak, one-way. Peak is 99,000 Avios. Economy off-peak is 27,500 + \u00a375.'],
 ['London\u2013Washington, Philadelphia, Baltimore, or Toronto','88,000 + \u00a3249.50','Business','Off-peak Club World, one-way, same band as New York. Peak is 99,000 Avios.'],
 ['London\u2013San Francisco, Seattle, Vancouver, or Orlando','99,000 + \u00a3299.50','Business','Off-peak Club World, one-way. Peak is 110,000 Avios. Economy off-peak is 33,000 + \u00a395.'],
@@ -1799,9 +1806,13 @@ var BEST={
 ['London\u2013Singapore','121,000 + \u00a3385','Business','Off-peak Club World, one-way. Peak is 132,000 Avios. Economy off-peak is 44,000 + \u00a3145.'],
 ['London\u2013Sydney','159,500 + \u00a3449.50','Business','Off-peak Club World, one-way. Peak is 187,000 Avios. This is the most expensive long-haul band in the table.'],
 ['London\u2013Paris, Amsterdam, or Nice','16,500 + \u00a320','Business','Off-peak Club Europe, one-way. Peak is 18,000. Economy off-peak is 10,000 + \u00a32.50.'],
-['London\u2013Rome or Barcelona','22,000 + \u00a320','Business','Off-peak Club Europe, one-way. Peak is 24,500. Economy off-peak is 13,000 + \u00a32.50.']
+['London\u2013Rome or Barcelona','22,000 + \u00a320','Business','Off-peak Club Europe, one-way. Peak is 24,500. Economy off-peak is 13,000 + \u00a32.50.'],
+['London First, about 3,001\u20134,000 miles (New York band)','75,000 off-peak','First','TPG zone table, most Avios. Peak is 88,000. First is not a Reward Flight Saver, and transatlantic cash charges are often about $1,000 or more.'],
+['London First, 7,001+ miles','187,000 off-peak','First','TPG zone 9, most Avios. Peak is 220,000. Sydney business off-peak on the same zone is 159,500 Avios.'],
+['Partner business, 1\u2013650 miles','14,000','Business','TPG single-partner table, one-way. Not the American or Alaska domestic table.'],
+['American or Alaska domestic, 651\u20131,151 miles','18,000','Economy','TPG example: New York\u2013Miami nonstop. Domestic first in this band is 35,500. Each segment is priced on its own.']
 ]},
-'Japan Airlines (JAL)':{note:'JAL partner awards are priced on total itinerary distance, not a city pair. A connection can jump a band. Figures are the miles JAL deducts. Fuel surcharges and taxes are extra. JAL\u2019s own-metal seasonal chart is separate and is not listed here.',src:'JAL Mileage Bank partner award chart',u:[
+'Japan Airlines (JAL)':{t:'c',note:'JAL partner awards are priced on total itinerary distance, not a city pair. A connection can jump a band. Figures are the miles JAL deducts. Fuel surcharges and taxes are extra. JAL\u2019s own-metal seasonal chart is separate and is not listed here.',src:'JAL Mileage Bank partner award chart',u:[
 ['Partner business, 1\u20131,000 miles total','24,000','Business','The short-haul partner business band. Economy in this band is 12,000.'],
 ['Partner business, 2,001\u20134,000 miles total','42,000','Business','Fits many intra-Asia and shorter transatlantic partner itineraries. Economy is 23,000.'],
 ['Partner business, 4,001\u20136,000 miles total','60,000','Business','A nonstop US West Coast\u2013Japan itinerary is often in this band. Economy is 37,000. First is 90,000.'],
@@ -1811,7 +1822,7 @@ var BEST={
 ['Partner economy, 1\u20131,000 miles total','12,000','Economy','The cheapest partner band on the chart.'],
 ['American two-cabin \u201cfirst\u201d','Business-band price','First seat','On American flights with only economy and first, JAL charges the business mileage for that first seat.']
 ]},
-'ANA Mileage Club':{note:'Partner awards below are round trip, using the revised prices for tickets issued on or after April 18, 2024. Japan zone 1-A is the base Japan price; routings ANA puts in zone 1-B cost more. Fuel surcharges are common. One-way pricing was not confirmed on the chart page, so it is not listed.',src:'ANA Mileage Club partner award chart',u:[
+'ANA Mileage Club':{t:'c',note:'Partner awards below are round trip, using the revised prices for tickets issued on or after April 18, 2024. Japan zone 1-A is the base Japan price; routings ANA puts in zone 1-B cost more. Fuel surcharges are common. One-way pricing was not confirmed on the chart page, so it is not listed.',src:'ANA Mileage Club partner award chart',u:[
 ['Japan\u2013North America','110,000','Business','Round trip, zone 1-A. Economy is 50,000 and first is 170,000.'],
 ['Japan\u2013Europe','115,000','Business','Round trip, zone 1-A. Economy is 55,000 and first is 190,000.'],
 ['Japan\u2013Hawaii','85,000','Business','Round trip, zone 1-A. Economy is 40,000 and first is 140,000.'],
@@ -1821,44 +1832,208 @@ var BEST={
 ['North America\u2013Hawaii','85,000','Business','Round trip. Economy is 47,000 and first is 135,000.'],
 ['Inside North America','55,000','Business','Round trip. Economy is 30,000 and first is 90,000.']
 ]},
-'Qatar Privilege Club Avios':{note:'Partner prices are Qatar\u2019s published distance chart, one-way, with no peak or off-peak. Qatar does not publish a chart for its own flights. The Qsuites examples are AwardFares\u2019 2026 readings of Qatar\u2019s calculator and can change, so confirm them before you transfer.',src:'AwardFares Privilege Club guide, 2026, citing Qatar\u2019s published partner charts and calculator',u:[
-['US\u2013Doha Qsuites, off-peak saver','70,000','Business','JFK, LAX, Chicago, and Miami in the AwardFares calculator reading. Peak saver was 94,500. Not a published chart.'],
-['London or Paris\u2013Doha Qsuites, off-peak saver','42,500','Business','Calculator reading. Peak saver was 55,000. First off-peak on these routes was listed at 60,000.'],
-['Doha\u2013Tokyo Qsuites, off-peak saver','60,000','Business','Calculator reading. Peak saver was 75,000. Economy off-peak was 25,000.'],
-['Partner business, 1\u2013650 miles','12,500','Business','Published general partner chart (not American or Alaska). Economy is 6,000.'],
-['Partner business, 3,001\u20134,000 miles','42,500','Business','Published general partner chart. Many Europe\u2013US East nonstops on partners other than American or Alaska. Economy is 18,000. First is 68,000.'],
-['Partner business, 4,001\u20135,500 miles','50,000','Business','Published general partner chart. Economy is 24,000 and first is 85,000.'],
-['American or Alaska, under 650 miles','20,000','Business','Separate, higher chart. Economy is 9,500. Do not use the general 12,500 business price on AA or Alaska.'],
-['American or Alaska, 651\u20131,151 miles','26,000','Business','Separate chart. Economy is 12,000.']
+'Qatar Privilege Club Avios':{t:'m',note:'Partner prices are Qatar\u2019s published distance chart, one-way, with no peak or off-peak. Qatar does not publish a chart for its own flights. The Qsuites examples are AwardFares\u2019 2026 readings of Qatar\u2019s calculator and can change, so confirm them before you transfer.',src:'AwardFares Privilege Club guide, 2026, citing Qatar\u2019s published partner charts and calculator',u:[
+['US\u2013Doha Qsuites, off-peak saver','70,000','Business','JFK, LAX, Chicago, and Miami in the AwardFares calculator reading. Peak saver was 94,500. Not a published chart.','y'],
+['London or Paris\u2013Doha Qsuites, off-peak saver','42,500','Business','Calculator reading. Peak saver was 55,000. First off-peak on these routes was listed at 60,000.','y'],
+['Doha\u2013Tokyo Qsuites, off-peak saver','60,000','Business','Calculator reading. Peak saver was 75,000. Economy off-peak was 25,000.','y'],
+['Partner business, 1\u2013650 miles','12,500','Business','Published general partner chart (not American or Alaska). Economy is 6,000.','c'],
+['Partner business, 3,001\u20134,000 miles','42,500','Business','Published general partner chart. Many Europe\u2013US East nonstops on partners other than American or Alaska. Economy is 18,000. First is 68,000.','c'],
+['Partner business, 4,001\u20135,500 miles','50,000','Business','Published general partner chart. Economy is 24,000 and first is 85,000.','c'],
+['American or Alaska, under 650 miles','20,000','Business','Separate, higher chart. Economy is 9,500. Do not use the general 12,500 business price on AA or Alaska.','c'],
+['American or Alaska, 651\u20131,151 miles','26,000','Business','Separate chart. Economy is 12,000.','c']
 ]},
-'Wyndham Rewards':{note:'Free nights are a flat points price per bedroom per night. On September 15, 2026 Wyndham moved to four tiers and dropped the old 7,500-point tier. Which hotel sits in which tier changed, so check the hotel.',src:'Wyndham Rewards reward-tier update, September 15, 2026',u:[
+'Wyndham Rewards':{t:'c',note:'Free nights are a flat points price per bedroom per night. On September 15, 2026 Wyndham moved to four tiers and dropped the old 7,500-point tier. Which hotel sits in which tier changed, so check the hotel.',src:'Wyndham Rewards reward-tier update, September 15, 2026',u:[
 ['Go-tier free night','5,000','Standard night','The new lowest tier, per bedroom per night.'],
 ['Mid-tier free night','15,000','Standard night','Per bedroom per night. Still the largest group of hotels after the reshuffle.'],
 ['Upper-tier free night','30,000','Standard night','Per bedroom per night.'],
 ['Elevated free night','45,000','Standard night','A small set of hotels, including some resort and city properties. Per bedroom per night.'],
 ['Points + cash on a 5,000-point night','From 500 + cash','Standard night','Points + cash starts at about 10% of the tier: 500, 1,500, 3,000, or 4,500 points plus cash.']
 ]},
-'Accor Live Limitless':{note:'ALL Reward points are a fixed discount, not a free-night chart. 1,000 points equal 20 euros off. Accor\u2019s US page cited about $22 per 1,000 points using the September 28, 2026 exchange rate.',src:'ALL Accor, booking with points',u:[
+'Accor Live Limitless':{t:'c',note:'ALL Reward points are a fixed discount, not a free-night chart. 1,000 points equal 20 euros off. Accor\u2019s US page cited about $22 per 1,000 points using the September 28, 2026 exchange rate.',src:'ALL Accor, booking with points',u:[
 ['Any eligible Accor stay','1,000 points = \u20ac20','Room rate discount','Apply points at booking, at the hotel, or by phone. No blackout dates on eligible rates.'],
 ['Larger discount','2,000 points = \u20ac40','Room rate discount','The same fixed value, in the increment Accor uses to explain the program.'],
 ['Dining, spa, and experiences','Same \u20ac20 per 1,000','On-property credit','Points can also cover eligible dining and experiences, not only the room.']
 ]},
-'Aer Lingus Avios':{note:'A current Aer Lingus route chart was not confirmed, so no Aer Lingus prices are listed.',src:'AwardFares Privilege Club guide, 2026',u:[
-['Move Avios to British Airways, Iberia, Qatar, or Finnair','1:1','Same Avios','These five programs share Avios. Move them, then book where you can see a current price.']
+'Aer Lingus Avios':{t:'c',note:'Aer Lingus uses Avios. A current Aer Lingus route table was not re-read for this review, so only the shared Avios move is listed.',src:'AwardFares Privilege Club guide, 2026',u:[
+['Move Avios to British Airways, Iberia, Qatar, or Finnair','1:1','Same Avios','These five programs share Avios. Move them, then book where the price is on a chart you can see.']
 ]},
-'Iberia Avios':{note:'A current Iberia route chart was not confirmed, so no Iberia prices are listed.',src:'AwardFares Privilege Club guide, 2026',u:[
-['Move Avios to British Airways, Qatar, Aer Lingus, or Finnair','1:1','Same Avios','These five programs share Avios. Move them, then book where you can see a current price.']
+'Iberia Avios':{t:'c',note:'Iberia prices its own flights by distance, one-way, with its own peak and off-peak calendar. Head for Points republished the table on February 1, 2026. London-Madrid and the Madrid-Barcelona shuttle are exceptions. Taxes are extra and are usually lower than British Airways.',src:'Head for Points, February 1, 2026, and Frequent Miler on the 2025 chart change',u:[
+['Madrid-New York band, 3,001-4,000 miles','40,500 off-peak','Business','One-way. Peak is 59,000. This is the band Head for Points uses for Madrid-New York.'],
+['Madrid-Miami band, 4,001-5,500 miles','50,500 off-peak','Business','One-way. Peak is 74,000. Head for Points puts Miami in this band.'],
+['Shorter Iberia business, 1,151-2,000 miles','22,000 off-peak','Business','One-way. Peak is 24,000. Economy off-peak in this band is 9,500.'],
+['Short business, 1-650 miles','9,750 off-peak','Business','One-way. Peak is 11,500. Economy off-peak is 3,500.'],
+['Move Avios to British Airways, Qatar, Aer Lingus, or Finnair','1:1','Same Avios','The five Avios programs share a balance. Iberia peak dates are not the same as British Airways.']
 ]},
-'Finnair Plus':{note:'A current Finnair award chart was not confirmed, so no Finnair route prices are listed.',src:'AwardFares Privilege Club guide, 2026',u:[
-['Move Avios to British Airways, Iberia, Qatar, or Aer Lingus','1:1','Same Avios','These five programs share Avios. Move them, then book where you can see a current price.']
+'Finnair Plus':{t:'c',note:'Finnair Plus uses Avios. A current Finnair route table was not re-read for this review, so only the shared Avios move is listed.',src:'AwardFares Privilege Club guide, 2026',u:[
+['Move Avios to British Airways, Iberia, Qatar, or Aer Lingus','1:1','Same Avios','These five programs share Avios. Move them, then book where the price is on a chart you can see.']
 ]},
-'Hilton Honors':{note:'Hilton does not publish an award chart. Standard-room prices move with demand, so no hotel prices are listed.',src:'Hilton pricing is dynamic (no chart)',u:[]},
-'Marriott Bonvoy':{note:'Marriott has not published an award chart since it dropped categories. Nightly prices are dynamic, so no hotel prices are listed.',src:'Marriott Bonvoy dynamic pricing',u:[]},
-'Alaska Atmos Rewards':{note:'Atmos Rewards publishes distance-based \u201cstarting at\u201d charts, but the chart page did not load for this review, so no prices are listed.',src:'',u:[]}
+'Turkish Airlines Miles&Smiles':{t:'c',note:'One-way prices. Turkish-metal figures are the promotion and standard award columns on the Turkish Airlines award page. Partner region prices were checked against that chart by AwardLocker on September 28, 2026. Fuel surcharges can apply.',src:'Turkish Airlines award ticket chart; AwardLocker, September 28, 2026; AwardWallet on the domestic partner chart',u:[
+['Turkiye-North America on Turkish metal','65,000 promo','Business','One-way promotion award. The standard award column is 135,000. Economy promo is 40,000.'],
+['Turkiye-Europe 1 on Turkish metal','20,000 promo','Business','One-way. Europe 2 business promo is 25,000. Standard awards cost more.'],
+['Turkiye-Far East on Turkish metal','65,000 promo','Business','One-way promotion award. Economy promo on this region is 35,000.'],
+['Turkiye domestic','10,000 promo','Business','One-way. Economy promo is 4,500. Standard business is 15,000.'],
+['Partner business, North America-Europe 1','85,000','Business','Star Alliance partner chart, one-way. Europe 2 is 90,000.'],
+['Partner business, North America-Far East','130,000','Business','Star Alliance partner chart, one-way.'],
+['United inside the United States','15,000','Economy','Domestic partner chart, as described by AwardWallet. Business on that chart is 22,500.']
+]},
+'Qantas Frequent Flyer':{t:'c',note:'Classic Flight Reward tables for bookings from August 5, 2025. One-way zones below are for Qantas, Jetstar, Fiji Airways, and American. A separate partner table costs more. Emirates awards on this page are priced as return miles from March 31, 2026, and are not mixed in below. Taxes and carrier charges are extra.',src:'Qantas Classic Flight Reward tables',u:[
+['Qantas or American, 0-600 miles','19,300','Business','One-way zone 1. Economy is 9,200. First is 29,000.'],
+['Qantas or American, 1,201-2,400 miles','43,600','Business','One-way zone 3. Economy is 20,700.'],
+['Qantas or American, 3,601-4,800 miles','82,100','Business','One-way zone 5. Many Australia-Asia nonstops land in a nearby zone. Economy is 29,000.'],
+['Qantas or American, 5,801-7,000 miles','113,900','Business','One-way zone 7. Economy is 43,200. First is 170,800.'],
+['Qantas or American, 7,001-8,400 miles','130,100','Business','One-way zone 8. Economy is 48,200. First is 195,400.'],
+['Qantas or American, 9,601-15,000 miles','166,300','Business','One-way zone 10, the top band. Economy is 63,500. First is 249,400.'],
+['Other partners, 3,601-4,800 miles','90,000','Business','Partner Classic table, one-way, bookings from August 5, 2025. Economy is 34,700.']
+]},
+'Cathay Pacific Asia Miles':{t:'c',note:'Cathay does not publish these tables. Own-metal prices are the May 1, 2026 rates Cathay described to Mainly Miles. Partner prices are the table Australian Frequent Flyer and Suitesmile both reported after that change. One-way, by distance. Type 2 cities (including Japan, India, and Indonesia) cost more on the short band.',src:'Mainly Miles, April 11, 2026; Australian Frequent Flyer and Suitesmile, May 2026',u:[
+['Cathay business, 751-2,750 miles, type 1','27,000','Business','One-way. Mainly Miles uses this for Singapore-Hong Kong. Economy in the ultra-short band (1-750) is 7,000 and business is 16,000.'],
+['Cathay business, 2,751-5,000 miles','60,000','Business','One-way from May 1, 2026, up from 58,000.'],
+['Cathay business, 5,001-7,500 miles','91,000','Business','One-way. Mainly Miles uses this for Singapore-Frankfurt. Was 88,000.'],
+['Cathay business, 7,501 miles or more','119,000','Business','One-way. Mainly Miles uses this for Singapore-London and Singapore-New York. Was 115,000.'],
+['Partner business, 1-750 miles','20,000','Business','Single-partner chart reported by Australian Frequent Flyer and Suitesmile. Economy is 10,000.'],
+['Partner business, 5,001-7,500 miles','93,000','Business','Raised from 89,000 in May 2026. First in this band is listed at 135,000.'],
+['Partner business, 7,501 miles or more','120,000','Business','Single-partner ultra-long band. First is listed at 170,000.']
+]},
+'Thai Airways Royal Orchid Plus':{t:'c',note:'Direct one-way awards on Thai from Bangkok, from the Royal Orchid Plus award page. Round trip is double. A connection inside Thailand uses a higher table. Star Alliance itineraries use another chart.',src:'Thai Airways Royal Orchid Plus award charts',u:[
+['Bangkok-Singapore, Kuala Lumpur, or Vietnam','20,000','Business','Zone 1, one-way Royal Silk. Economy is 12,500.'],
+['Bangkok-Hong Kong, Taipei, or Shanghai','30,000','Business','Zone 2, one-way. Economy is 17,500. Kunming is cheaper, at 20,000 business.'],
+['Bangkok-Tokyo, Osaka, Seoul, or Beijing','47,500','Business','Zone 5, one-way. First is 67,500. Economy is 22,500.'],
+['Bangkok-Sydney or Melbourne','65,000','Business','Zone 7, one-way. Economy is 27,500. Perth business is 47,500.'],
+['Bangkok-London, Paris, Frankfurt, or Zurich','90,000','Business','Zone 9, one-way. First is 125,000. Economy is 42,500.'],
+['Inside Thailand, such as Bangkok-Chiang Mai','10,000','Business','Domestic one-way. Economy is 7,500.']
+]},
+'EVA Air Infinity MileageLands':{t:'c',note:'One-way prices for EVA and UNI Air that two 2026 guides quote from the EVA table. The Americas business cell is 75,000 or 80,000 depending on the city, so it is not listed as one number. The official page says a one-way Star Alliance award is half the round trip. Taxes are extra.',src:'EVA award tables via 2026 program guides that quote the operator chart',u:[
+['Within Asia, including Taipei-Tokyo','25,000','Business','One-way on EVA or UNI Air. Taipei-Hong Kong or Macau economy is 10,000; other Asia economy is 17,500.'],
+['Asia-Europe','75,000','Business','One-way on EVA metal. Economy is 50,000 and premium economy is 55,000.'],
+['Asia-Oceania','75,000','Business','One-way on EVA metal. Economy is 50,000.']
+]},
+'Etihad Guest':{t:'c',note:'Saver starting prices by distance, one-way, for Etihad GuestSeat-style space. Etihad no longer guarantees a single published price, and the calculator can be higher when saver space is gone. OMAAT, AwardFares, and a 2026 program teardown still show this same table.',src:'OMAAT Etihad Guest guide; AwardFares Etihad Guest guide, 2026',u:[
+['Saver business, 0-500 miles','From 15,000','Business','Starting price, one-way. Economy starts at 5,000.'],
+['Saver business, 3,001-4,000 miles','From 70,000','Business','Starting price. AwardFares puts Abu Dhabi-London near 3,400 miles in this band. First starts at 120,000.'],
+['Saver business, 5,001-6,000 miles','From 95,000','Business','Starting price, one-way. Economy starts at 45,000.'],
+['Saver business, 6,001 miles or more','From 120,000','Business','The band that covers Etihad nonstops between Abu Dhabi and the United States. First starts at 160,000. Economy starts at 60,000.']
+]},
+'Lufthansa Miles & More':{t:'m',note:'Lufthansa, SWISS, Austrian, Discover, Air Dolomiti, and Lufthansa City price dynamically and have no chart. Partner awards still use the published round-trip chart. One-way partner awards are half. A Lufthansa feeder plus a partner long-haul still uses the chart.',src:'Miles & More partner chart, confirmed in booking searches August 8, 2026 (meilenbank) and the 2026 partner table',u:[
+['Partner business, Europe-North America','125,000 round trip','Business','62,500 one-way. Economy round trip on this cell is 50,000. First round trip is listed at 215,000.','c'],
+['Partner business, Europe-Far East or Central Asia','170,000 round trip','Business','85,000 one-way. Confirmed against the partner chart on August 8, 2026.','c'],
+['Lufthansa, SWISS, or Austrian long-haul','Varies','Business','Dynamic since June 3, 2025. Discover and Air Dolomiti followed in March 2026. No single mileage price.','y']
+]},
+'Malaysia Enrich':{t:'c',note:'Enrich Saver is the fixed one-way price on Malaysia Airlines metal, captured from the official Saver chart on July 30, 2026. Saver is round-trip booking only, but the chart shows the one-way amount. Seats above Saver cost more and are not on this chart.',src:'Malaysia Airlines Enrich Saver chart, captured July 30, 2026',u:[
+['Kuala Lumpur-Penang','9,300','Business','Saver, one-way amount. Economy is 2,300.'],
+['Kuala Lumpur-Singapore','20,000','Business','Saver. Economy is 5,400.'],
+['Kuala Lumpur-Bangkok','20,000','Business','Saver. Economy is 7,200.'],
+['Kuala Lumpur-Tokyo Narita','50,000','Business','Saver. Economy is 20,400.'],
+['Kuala Lumpur-London','108,000','Business','Saver. Economy is 33,000.']
+]},
+'Copa ConnectMiles':{t:'c',note:'AwardFares lists these as one-way examples of the fixed ConnectMiles chart. The official partner PDF did not parse cleanly in this review, so only these four pairs are listed. Copa-metal standard awards changed for tickets issued on or after October 20, 2025, and that grid is separate.',src:'AwardFares ConnectMiles guide, citing the fixed chart',u:[
+['United States-Central America','30,000','Business','One-way example. Economy is 17,500.'],
+['United States-northern South America','40,000','Business','One-way example. Economy is 20,000.'],
+['United States-southern South America','60,000','Business','One-way example. Economy is 30,000.'],
+['United States-Europe','70,000','Business','One-way example. Economy is 30,000.']
+]},
+'Avianca LifeMiles':{t:'y',note:'LifeMiles no longer publishes an award chart. The old chart page is empty. Prices below are one search snapshot reported by Thrifty Traveler in 2026 and have already moved more than once. Confirm the flight before you transfer.',src:'Thrifty Traveler, 2026 LifeMiles business-class rate check',u:[
+['New York-Zurich business','54,010','Business','One-way in that Thrifty Traveler check, down from 63,500. Boston-Zurich was 59,500.'],
+['San Francisco-Zurich business','73,400','Business','One of the routes that went up in the same check.'],
+['Some United Polaris flights to Europe','92,400','Business','Still the price on routes such as Newark-Berlin, Washington-Paris, and Chicago-London in that check. Others had dropped.'],
+['Los Angeles or San Francisco-Taipei','83,200','Business','One-way in that check, down from more than 90,000.']
+]},
+'United MileagePlus':{t:'y',note:'United does not publish a chart. Saver Polaris prices below are what Frequent Miler found on United metal across a year of searches, written up on August 19, 2026. A United card or Premier status is what actually unlocks most of that saver space. Everyday awards cost more.',src:'Frequent Miler, August 19, 2026',u:[
+['Polaris to or from Europe','80,000','Business','One-way saver on United metal with no card and no status. A United card prices the same seat at 72,000. Card plus status was 68,000.'],
+['Polaris to or from Asia','100,000','Business','One-way saver on United metal. A United card prices it at 90,000. Partner flights to Asia were a different price.'],
+['Polaris to or from Australia or New Zealand','100,000','Business','One-way saver. A United card prices it at 90,000. Space was scarce in that search.'],
+['Polaris to or from Africa','80,000','Business','One-way saver, 72,000 with a United card. Frequent Miler found very few of these nonstops.']
+]},
+'Air France/KLM Flying Blue':{t:'y',note:'Flying Blue prices dynamically. The floors below are what One Mile at a Time reported for October 2026 Light awards between North America and Europe. Promo Rewards are a separate monthly list and expire.',src:'One Mile at a Time, October 2026 Promo Rewards',u:[
+['North America-Europe business','From 60,000','Business','Typical Light award floor, one-way, before a promo. Premium economy starts at 40,000 and economy at 25,000.'],
+['Europe-Seattle or Mexico City business promo','45,000','Business','October 2026 Promo Reward, 25% off. Book by October 31, 2026, for travel through March 31, 2027.'],
+['Paris-Rome or Paris-Venice business promo','15,000','Business','Same October promo, one-way. Amsterdam-Lisbon business was also 15,000.'],
+['Europe-Boston, Houston, or Toronto economy promo','18,750','Economy','October promo floor on the cities OMAAT listed. Not every city is included.']
+]},
+'Delta SkyMiles':{t:'y',note:'Delta does not publish a chart. Frequent Miler, using Points Path searches through March 19, 2026, put the median value of a SkyMile at 1.1 cents. A given flight can be far from that. Eligible Delta American Express cards take 15% off the mileage price.',src:'Frequent Miler Delta valuation, March 19, 2026',u:[
+['A typical Delta award','About 1.1 cents','Any cabin','Median of millions of searches through March 19, 2026. Use this as a yardstick, not a quote.'],
+['Delta Gold, Platinum, or Reserve card','15% off','Any award','The cardholder discount stacks on top of the mileage price Delta is asking that day.'],
+['Flash sales','Well under the median','Economy','Delta posts unadvertised sales. The early-2026 Caribbean sale has expired, so compare the live price with the cash fare.']
+]},
+'American AAdvantage':{t:'y',note:'American prices its own flights dynamically. NerdWallet valued an AAdvantage mile at 1.7 cents in 2026, up from 1.3 cents in 2025. That is an average, not a route quote. The partner award chart was not re-read for this review, so those cells are not listed.',src:'NerdWallet, 2026 points-and-miles values',u:[
+['A typical American award','About 1.7 cents','Any cabin','NerdWallet 2026 average. Web specials move with demand, so the same route can cost much more or less.'],
+['Partner awards','Chart, not listed here','Business','American still uses a partner chart, but this review did not re-read the current cells, so no partner price is shown.']
+]},
+'Alaska Atmos Rewards':{t:'y',note:'Alaska publishes distance-based starting prices, and real awards can cost more. The official chart page did not render the table in this review. The floors below are the complete rows on 10xTravel Atmos chart page. Treat them as a minimum, and confirm on Alaska before you transfer.',src:'10xTravel Atmos Rewards award charts, reading of Alaska starting-at tables',u:[
+['Americas partner, under 700 miles','From 9,000','Business','Starting price. Economy starts at 4,500. First starts at 13,500.'],
+['Americas partner, 6,001 miles or more','From 60,000','Business','Starting price. Economy starts at 30,000.'],
+['Europe, Middle East, or Africa, 7,001-10,000 miles','From 85,000','Business','Starting price. Economy starts at 42,500.'],
+['Europe, Middle East, or Africa, 10,001 miles or more','From 110,000','Business','Starting price. Economy starts at 55,000.'],
+['Asia-Pacific partner, 10,001 miles or more','From 130,000','Business','Starting price. Economy starts at 65,000. Shorter Asia-Pacific bands were cut off in the source, so they are not listed.']
+]},
+'Southwest Rapid Rewards':{t:'y',note:'Southwest does not publish a chart. In TPG testing, award value landed between about 1.1 and 1.7 cents per point depending on the date. TPG valued a Rapid Rewards point at 1.25 cents in its October 2026 valuations.',src:'The Points Guy Southwest guide and October 2026 valuations',u:[
+['A typical Southwest award','About 1.1-1.7 cents','Any fare','What TPG measured. A cheap cash fare can be a poor use of points, and a pricey date can be better.'],
+['Planning yardstick','1.25 cents','Any fare','TPG October 2026 valuation. 10,000 points are about $125 at that rate.']
+]},
+'JetBlue TrueBlue':{t:'y',note:'TrueBlue prices dynamically. NerdWallet left the value unchanged at 1.4 cents per point for 2026. That is an average, not the price of a Mint seat.',src:'NerdWallet, 2026 points-and-miles values',u:[
+['A typical JetBlue award','About 1.4 cents','Any cabin','NerdWallet 2026 average, same as 2025. Check the cash fare before you transfer.']
+]},
+'Emirates Skywards':{t:'y',note:'Emirates does not publish a static chart. From May 20, 2026, one-way Business Saver is half the round-trip Saver fare. The figures below are Upgraded Points readings of Emirates pricing after that change. Flex Plus costs more. Confirm in the miles calculator.',src:'Upgraded Points, Emirates pricing after May 20, 2026',u:[
+['New York-Dubai Business Saver','96,000','Business','One-way after the May 20, 2026 change. The same reading showed this saver from Boston, Chicago, Miami, Orlando, and Washington as well.'],
+['New York-Dubai Economy Saver','30,000','Economy','One-way. Economy Saver was not raised in that change.'],
+['New York-Dubai Business Flex Plus','159,000','Business','One-way, about 15% higher than before May 20. Saver is the better buy when the seat is there.'],
+['Miami-Bogota Business Saver','36,000','Business','Fifth-freedom one-way in that same Upgraded Points check, down from about 52,500.']
+]},
+'Hilton Honors':{t:'y',note:'Hilton does not publish an award chart. Standard-room prices move with the cash rate. TPG valued a Hilton point at 0.4 cents in October 2026. Silver elite and above get the fifth night free on award stays of five nights or more.',src:'The Points Guy October 2026 valuations',u:[
+['A typical Hilton night','About 0.4 cents','Standard room','TPG October 2026 value. A specific hotel can be better or worse on the night you need.'],
+['Fifth night free','4 nights of points','Standard room','On a five-night award stay, for Silver elite and above. A Hilton card gives Silver.']
+]},
+'Marriott Bonvoy':{t:'y',note:'Marriott has not published category prices since it dropped the award chart. Nights are dynamic. TPG valued a Bonvoy point at 0.75 cents in October 2026. Elite members still get the fifth night free on points stays.',src:'The Points Guy October 2026 valuations',u:[
+['A typical Marriott night','About 0.75 cents','Standard room','TPG October 2026 value. Compare it with the cash rate before you transfer.'],
+['Fifth night free','4 nights of points','Standard room','On a five-night points stay for members with elite status.']
+]},
+'IHG One Rewards':{t:'y',note:'IHG prices nights dynamically. TPG valued an IHG point at 0.6 cents in October 2026. The Premier card fourth-night benefit and the anniversary-night cap are published rules, not a hotel quote.',src:'The Points Guy October 2026 valuations and IHG card refresh',u:[
+['A typical IHG night','About 0.6 cents','Standard room','TPG October 2026 value. The nightly points price still moves with the hotel and the date.'],
+['Fourth night free','3 nights of points','Standard room','On a four-night points stay with the IHG Premier card.'],
+['Premier anniversary night','Up to 40,000','Free-night certificate','The cap rises to 50,000 starting in 2027, per TPG coverage of the October 2026 card refresh. You can add points above the cap.']
+]},
+'Choice Privileges':{t:'y',note:'Choice prices nights dynamically and does not publish a chart. TPG valued a Choice point at 0.85 cents in October 2026. No hotel-level price was confirmed for this review.',src:'The Points Guy October 2026 valuations',u:[
+['A typical Choice night','About 0.85 cents','Standard room','TPG October 2026 value. Check the live points price against the cash rate.']
+]},
+'Amtrak Guest Rewards':{t:'y',note:'Amtrak does not use an award chart. TPG says awards track the cash fare at about 2.67 cents per point. The train prices below are one sample date TPG checked, not a permanent fare.',src:'The Points Guy, Amtrak Guest Rewards',u:[
+['Points per dollar of fare','About 2.67 cents','Any seat','The usual Amtrak redemption rate in the TPG guide. When the cash fare drops, the points price usually drops with it.'],
+['Northeast Regional, one sample date','From 750','Coach','TPG sample. Business class on that same date was 3,113 points. Your date will differ.'],
+['Sleeper roomette','Higher than coach','Private room','The award includes the room and meals, so it costs more points than a coach seat on the same train. No single roomette price was pinned.']
+]},
+'AeroMexico ClubPremier':{t:'y',note:'Aeromexico publishes both a fixed Classic award table and dynamic fares. The Classic table did not load in this review, so no zone price is listed. Dynamic awards on Aeromexico, Delta, KLM, and Air France move with demand.',src:'Aeromexico Rewards award-ticket page',u:[
+['Classic award','Fixed table, unread','Any cabin','The redemption table is the chart. It did not render here, so no number from it is shown.'],
+['Dynamic award','Varies','Any cabin','Priced by route, cabin, and demand on Aeromexico, Delta, KLM, and Air France.']
+]},
+'Air India Maharaja Club':{t:'y',note:'Air India prices redemptions in a calculator, not a published route chart. No route price from the program, Frequent Miler, TPG, or OMAAT was confirmed on October 12, 2026.',src:'Air India Maharaja Club points calculator',u:[
+['Air India or Air India Express award','Calculator','Any cabin','The points shown are tentative. Confirm the flight in the calculator before you transfer.']
+]},
+'Ethiopian ShebaMiles':{t:'y',note:'A current ShebaMiles award chart was not confirmed on October 12, 2026, so no route price is listed.',src:'',u:[
+['Ethiopian or partner award','Price not pinned','Any cabin','Check the program search before you transfer. No chart cell from a primary source made this review.']
+]},
+'Hainan Airlines Fortune Wings':{t:'y',note:'A current Fortune Wings award chart was not confirmed on October 12, 2026, so no route price is listed.',src:'',u:[
+['Hainan or partner award','Price not pinned','Any cabin','Check the program search before you transfer. No chart cell from a primary source made this review.']
+]},
+'SAS EuroBonus':{t:'y',note:'A current SAS EuroBonus award chart was not confirmed on October 12, 2026, so no route price is listed.',src:'',u:[
+['SAS or partner award','Price not pinned','Any cabin','Check the program search before you transfer. No chart cell from a primary source made this review.']
+]},
+'TAP Air Portugal':{t:'y',note:'A current TAP Miles&Go award chart was not confirmed on October 12, 2026, so no route price is listed.',src:'',u:[
+['TAP or partner award','Price not pinned','Any cabin','Check the program search before you transfer. No chart cell from a primary source made this review.']
+]},
+'Vietnam Airlines LotusMiles':{t:'y',note:'A current LotusMiles award chart was not confirmed on October 12, 2026, so no route price is listed.',src:'',u:[
+['Vietnam Airlines or SkyTeam award','Price not pinned','Any cabin','Check the program search before you transfer. No chart cell from a primary source made this review.']
+]},
+'Frontier Miles':{t:'y',note:'Frontier prices awards dynamically. No route price from Frequent Miler, TPG, or OMAAT was confirmed on October 12, 2026.',src:'',u:[
+['Frontier award','Price not pinned','Any cabin','The price moves with the cash fare. Compare them before you transfer.']
+]},
+'Spirit Free Spirit':{t:'y',note:'Spirit prices awards dynamically. No route price from Frequent Miler, TPG, or OMAAT was confirmed on October 12, 2026.',src:'',u:[
+['Spirit award','Price not pinned','Any cabin','The price moves with the cash fare. Compare them before you transfer.']
+]},
+'Leading Hotels of the World':{t:'y',note:'A current Leaders Club award table was not confirmed on October 12, 2026, so no hotel price is listed.',src:'',u:[
+['Leaders Club hotel night','Price not pinned','Room','Check the hotel before you transfer. No sourced nightly price made this review.']
+]},
+'Preferred Hotels iPrefer':{t:'y',note:'A current iPrefer award table was not confirmed on October 12, 2026, so no hotel price is listed.',src:'',u:[
+['iPrefer hotel night','Price not pinned','Room','Check the hotel before you transfer. No sourced nightly price made this review.']
+]}
 };
-['AeroMexico ClubPremier','Air France/KLM Flying Blue','Air India Maharaja Club','Amtrak Guest Rewards','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Copa ConnectMiles','Delta SkyMiles','Emirates Skywards','Ethiopian ShebaMiles','Etihad Guest','EVA Air Infinity MileageLands','Frontier Miles','Hainan Airlines Fortune Wings','JetBlue TrueBlue','Lufthansa Miles & More','Malaysia Enrich','Qantas Frequent Flyer','SAS EuroBonus','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','United MileagePlus','Vietnam Airlines LotusMiles','Choice Privileges','IHG One Rewards','Leading Hotels of the World','Preferred Hotels iPrefer'].forEach(function(n){
-  BEST[n]={note:'Reviewed '+BEST_REVIEWED+'. A current award chart from the program, Frequent Miler, TPG, or OMAAT was not confirmed, so no route prices are listed.',src:'',u:[]};
-});
 var BU_NAMES=[];
 function buEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function buBtn(name){
@@ -1873,16 +2048,20 @@ function buHidePop(){
   if(p) p.hidden=true;
   if(buPopBtn){buPopBtn.setAttribute('aria-expanded','false');buPopBtn=null;}
 }
+function buKind(d,u){return (u&&u[4])||(d.t==='m'?'c':(d.t||'c'));}
+function buTag(k){return '<span class="bu-tag'+(k==='y'?' y':'')+'">'+(k==='y'?'Typical, prices vary':'Award chart')+'</span>';}
 function buShowPop(btn){
   if(buTouch) return;
   var d=BEST[BU_NAMES[+btn.getAttribute('data-bui')]];
   if(!d) return;
   var p=document.getElementById('bu-pop');
   var uses=(d.u||[]).slice(0,4);
-  var html='<div class="bu-ph">'+buEsc(BU_NAMES[+btn.getAttribute('data-bui')])+'</div>';
+  var headKind=d.t==='y'?'y':(d.t==='c'?'c':'');
+  var html='<div class="bu-ph">'+buEsc(BU_NAMES[+btn.getAttribute('data-bui')])+(headKind?buTag(headKind):'')+'</div>';
   if(uses.length){
     html+='<ul class="bu-pl">'+uses.map(function(u){
-      return '<li><b>'+buEsc(u[0])+'</b><span>'+buEsc(u[1])+' \u00b7 '+buEsc(u[2])+'</span><span class="bu-pw">'+buEsc(u[3])+'</span></li>';
+      var k=buKind(d,u);
+      return '<li><b>'+buEsc(u[0])+(d.t==='m'?buTag(k):'')+'</b><span>'+buEsc(u[1])+' \u00b7 '+buEsc(u[2])+'</span><span class="bu-pw">'+buEsc(u[3])+'</span></li>';
     }).join('')+'</ul>';
     html+='<div class="bu-pm">'+(d.u.length>4?('Click for '+(d.u.length-4)+' more'):'Click for the details')+'</div>';
   } else html+='<p class="bu-pn">'+buEsc(d.note)+'</p>';
@@ -1910,10 +2089,13 @@ function buOpen(name){
   buHidePop();
   var ov=document.getElementById('bu-ov');
   document.getElementById('bu-title').textContent=name;
-  document.getElementById('bu-sub').textContent=d.note||'';
+  var sub=document.getElementById('bu-sub');
+  sub.textContent=d.note||'';
+  if(d.t==='y'||d.t==='c') sub.insertAdjacentHTML('afterbegin',buTag(d.t)+' ');
   var list=d.u||[];
   document.getElementById('bu-list').innerHTML=list.length?list.map(function(u){
-    return '<div class="bu-row"><div class="bu-route">'+buEsc(u[0])+'</div><div class="bu-meta">'+buEsc(u[1])+' \u00b7 '+buEsc(u[2])+'</div><div class="bu-why">'+buEsc(u[3])+'</div></div>';
+    var k=buKind(d,u);
+    return '<div class="bu-row"><div class="bu-route">'+buEsc(u[0])+(d.t==='m'?buTag(k):'')+'</div><div class="bu-meta">'+buEsc(u[1])+' \u00b7 '+buEsc(u[2])+'</div><div class="bu-why">'+buEsc(u[3])+'</div></div>';
   }).join(''):'';
   document.getElementById('bu-src').textContent='Last reviewed '+BEST_REVIEWED+(d.src?(' \u00b7 '+d.src):'')+'. Taxes, fees, and award space are extra. Confirm the price before you transfer.';
   buLast=document.activeElement;
