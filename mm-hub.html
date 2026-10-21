@@ -555,7 +555,9 @@ var CUR=[
   {bank:'Citi',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',          progKey:'Qatar Privilege Club Avios', pct:35, exp:'2026-10-31',isNew:true,
    note:'Up to 35%, tiered per transaction: 15% / 25% / 35%'},
   {bank:'Capital One', prog:'British Airways Avios',         pk:'British Airways',progKey:'British Airways Avios',        pct:20, exp:'2026-10-31',isNew:true,
-   note:'Opens the Avios &ldquo;backdoor&rdquo;: convert to BA Avios, then move to Iberia, Aer Lingus, Qatar or other Avios programs'}
+   note:'Opens the Avios &ldquo;backdoor&rdquo;: convert to BA Avios, then move to Iberia, Aer Lingus, Qatar or other Avios programs'},
+  {bank:'Capital One', prog:'Virgin Atlantic Flying Club / Virgin Red',pk:'Virgin Atlantic',progKey:'Virgin Atlantic Flying Club',pct:30, exp:'2026-11-20',isNew:true,
+   note:'1,000 Capital One Miles = 1,300 Virgin Points &#183; Transfer to Virgin Red or Virgin Atlantic Flying Club &#183; Through 11/20/2026'}
 ];
 
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
@@ -721,6 +723,7 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Capital One',  p:'Virgin Atlantic / Virgin Red', progs:['Virgin Atlantic','Virgin Red'], pct:'30%',n:30,s:'10/21/2026',e:'11/20/2026',y:2026,a:1,isNew:true},
   {b:'Rove',         p:'JetBlue',                    progs:['JetBlue'],                   pct:'20%',n:20,s:'10/15/2026',e:'11/14/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'British Airways',            progs:['British Airways'],           pct:'20%',n:20,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'AeroMexico',                 progs:['AeroMexico'],                pct:'20%',n:20,s:'10/1/2026',e:'10/30/2026',y:2026,a:1,isNew:true},
