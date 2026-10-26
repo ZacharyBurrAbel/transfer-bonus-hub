@@ -534,26 +534,20 @@ function ST(name,btn){
    To retire a bonus: remove from CUR. It already lives in HIST.
    ─────────────────────────────────────────────────────── */
 var CUR=[
-  {bank:'Bilt',        prog:'Hilton Honors - Up to 200% + instant status',pk:'Hilton',progKey:'Hilton Honors',pct:200,exp:'2026-10-01',
-   sameDay:true,isNew:true,
-   note:'75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ ($200 Bilt Cash upgrade) &#183; Oct 1 only &#183; 1:1 base &#183; Max 100k bonus pts &#183; Any transfer = instant Hilton status thru EOY 2026; complete the nights challenge by EOY to keep thru 2027'},
-  {bank:'Bilt',        prog:'Amtrak Guest Rewards - Up to 125%',pk:'Amtrak',progKey:'Amtrak Guest Rewards',pct:125,exp:'2026-10-01',
-   sameDay:true,isNew:true,
-   note:'25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up &#183; Oct 1 only &#183; 2:1 base rate &#183; $400 Bilt Cash buy-up &#183; Max 100k bonus pts'},
-  {bank:'Amex',        prog:'Hilton Honors',               pk:'Hilton',          progKey:'Hilton Honors',              pct:30, exp:'2026-10-14',isNew:true},
   {bank:'Amex',        prog:'AeroMexico ClubPremier',       pk:'AeroMexico',     progKey:'AeroMexico ClubPremier',     pct:20, exp:'2026-10-30',isNew:true},
   {bank:'Amex',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:25, exp:'2026-10-31',isNew:true},
+  {bank:'Amex',        prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:35, exp:'2026-12-10',isNew:true,
+   note:'1:1 base ratio &#183; 1,000 Membership Rewards = 1,350 Bonvoy points &#183; through 11:59pm ET on 12/10/2026'},
   {bank:'Rove',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:50, exp:'2026-10-31',isNew:true},
   {bank:'Rove',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:40, exp:'2026-10-31',isNew:true},
   {bank:'Rove',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',          progKey:'Qatar Privilege Club Avios', pct:35, exp:'2026-10-31',isNew:true,
    note:'Tiered: 15% up to 49,999 pts &#183; 25% for 50k-99,999 &#183; 35% for 100k+ transferred'},
   {bank:'Rove',        prog:'JetBlue TrueBlue',             pk:'JetBlue',        progKey:'JetBlue TrueBlue',           pct:20, exp:'2026-11-14',isNew:true,
    note:'New 1:1 partner as of 10/15/2026 &#183; bonus through 11:59pm ET on 11/14/2026 &#183; Source: Rove announcement'},
-  {bank:'Citi',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines', progKey:'Japan Airlines (JAL)',       pct:30, exp:'2026-10-24',isNew:true},
-  {bank:'Chase',       prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:70, exp:'2026-10-15',isNew:true},
-  {bank:'Citi',        prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',          pct:25, exp:'2026-10-24',isNew:true},
   {bank:'Citi',        prog:'Qatar Privilege Club Avios',   pk:'Qatar',          progKey:'Qatar Privilege Club Avios', pct:35, exp:'2026-10-31',isNew:true,
    note:'Up to 35%, tiered per transaction: 15% / 25% / 35%'},
+  {bank:'Citi',        prog:'Cathay Pacific Asia Miles',    pk:'Cathay Pacific', progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-11-14',isNew:true,
+   note:'1:1 base &#183; 1,000 ThankYou points = 1,100 Asia Miles &#183; through 11:59pm ET on 11/14/2026 &#183; may end early'},
   {bank:'Capital One', prog:'British Airways Avios',         pk:'British Airways',progKey:'British Airways Avios',        pct:20, exp:'2026-10-31',isNew:true,
    note:'Opens the Avios &ldquo;backdoor&rdquo;: convert to BA Avios, then move to Iberia, Aer Lingus, Qatar or other Avios programs'},
   {bank:'Capital One', prog:'Virgin Atlantic Flying Club / Virgin Red',pk:'Virgin Atlantic',progKey:'Virgin Atlantic Flying Club',pct:30, exp:'2026-11-20',isNew:true,
@@ -723,6 +717,8 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'35%',n:35,s:'10/26/2026',e:'12/10/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'10/26/2026',e:'11/14/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'Virgin Atlantic / Virgin Red', progs:['Virgin Atlantic','Virgin Red'], pct:'30%',n:30,s:'10/21/2026',e:'11/20/2026',y:2026,a:1,isNew:true},
   {b:'Rove',         p:'JetBlue',                    progs:['JetBlue'],                   pct:'20%',n:20,s:'10/15/2026',e:'11/14/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'British Airways',            progs:['British Airways'],           pct:'20%',n:20,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
@@ -734,10 +730,10 @@ var HIST=[
   {b:'Citi',         p:'Qatar',                      progs:['Qatar'],                     pct:'Up to 35%',n:35,s:'10/1/2026',e:'10/31/2026',y:2026,a:1,isNew:true},
   {b:'Bilt',p:'Hilton Honors - Up to 200% + Instant Status (75% Blue / 100% Silver / 150% Gold / 175% Platinum / 200% Platinum+ via $200 Bilt Cash; instant status thru EOY 2026, nights challenge to keep thru 2027; max 100k bonus pts)',progs:['Hilton Honors'],pct:'75-200%',n:200,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
   {b:'Bilt',p:'Amtrak Guest Rewards - Up to 125% (25% Blue / 50% Silver / 75% Gold / 100% Platinum / 125% Platinum buy-up; 2:1 base, $400 Bilt Cash buy-up, max 100k bonus pts)',progs:['Amtrak Guest Rewards'],pct:'25-125%',n:125,s:'October 2026',e:'October 2026',y:2026,a:0,isBilt:true},
-  {b:'Citi',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'25%',n:25,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
-  {b:'Chase',        p:'Marriott',                  progs:['Marriott'],                  pct:'70%',n:70,s:'9/15/2026',e:'10/15/2026',y:2026,a:1,isNew:true},
-  {b:'Citi',         p:'Japan Airlines',       progs:['Japan Airlines'],      pct:'30%',n:30,s:'9/20/2026',e:'10/24/2026',y:2026,a:1,isNew:true},
-  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'30%',n:30,s:'9/1/2026', e:'10/14/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'25%',n:25,s:'9/20/2026',e:'10/24/2026',y:2026,a:0,isNew:true},
+  {b:'Chase',        p:'Marriott',                  progs:['Marriott'],                  pct:'70%',n:70,s:'9/15/2026',e:'10/15/2026',y:2026,a:0,isNew:true},
+  {b:'Citi',         p:'Japan Airlines',       progs:['Japan Airlines'],      pct:'30%',n:30,s:'9/20/2026',e:'10/24/2026',y:2026,a:0,isNew:true},
+  {b:'Amex',         p:'Hilton',                    progs:['Hilton'],                    pct:'30%',n:30,s:'9/1/2026', e:'10/14/2026',y:2026,a:0,isNew:true},
   {b:'Capital One',  p:'Japan Airlines',       progs:['Japan Airlines'],      pct:'30%',n:30,s:'9/1/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Chase',        p:'Aeroplan',                   progs:['Aeroplan'],                  pct:'20%',n:20,s:'8/12/2026',e:'9/30/2026',y:2026,a:0,isNew:true},
   {b:'Amex',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'7/27/2026',e:'8/28/2026',y:2026,a:0,isNew:true},
@@ -1175,7 +1171,7 @@ var BANK_PROGS={
   'Amex':['Aer Lingus Avios','AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','ANA Mileage Club','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Delta SkyMiles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Iberia Avios','JetBlue TrueBlue','Leading Hotels of the World','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Virgin Atlantic Flying Club'],
   'Bilt':['Aer Lingus Avios','Air Canada Aeroplan','Alaska Atmos Rewards','Amtrak Guest Rewards','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','Japan Airlines (JAL)','Marriott Bonvoy','Preferred Hotels iPrefer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Turkish Airlines Miles&Smiles','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
   'Chase':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','British Airways Avios','Finnair Plus','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','JetBlue TrueBlue','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
-  'Citi':['Air France/KLM Flying Blue','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Japan Airlines (JAL)','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
+  'Citi':['Air France/KLM Flying Blue','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Copa ConnectMiles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Japan Airlines (JAL)','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
   'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
   'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios','Virgin Atlantic Flying Club'],
   'Rove':['AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','Accor Live Limitless','Cathay Pacific Asia Miles','Copa ConnectMiles','Etihad Guest','Finnair Plus','Frontier Miles','Hainan Airlines Fortune Wings','Japan Airlines (JAL)','JetBlue TrueBlue','Lufthansa Miles & More','Qatar Privilege Club Avios','Qantas Frequent Flyer','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Virgin Atlantic Flying Club'],
@@ -1580,7 +1576,7 @@ var PM=[
   {n:'Avianca LifeMiles',t:'a',kw:'avianca lifemiles star alliance latin colombia amex citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'British Airways Avios',t:'a',kw:'british airways avios oneworld uk ba europe london amex chase citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'Cathay Pacific Asia Miles',t:'a',kw:'cathay pacific asia miles hong kong oneworld amex citi capital one bilt rove',A:{r:'5:4',s:'4-8 hrs'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'1-2 days'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
-  {n:'Copa ConnectMiles',t:'a',kw:'copa connectmiles panama star alliance latin america rove',R:{r:'1:1',s:'?'}},
+  {n:'Copa ConnectMiles',t:'a',kw:'copa connectmiles panama star alliance latin america rove citi thankyou',R:{r:'1:1',s:'?'},CT:{r:'1:1',s:'~1 day',v:'from 10/25/2026'}},
   {n:'Delta SkyMiles',t:'a',kw:'delta skymiles skyteam domestic us atlanta amex',A:{r:'1:1',s:'Instant',v:'+excise tax'}},
   {n:'Emirates Skywards',t:'a',kw:'emirates skywards dubai middle east luxury first class amex citi capital one bilt',A:{r:'5:4',s:'Instant'},CT:{r:'5:4',s:'Instant'},CO:{r:'4:3',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Etihad Guest',t:'a',kw:'etihad guest abu dhabi middle east amex citi capital one bilt rove',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 hr'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'?'},R:{r:'1:1',s:'?'}},
@@ -1931,11 +1927,15 @@ var BEST={
 ['Kuala Lumpur-Tokyo Narita','50,000','Business','Saver. Economy is 20,400.'],
 ['Kuala Lumpur-London','108,000','Business','Saver. Economy is 33,000.']
 ]},
-'Copa ConnectMiles':{t:'c',note:'AwardFares lists these as one-way examples of the fixed ConnectMiles chart. The official partner PDF did not parse cleanly in this review, so only these four pairs are listed. Copa-metal standard awards changed for tickets issued on or after October 20, 2025, and that grid is separate.',src:'AwardFares ConnectMiles guide, citing the fixed chart',u:[
-['United States-Central America','30,000','Business','One-way example. Economy is 17,500.'],
-['United States-northern South America','40,000','Business','One-way example. Economy is 20,000.'],
-['United States-southern South America','60,000','Business','One-way example. Economy is 30,000.'],
-['United States-Europe','70,000','Business','One-way example. Economy is 30,000.']
+'Copa ConnectMiles':{t:'c',note:'Two fixed charts, both one-way. Copa-metal prices are Saver awards for tickets issued on or after October 20, 2025. North America 1 is the Southeast and Texas. North America 2 is the rest of the continental US and Canada, and California business is priced higher. Standard awards cost more. Partner prices are the January 2025 Star Alliance chart. Partner awards are Saver only, except United, which also sells Standard. Taxes are extra. Copa does not add a fuel surcharge.',src:'Copa-metal Saver chart, tickets issued on or after October 20, 2025; Star Alliance partner chart, January 2025',u:[
+['Copa Saver economy, North America 1 to Panama, Central America, or the Caribbean','15,000','Economy','One-way. North America 2 is 20,000. Standard costs more.'],
+['Copa Saver business, North America 1 to Panama, Central America, or the Caribbean','30,000','Business','One-way. North America 2 is 40,000. California business Saver is 50,000.'],
+['Star Alliance business, US or Canada to Central America','30,000','Business','Partner chart, one-way. Economy is 17,500.'],
+['Star Alliance business, US or Canada to northern South America','40,000','Business','Partner chart, one-way. Economy is 20,000. Colombia business on this chart is 35,000.'],
+['Star Alliance business, US or Canada to southern South America','60,000','Business','Partner chart, one-way. Economy is 30,000.'],
+['Star Alliance business, US or Canada to Europe','70,000','Business','Partner chart, one-way. Economy is 30,000 and first is 110,000. Saver space only.'],
+['United business inside the US or Canada','25,000','Business','Partner chart, one-way Saver. Economy is 12,500. United Standard costs more.'],
+['Partner business, US or Canada to the Middle East','80,000','Business','Partner chart, one-way. This is the price for Emirates to Dubai. Economy is 42,500. No fuel surcharge.']
 ]},
 'Avianca LifeMiles':{t:'y',note:'LifeMiles no longer publishes an award chart. The old chart page is empty. Prices below are one search snapshot reported by Thrifty Traveler in 2026 and have already moved more than once. Confirm the flight before you transfer.',src:'Thrifty Traveler, 2026 LifeMiles business-class rate check',u:[
 ['New York-Zurich business','54,010','Business','One-way in that Thrifty Traveler check, down from 63,500. Boston-Zurich was 59,500.'],
@@ -2156,7 +2156,7 @@ window.addEventListener('scroll',buHidePop,true);
 
 PP();RC();RH();buildCalcDropdown();CU();renderPT();
 // Data-updated date (when the bonus tables were last checked), not today's clock.
-var DATA_UPDATED='October 16, 2026';
+var DATA_UPDATED='October 26, 2026';
 (function(){
   var el=document.getElementById('hdr-date');
   if(el) el.textContent=DATA_UPDATED;
