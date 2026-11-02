@@ -477,7 +477,7 @@ var ATH={
   'Chase|IHG':100,'Chase|Marriott':70,'Chase|Aeroplan':25,'Chase|Virgin Atlantic':40,'Chase|British Airways':30,'Chase|Wyndham':30,
   'Amex|Virgin Atlantic':40,'Amex|Hilton':40,'Amex|Marriott':50,'Amex|Avianca LifeMiles':15,'Amex|British Airways':40,'Amex|Iberia':40,
   'Citi|Turkish Airlines':50,'Citi|Accor':50,'Citi|Virgin Atlantic':30,'Citi|Avianca LifeMiles':25,'Citi|Leading Hotels of the World':25,'Citi|Qatar':30,
-  'Capital One|Japan Airlines':30,'Capital One|Etihad':40,'Capital One|Virgin Atlantic':30,'Capital One|iPrefer':30,
+  'Capital One|Japan Airlines':30,'Capital One|Etihad':40,'Capital One|Virgin Atlantic':30,'Capital One|iPrefer':30,'Capital One|Copa ConnectMiles':30,
   'Rove|Japan Airlines':50,'Rove|Flying Blue':40,'Rove|JetBlue':20,'Wells Fargo|Flying Blue':20,
   'Bilt|IHG':100,'Bilt|Hawaiian':100,'Bilt|Flying Blue':100,'Bilt|Virgin Atlantic':150,'Bilt|Aeroplan':150,'Bilt|Emirates':150,
   'Bilt|Avianca LifeMiles':100,'Bilt|Hilton':200,'Bilt|British Airways':100,'Bilt|Accor':200,
@@ -536,6 +536,8 @@ function ST(name,btn){
 var CUR=[
   {bank:'Amex',        prog:'Marriott Bonvoy',              pk:'Marriott',        progKey:'Marriott Bonvoy',            pct:35, exp:'2026-12-10',isNew:true,
    note:'1:1 base ratio &#183; 1,000 Membership Rewards = 1,350 Bonvoy points &#183; through 11:59pm ET on 12/10/2026'},
+  {bank:'Amex',        prog:'Virgin Atlantic Flying Club',  pk:'Virgin Atlantic', progKey:'Virgin Atlantic Flying Club', pct:30, exp:'2026-11-30',isNew:true,
+   note:'1:1 base ratio &#183; 1,000 Membership Rewards = 1,300 Flying Club points &#183; through 11:59pm ET on 11/30/2026'},
   {bank:'Chase',       prog:'IHG One Rewards',              pk:'IHG',             progKey:'IHG One Rewards',            pct:80, exp:'2026-12-03',isNew:true,
    note:'1:1 base ratio &#183; 1,000 Ultimate Rewards = 1,800 IHG One Rewards points &#183; through 11:59pm ET on 12/3/2026'},
   {bank:'Chase',       prog:'Wyndham Rewards',              pk:'Wyndham',         progKey:'Wyndham Rewards',            pct:30, exp:'2026-12-03',isNew:true,
@@ -550,6 +552,8 @@ var CUR=[
    note:'1:1 via British Airways on the partner matrix &#183; 1,000 Ultimate Rewards = 1,300 Avios &#183; through 11:59pm ET on 12/1/2026'},
   {bank:'Capital One', prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:20, exp:'2026-11-30',isNew:true,
    note:'1:1 base ratio &#183; 1,000 Capital One Miles = 1,200 Flying Blue miles &#183; through 11:59pm ET on 11/30/2026'},
+  {bank:'Capital One', prog:'Copa ConnectMiles',            pk:'Copa ConnectMiles',progKey:'Copa ConnectMiles',         pct:30, exp:'2026-12-01',isNew:true,
+   note:'New partner as of 11/2/2026 &#183; 2:1.5 base &#183; 1,000 Capital One Miles = 975 ConnectMiles &#183; launch bonus through 11:59pm ET on 12/1/2026'},
   {bank:'Rove',        prog:'JetBlue TrueBlue',             pk:'JetBlue',         progKey:'JetBlue TrueBlue',           pct:20, exp:'2026-11-14',isNew:true,
    note:'New 1:1 partner as of 10/15/2026 &#183; bonus through 11:59pm ET on 11/14/2026 &#183; Source: Rove announcement'},
   {bank:'Citi',        prog:'Cathay Pacific Asia Miles',    pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-11-14',isNew:true,
@@ -721,6 +725,8 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Amex',         p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'30%',n:30,s:'11/2/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
+  {b:'Capital One',  p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'30%',n:30,s:'11/2/2026',e:'12/1/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'IHG',                        progs:['IHG'],                       pct:'80%',n:80,s:'11/1/2026',e:'12/3/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Wyndham',                    progs:['Wyndham'],                   pct:'30%',n:30,s:'11/1/2026',e:'12/3/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'British Airways / Iberia / Aer Lingus / Qatar',progs:['British Airways','Iberia','Aer Lingus','Qatar'],pct:'30%',n:30,s:'11/1/2026',e:'12/1/2026',y:2026,a:1,isNew:true},
@@ -1161,6 +1167,7 @@ var RATIOS={
   'Capital One':{
     'Emirates Skywards':[4,3],
     'EVA Air Infinity MileageLands':[4,3],
+    'Copa ConnectMiles':[2,1.5],
     'Japan Airlines (JAL)':[2,1.5],
     'JetBlue TrueBlue':[5,3]
   },
@@ -1180,7 +1187,7 @@ var BANK_PROGS={
   'Bilt':['Aer Lingus Avios','Air Canada Aeroplan','Alaska Atmos Rewards','Amtrak Guest Rewards','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','Finnair Plus','Hilton Honors','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','Japan Airlines (JAL)','Marriott Bonvoy','Preferred Hotels iPrefer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','Spirit Free Spirit','TAP Air Portugal','Turkish Airlines Miles&Smiles','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
   'Chase':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','British Airways Avios','Finnair Plus','Hyatt World of Hyatt','Iberia Avios','IHG One Rewards','JetBlue TrueBlue','Marriott Bonvoy','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','Southwest Rapid Rewards','United MileagePlus','Virgin Atlantic Flying Club','Wyndham Rewards'],
   'Citi':['Air France/KLM Flying Blue','American AAdvantage','Avianca LifeMiles','Cathay Pacific Asia Miles','Copa ConnectMiles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Japan Airlines (JAL)','Leading Hotels of the World','Malaysia Enrich','Preferred Hotels iPrefer','Qantas Frequent Flyer','Qatar Privilege Club Avios','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges'],
-  'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
+  'Capital One':['Aer Lingus Avios','Air Canada Aeroplan','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Cathay Pacific Asia Miles','Copa ConnectMiles','Emirates Skywards','Etihad Guest','EVA Air Infinity MileageLands','Finnair Plus','Iberia Avios','Japan Airlines (JAL)','JetBlue TrueBlue','Qantas Frequent Flyer','Qatar Privilege Club Avios','Singapore Airlines KrisFlyer','TAP Air Portugal','Turkish Airlines Miles&Smiles','Virgin Atlantic Flying Club','Wyndham Rewards','Accor Live Limitless','Choice Privileges','Preferred Hotels iPrefer'],
   'Wells Fargo':['Aer Lingus Avios','Air France/KLM Flying Blue','Avianca LifeMiles','British Airways Avios','Choice Privileges','Finnair Plus','Iberia Avios','JetBlue TrueBlue','Qatar Privilege Club Avios','Virgin Atlantic Flying Club'],
   'Rove':['AeroMexico ClubPremier','Air Canada Aeroplan','Air France/KLM Flying Blue','Air India Maharaja Club','Accor Live Limitless','Cathay Pacific Asia Miles','Copa ConnectMiles','Etihad Guest','Finnair Plus','Frontier Miles','Hainan Airlines Fortune Wings','Japan Airlines (JAL)','JetBlue TrueBlue','Lufthansa Miles & More','Qatar Privilege Club Avios','Qantas Frequent Flyer','SAS EuroBonus','Thai Airways Royal Orchid Plus','Turkish Airlines Miles&Smiles','Vietnam Airlines LotusMiles','Virgin Atlantic Flying Club'],
   'US Bank':['Air France/KLM Flying Blue','Qantas Frequent Flyer','Ethiopian ShebaMiles','Accor Live Limitless']
@@ -1584,7 +1591,7 @@ var PM=[
   {n:'Avianca LifeMiles',t:'a',kw:'avianca lifemiles star alliance latin colombia amex citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'British Airways Avios',t:'a',kw:'british airways avios oneworld uk ba europe london amex chase citi capital one bilt wells fargo',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day',v:'via Qatar'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'?'}},
   {n:'Cathay Pacific Asia Miles',t:'a',kw:'cathay pacific asia miles hong kong oneworld amex citi capital one bilt rove',A:{r:'5:4',s:'4-8 hrs'},CT:{r:'1:1',s:'Instant'},CO:{r:'1:1',s:'1-2 days'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'?'}},
-  {n:'Copa ConnectMiles',t:'a',kw:'copa connectmiles panama star alliance latin america rove citi thankyou',R:{r:'1:1',s:'?'},CT:{r:'1:1',s:'~1 day',v:'from 10/25/2026'}},
+  {n:'Copa ConnectMiles',t:'a',kw:'copa connectmiles panama star alliance latin america rove citi thankyou capital one',R:{r:'1:1',s:'?'},CT:{r:'1:1',s:'~1 day',v:'from 10/25/2026'},CO:{r:'2:1.5',s:'?',v:'from 11/2/2026'}},
   {n:'Delta SkyMiles',t:'a',kw:'delta skymiles skyteam domestic us atlanta amex',A:{r:'1:1',s:'Instant',v:'+excise tax'}},
   {n:'Emirates Skywards',t:'a',kw:'emirates skywards dubai middle east luxury first class amex citi capital one bilt',A:{r:'5:4',s:'Instant'},CT:{r:'5:4',s:'Instant'},CO:{r:'4:3',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Etihad Guest',t:'a',kw:'etihad guest abu dhabi middle east amex citi capital one bilt rove',A:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 hr'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'?'},R:{r:'1:1',s:'?'}},
