@@ -552,6 +552,8 @@ var CUR=[
    note:'1:1 base ratio &#183; 1,000 Capital One Miles = 1,200 Flying Blue miles &#183; through 11:59pm ET on 11/30/2026'},
   {bank:'Capital One', prog:'Copa ConnectMiles',            pk:'Copa ConnectMiles',progKey:'Copa ConnectMiles',         pct:30, exp:'2026-12-01',isNew:true,
    note:'New partner as of 11/2/2026 &#183; 2:1.5 base &#183; 1,000 Capital One Miles = 975 ConnectMiles &#183; launch bonus through 11:59pm ET on 12/1/2026'},
+  {bank:'Citi',        prog:'Turkish Airlines Miles&amp;Smiles',pk:'Turkish Airlines',progKey:'Turkish Airlines Miles&Smiles',pct:40, exp:'2026-11-30',isNew:true,
+   note:'1:1 base &#183; 1,000 ThankYou points = 1,400 Miles&amp;Smiles miles &#183; 11/1 to 11/30/2026 &#183; Offered by Turkish, not shown on Citi site &#183; Bonus capped at 50,000 miles, posts after the promo ends'},
   {bank:'Rove',        prog:'JetBlue TrueBlue',             pk:'JetBlue',         progKey:'JetBlue TrueBlue',           pct:20, exp:'2026-11-14',isNew:true,
    note:'New 1:1 partner as of 10/15/2026 &#183; bonus through 11:59pm ET on 11/14/2026 &#183; Source: Rove announcement'},
   {bank:'Citi',        prog:'Cathay Pacific Asia Miles',    pk:'Cathay Pacific',  progKey:'Cathay Pacific Asia Miles',  pct:10, exp:'2026-11-14',isNew:true,
@@ -729,6 +731,7 @@ var HIST=[
   {b:'Chase',        p:'Wyndham',                    progs:['Wyndham'],                   pct:'30%',n:30,s:'11/1/2026',e:'12/3/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'British Airways / Iberia / Aer Lingus',progs:['British Airways','Iberia','Aer Lingus'],pct:'30%',n:30,s:'11/1/2026',e:'12/1/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'Flying Blue',                progs:['Flying Blue'],               pct:'20%',n:20,s:'11/1/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
+  {b:'Citi',         p:'Turkish Airlines',           progs:['Turkish Airlines'],          pct:'40%',n:40,s:'11/1/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Marriott',                  progs:['Marriott'],                  pct:'35%',n:35,s:'10/20/2026',e:'12/10/2026',y:2026,a:1,isNew:true},
   {b:'Citi',         p:'Cathay Pacific (Asia Miles)',progs:['Cathay Pacific'],            pct:'10%',n:10,s:'10/25/2026',e:'11/14/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'Virgin Atlantic / Virgin Red', progs:['Virgin Atlantic','Virgin Red'], pct:'30%',n:30,s:'10/21/2026',e:'11/20/2026',y:2026,a:1,isNew:true},
@@ -2169,7 +2172,7 @@ window.addEventListener('scroll',buHidePop,true);
 
 PP();RC();RH();buildCalcDropdown();CU();renderPT();
 // Data-updated date (when the bonus tables were last checked), not today's clock.
-var DATA_UPDATED='November 2, 2026';
+var DATA_UPDATED='November 4, 2026';
 (function(){
   var el=document.getElementById('hdr-date');
   if(el) el.textContent=DATA_UPDATED;
