@@ -561,7 +561,17 @@ var CUR=[
   {bank:'Amex',        prog:'Avianca LifeMiles',            pk:'Avianca LifeMiles',progKey:'Avianca LifeMiles',         pct:10, exp:'2026-12-16',isNew:true,
    note:'1:1 base &#183; 1,000 Membership Rewards = 1,100 LifeMiles &#183; through 11:59pm ET on 12/16/2026'},
   {bank:'Chase',       prog:'Virgin Atlantic Flying Club',  pk:'Virgin Atlantic', progKey:'Virgin Atlantic Flying Club', pct:40, exp:'2026-12-30',isNew:true,
-   note:'1:1 base &#183; 1,000 Ultimate Rewards = 1,400 Virgin Points &#183; through 11:59pm ET on 12/30/2026'}
+   note:'1:1 base &#183; 1,000 Ultimate Rewards = 1,400 Virgin Points &#183; through 11:59pm ET on 12/30/2026'},
+  {bank:'Rove',        prog:'Japan Airlines (JAL)',         pk:'Japan Airlines',  progKey:'Japan Airlines (JAL)',       pct:40, exp:'2026-11-30',isNew:true,
+   note:'Member 40% / Gold 40% / Platinum 50% / Diamond 55% &#183; up to 55% for Diamond &#183; 1:1 base &#183; math uses the 40% everyone gets: 1,000 Rove Miles = 1,400 miles &#183; Diamond 100,000 = 155,000 &#183; 11/26 through 11:59pm ET on 11/30/2026'},
+  {bank:'Rove',        prog:'Flying Blue (Air France/KLM)', pk:'Flying Blue',     progKey:'Air France/KLM Flying Blue', pct:40, exp:'2026-11-30',isNew:true,
+   note:'Member 40% / Gold 40% / Platinum 50% / Diamond 55% &#183; up to 55% for Diamond &#183; 1:1 base &#183; math uses the 40% everyone gets: 1,000 Rove Miles = 1,400 miles &#183; Diamond 100,000 = 155,000 &#183; 11/26 through 11:59pm ET on 11/30/2026'},
+  {bank:'Rove',        prog:'ALL Accor',                    pk:'Accor',           progKey:'Accor Live Limitless',      pct:40, exp:'2026-11-30',isNew:true,
+   note:'Member 40% / Gold 40% / Platinum 50% / Diamond 55% &#183; up to 55% for Diamond &#183; 3:2 base (3 Rove Miles = 2 ALL points) &#183; math uses the 40% everyone gets (the 1,000-mile line above) &#183; a round 1,500 Rove Miles = 1,400 ALL points at 40%, or 1,550 for Diamond &#183; 11/26 through 11:59pm ET on 11/30/2026'},
+  {bank:'Rove',        prog:'Copa ConnectMiles',            pk:'Copa ConnectMiles',progKey:'Copa ConnectMiles',        pct:40, exp:'2026-11-30',isNew:true,
+   note:'Member 40% / Gold 40% / Platinum 50% / Diamond 55% &#183; up to 55% for Diamond &#183; 1:1 base &#183; math uses the 40% everyone gets: 1,000 Rove Miles = 1,400 miles &#183; Diamond 100,000 = 155,000 &#183; 11/26 through 11:59pm ET on 11/30/2026'},
+  {bank:'Rove',        prog:'Finnair Plus',                 pk:'Finnair',         progKey:'Finnair Plus',              pct:40, exp:'2026-11-30',isNew:true,
+   note:'Member 40% / Gold 40% / Platinum 50% / Diamond 55% &#183; up to 55% for Diamond &#183; 1:1 base &#183; math uses the 40% everyone gets: 1,000 Rove Miles = 1,400 Avios &#183; Diamond 100,000 = 155,000 &#183; 11/26 through 11:59pm ET on 11/30/2026'}
 ];
 
 /* ─── UPCOMING BONUSES ─── add future bonuses here before they go live ─── */
@@ -727,6 +737,11 @@ function RC(){
 */
 var HIST=[
   /* 2026 active */
+  {b:'Rove',         p:'Japan Airlines',             progs:['Japan Airlines'],            pct:'40-55%',n:55,s:'11/26/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Flying Blue',                progs:['Flying Blue'],               pct:'40-55%',n:55,s:'11/26/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Accor',                      progs:['Accor'],                     pct:'40-55%',n:55,s:'11/26/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Copa ConnectMiles',          progs:['Copa ConnectMiles'],         pct:'40-55%',n:55,s:'11/26/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
+  {b:'Rove',         p:'Finnair',                    progs:['Finnair'],                   pct:'40-55%',n:55,s:'11/26/2026',e:'11/30/2026',y:2026,a:1,isNew:true},
   {b:'Chase',        p:'Virgin Atlantic',            progs:['Virgin Atlantic'],           pct:'40%',n:40,s:'11/16/2026',e:'12/30/2026',y:2026,a:1,isNew:true},
   {b:'Amex',         p:'Avianca LifeMiles',          progs:['Avianca LifeMiles'],         pct:'10%',n:10,s:'11/16/2026',e:'12/16/2026',y:2026,a:1,isNew:true},
   {b:'Capital One',  p:'Qatar',                      progs:['Qatar'],                     pct:'15%',n:15,s:'11/15/2026',e:'12/14/2026',y:2026,a:1,isNew:true},
@@ -1184,6 +1199,9 @@ var RATIOS={
   },
   'US Bank':{
     'Accor Live Limitless':[2,1]
+  },
+  'Rove':{
+    'Accor Live Limitless':[3,2] // 3 Rove Miles = 2 ALL points (Frequent Miler)
   }
 };
 
@@ -1623,7 +1641,7 @@ var PM=[
   {n:'United MileagePlus',t:'a',kw:'united mileageplus star alliance domestic us houston chase bilt',C:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Vietnam Airlines LotusMiles',t:'a',kw:'vietnam airlines lotus miles skyteam asia rove',R:{r:'1:1',s:'?'}},
   {n:'Virgin Atlantic Flying Club',t:'a',kw:'virgin atlantic flying club skyteam uk london amex chase citi capital one bilt rove wells fargo',A:{r:'1:1',s:'Instant'},C:{r:'1:1',s:'Instant'},CT:{r:'1:1',s:'~1 day'},CO:{r:'1:1',s:'Instant'},B:{r:'1:1',s:'Instant'},R:{r:'1:1',s:'Instant'},W:{r:'1:1',s:'Instant'}},
-  {n:'Accor Live Limitless',t:'h',kw:'accor all live limitless europe hotel paris citi capital one bilt rove us bank',CT:{r:'2:1',s:'Instant'},CO:{r:'2:1',s:'Instant'},B:{r:'3:2',s:'?'},R:{r:'1:1.5',s:'?',v:'1.5:1'},U:{r:'2:1',s:'?'}},
+  {n:'Accor Live Limitless',t:'h',kw:'accor all live limitless europe hotel paris citi capital one bilt rove us bank',CT:{r:'2:1',s:'Instant'},CO:{r:'2:1',s:'Instant'},B:{r:'3:2',s:'?'},R:{r:'3:2',s:'?'},U:{r:'2:1',s:'?'}},
   {n:'Choice Privileges',t:'h',kw:'choice privileges hotel comfort inn quality amex citi capital one wells fargo',A:{r:'1:1',s:'?'},CT:{r:'1:2',s:'?'},CO:{r:'1:1',s:'?'},W:{r:'1:2',s:'?'}},
   {n:'Hilton Honors',t:'h',kw:'hilton honors hotel luxury waldorf amex bilt',A:{r:'1:2',s:'Instant'},B:{r:'1:1',s:'Instant'}},
   {n:'Hyatt World of Hyatt',t:'h',kw:'hyatt world of hyatt hotel luxury park andaz chase bilt',C:{r:'1:1*',s:'Instant',v:'*4:3 Preferred/Ink'},B:{r:'1:1',s:'Instant'}},
@@ -2177,7 +2195,7 @@ window.addEventListener('scroll',buHidePop,true);
 
 PP();RC();RH();buildCalcDropdown();CU();renderPT();
 // Data-updated date (when the bonus tables were last checked), not today's clock.
-var DATA_UPDATED='Nov 17, 2026';
+var DATA_UPDATED='Nov 26, 2026';
 (function(){
   var el=document.getElementById('hdr-date');
   if(el) el.textContent=DATA_UPDATED;
